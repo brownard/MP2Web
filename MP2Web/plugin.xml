@@ -1,0 +1,24 @@
+<Plugin
+    DescriptorVersion="1.0" 
+    Name="MP2Web"
+    PluginId="{469BEBB7-A633-4F91-A4C0-152F051B620A}"
+    Author="Brownard"
+    Copyright="GPL"
+    AutoActivate="true"
+    Description="Web interface for MP2">
+
+  <Version
+    PluginVersion="1.1"
+    ReleaseDate="2015-07-14 01:00:00 GMT+01:00"
+    CurrentAPI="1"/>
+
+  <DependsOn>
+    <CoreDependency Name="MediaPortal.Common" CompatibleAPI="2" />
+  </DependsOn>
+
+  <Runtime>
+    <Assembly FileName="MP2Web.dll"/>
+    <PluginStateTracker ClassName="MP2Web.Startup"/>
+  </Runtime>
+
+</Plugin>

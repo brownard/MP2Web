@@ -1,0 +1,29 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:55281",
+      "sslPort": 44348
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "MP2Web": {
+      "commandName": "Executable",
+      "executablePath": "F:\\SVN\\MP2Web\\MediaPortal-2\\MediaPortal\\Bin\\MP2-Server\\bin\\Debug\\MP2-Server.exe",
+      "commandLineArgs": "-c -d \"F:\\SVN\\mediaportal\\TestData\\2.2\\Server\"",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+    }
+  }
+}
