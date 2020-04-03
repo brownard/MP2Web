@@ -17,7 +17,7 @@
     },
     "MP2Web": {
       "commandName": "Executable",
-      "executablePath": "F:\\SVN\\MP2Web\\MediaPortal-2\\MediaPortal\\Bin\\MP2-Server\\bin\\Debug\\MP2-Server.exe",
+      "executablePath": "F:\\SVN\\MP2Web\\MediaPortal-2\\MediaPortal\\Bin\\MP2-Server\\bin\\$(Configuration)\\MP2-Server.exe",
       "commandLineArgs": "-c -d \"F:\\SVN\\mediaportal\\TestData\\2.2\\Server\"",
       "launchBrowser": true,
       "environmentVariables": {

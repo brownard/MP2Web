@@ -7,6 +7,7 @@ using MediaPortal.Common.SystemResolver;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
 using Microsoft.Owin.StaticFiles;
+using MP2Web.FileSystems;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -76,8 +77,8 @@ namespace MP2Web
         builder.UseWebApi(config);
 
         var options = new FileServerOptions();
-        options.EnableDirectoryBrowsing = true;
-        options.FileSystem = new PhysicalFileSystem(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"ClientApp"));
+        options.FileSystem = new SpaFileSystem(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"ClientApp"), "index.html");
+        options.EnableDirectoryBrowsing = false;
         options.StaticFileOptions.ServeUnknownFileTypes = true;
         builder.UseFileServer(options);
       });
