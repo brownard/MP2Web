@@ -1,0 +1,5 @@
+{
+  "mp2ExtendedBasePath": "/MediaPortal/Server/MPExtended/",
+  "mediaAccessServicePath": "MediaAccessService/json/",
+  "streamingServicePath": "StreamingService/stream/"
+}

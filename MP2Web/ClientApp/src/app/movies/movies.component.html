@@ -1,0 +1,51 @@
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!movies"><em>Loading...</em></p>
+
+<!--<table class='table' *ngIf="movies">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let movie of movies">
+      <td>{{ movie.Id }}</td>
+      <td>{{ movie.Path }}</td>
+      <td>{{ movie.Title }}</td>
+    </tr>
+  </tbody>
+</table>-->
+
+<div class="container">
+  <!-- the padding prevents hiding text under the footer -->
+  <!--<div infinite-scroll (infinite-scroll-action)="loadMoreMovies()" [infinite-scroll-disabled]="moviesLoadingBussy" infinite-scroll-distance="1" style="margin: auto; display: inline-block">-->
+  <div class="row movies">
+    <div *ngFor="let movie of movies" class="col-sm-3 ih-item square effect11 left_to_right" style="width: 200px !important; height: 330px !important; cursor: pointer;">
+      <div class="img">
+        <img [src]="getImageUrl(movie, 3, 0)" />
+        <!-- watched status -->
+        <!--<div [ngClass]="{true: 'side-corner-tag', false: ''}[movieList[x + i].Watched]">
+            <img [movie-poster]="movieList[x + i].ID" (error)="errorLoadingCover($event)" style="height: 248px;" id="watched">
+            <template [ngIf]="movieList[x + i].Watched">
+                <p><span>Watched!</span></p>
+            </template>
+        </div>-->
+        <br>
+      </div>
+      <!-- extended information -->
+      <div class="info">
+        <h3>{{movie.Title}}</h3>
+        <!--<starrating [rating]="movieList[x + i].TotalRating"></starrating>-->
+        <p>Runtime: {{movie.Runtime}} minutes</p>
+        <!--<p>{{movieList[x + i].Tagline}}</p>-->
+      </div>
+    </div>
+  </div>
+  <!--</div>-->
+
+</div>
