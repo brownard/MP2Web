@@ -1,3 +1,5 @@
+import { Data } from '@angular/router';
+
 export enum WebSortField {
   Title = 0,
   DateAdded = 1,
@@ -33,7 +35,7 @@ export enum WebFIleType {
   Logo = 5
 }
 
-export enum WebMediaTyoe {
+export enum WebMediaType {
   Movie = 0,
   MusicTrack = 1,
   Picture = 2,
@@ -71,7 +73,7 @@ export interface WebMediaItem {
   DateAdded: Date;
   Title: string;
   Artwork: WebArtwork[];
-  Type: WebMediaTyoe;
+  Type: WebMediaType;
 }
 
 export interface WebExternalId {
@@ -96,4 +98,46 @@ export interface WebMovieDetailed extends WebMovieBasic {
   Summary: string;
   Tagline: string;
   Language: string;
+}
+
+export interface WebTVShowBasic {
+  Id: string;
+  IsProtected: boolean;
+  DateAdded: Date;
+  Genres: string[];
+  Artwork: WebArtwork[];
+  Actors: WebActor[];
+  Title: string;
+  Year: number;
+  EpisodeCount: number;
+  UnwatchedEpisodeCount: number;
+  SeasonCount: number;
+  Rating: number;
+  ContentRating: string;
+  ExternalId: WebExternalId[];
+}
+
+export interface WebTVShowDetailed extends WebTVShowBasic {
+  Summary: string;
+  Status: string;
+  Network: string;
+  AirsDay: string;
+  AirsTime: string;
+  Runtime: number;
+}
+
+export interface WebTVSeasonBasic {
+  Id: string;
+  Title: string;
+  ShowId: string;
+  SeasonNumber: number;
+  IsProtected: boolean;
+  Year: number;
+  EpisodeCount: number;
+  UnwatchedEpisodeCount: number;
+  DateAdded: Date;
+  Artwork: WebArtwork[];
+}
+
+export interface WebTVSeasonDetailed extends WebTVSeasonBasic {
 }

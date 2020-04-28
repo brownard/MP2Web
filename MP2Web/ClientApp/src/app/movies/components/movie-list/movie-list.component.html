@@ -1,0 +1,39 @@
+<div *ngIf="!movies" class="text-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row card-group no-gutters">
+
+    <div *ngFor="let movie of movies" class="col-6 col-sm-4 col-lg-3" style="cursor: pointer;">
+
+      <a (click)="showMovieDetails(movie)" [routerLink]="['/movies', movie.Id]">
+        <div class="card shadow-sm">
+          <div class="card-img media-card movie-card" [ngStyle]="{'background-image': 'url(' + moviesService.getMovieCoverUrl(movie, 0) + ')'}"></div>
+          <!-- extended information -->
+          <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
+            <div class="media-card-overlay">
+              <h6 class="card-title text-truncate">{{movie.Title}}</h6>
+              <div class="container">
+                <div class="row">
+                  <div class="col-4 metadata">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <p class="text-truncate">{{movie.Rating | number: '1.0-0'}}/10</p>
+                  </div>
+                  <div class="col-8 metadata metadata-right">
+                    <div class="text-truncate">{{movie.Genres.join(', ')}}</div>
+                    <div class="text-truncate">{{movie.Runtime}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+</div>

@@ -3,8 +3,8 @@
     <div class='col-sm-3'>
       <app-nav-menu></app-nav-menu>
     </div>
-    <div class='col-sm-9 body-content'>
-      <router-outlet></router-outlet>
+    <div class='col-sm-9 body-content' [@routeAnimations]='shouldAnimateRoute(outlet)'>
+      <router-outlet #outlet='outlet'></router-outlet>
     </div>
   </div>
 </div>
