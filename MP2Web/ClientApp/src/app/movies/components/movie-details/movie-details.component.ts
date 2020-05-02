@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
-import { first, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { MediaAccessService } from 'src/app/mp2-extended/media-access.service';
 import { WebMovieDetailed } from 'src/app/mp2-extended/web-media-items';
 import { MoviesService } from '../../movies.service';
-import * as moviesSelectors from '../../store/movies.selectors';
+import * as MoviesSelectors from '../../store/movies.selectors';
 
 @Component({
   selector: 'app-movie-details',
@@ -18,14 +18,13 @@ import * as moviesSelectors from '../../store/movies.selectors';
 })
 export class MovieDetailsComponent implements OnInit {
 
-  public movie: WebMovieDetailed;
+  public movie$: Observable<WebMovieDetailed>;
 
   constructor(private route: ActivatedRoute, public moviesService: MoviesService, private mediaAccessService: MediaAccessService, private store: Store) {
   }
 
   ngOnInit(): void {
-    this.store.select(moviesSelectors.selectSelectedMovie).pipe(
-      first(),
+    this.movie$ = this.store.select(MoviesSelectors.selectSelectedMovie).pipe(
       switchMap(selectedMovie => {
         if (selectedMovie)
           return of(selectedMovie);
@@ -34,14 +33,7 @@ export class MovieDetailsComponent implements OnInit {
             switchMap((params: ParamMap) =>
               this.mediaAccessService.getMovieDetailedById(params.get('id'))
             ))
-      })).subscribe(result => this.movie = result);
-
-    //this.route.paramMap.pipe(
-    //  switchMap((params: ParamMap) =>
-
-    //    history.state.movie ? of(history.state.movie) : this.mediaAccessService.getMovieDetailedById(params.get('id'))
-    //  )
-    //).subscribe(result => this.movie = result);
+      }));
   }
 
   mapProperty(array: any[], property: string) {
