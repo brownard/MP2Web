@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MediaAccessService } from '../mp2-extended/media-access.service';
-import { StreamingService } from '../mp2-extended/streaming.service';
-import { WebTVShowDetailed, WebMediaItem, WebFIleType, WebMediaType } from '../mp2-extended/web-media-items';
+import { StreamingStreamService } from '../mp2-extended/streaming-stream.service';
+import { WebFIleType, WebMediaItem, WebMediaType, WebTVShowDetailed } from '../mp2-extended/web-media-items';
 
 @Component({
   selector: 'app-series',
@@ -15,7 +15,7 @@ export class SeriesComponent implements OnInit {
   public seriesItems: WebTVShowDetailed[];
   public errorMessage: string;
 
-  constructor(private mediaAccessService: MediaAccessService, private streamingService: StreamingService) { }
+  constructor(private mediaAccessService: MediaAccessService, private streamingStreamService: StreamingStreamService) { }
 
   ngOnInit(): void {
     this.mediaAccessService.getTVShowsDetailed().subscribe(
@@ -26,6 +26,6 @@ export class SeriesComponent implements OnInit {
   }
 
   public getImageUrl(mediaItem: WebMediaItem, fileType: WebFIleType, index = 0) {
-    return this.streamingService.getArtworkResizedUrl(WebMediaType.TVShow, mediaItem.Id, fileType, 256, 256, index);
+    return this.streamingStreamService.getArtworkResizedUrl(WebMediaType.TVShow, mediaItem.Id, fileType, 256, 256, index);
   }
 }

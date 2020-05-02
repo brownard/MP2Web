@@ -1,4 +1,10 @@
-import { Data } from '@angular/router';
+export interface WebStringResult {
+  Result: string;
+}
+
+export interface WebBoolResult {
+  Result: boolean;
+}
 
 export enum WebSortField {
   Title = 0,

@@ -1,0 +1,38 @@
+.video-placeholder-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+  .video-placeholder-container .placeholder {
+    width: 100%;
+    height: auto;
+    min-height: 100px;
+  }
+
+  .video-placeholder-container .play-button {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1; /* needed if using Bootstrap */
+    text-align: center;
+    color: #eaeaea;
+    background-color: rgba(255,255,255,.4);
+    border-radius: 50px;
+    transition: all .2s ease;
+    font-weight: 900;
+    font-size: 60px;
+    /* positioning tweaks */
+    padding-top: 20px;
+    padding-left: 10px;
+  }
+
+    .video-placeholder-container .play-button:hover,
+    .video-placeholder-container .play-button:focus {
+      color: #000;
+      background-color: rgba(255,255,255,.8);
+      cursor: pointer;
+    }

@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<div class="container p-0">
+<div *ngIf="movie" class="container p-0">
 
   <div class="mx-auto p-3 bg-white shadow-sm" style="max-width: 768px">
 
@@ -14,6 +14,8 @@
       </div>
       <div class="col-8 metadata">
         <h6 class="media-title">{{movie.Title}}</h6>
+        <app-star-rating [rating]="movie.Rating | number: '1.0-0'" class="yellow-star"></app-star-rating>
+        <span class="text-truncate ml-2">{{movie.Rating | number: '1.0-0'}}/10</span>
         <div class="text-truncate">{{movie.Year}}</div>
         <div class="text-truncate">{{movie.Runtime}} minutes</div>
       </div>
@@ -21,6 +23,11 @@
     <div class="row mx-0 media-summary">
       <p>{{movie.Summary}}</p>
     </div>
+
+    <div class="row mx-0">
+      <app-video-player [mediaItem]="movie" style="width: 100%;"></app-video-player>
+    </div>
+
     <div class="row mx-0">
       <table class="table metadata">
         <tbody>
@@ -44,8 +51,12 @@
             <th scope="row">Language</th>
             <td>{{movie.Language}}</td>
           </tr>
+          <tr>
+            <th scope="row">Id</th>
+            <td>{{movie.Id}}</td>
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
-</div>
+ </div>

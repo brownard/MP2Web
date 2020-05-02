@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { MediaAccessService } from '../mp2-extended/media-access.service';
-import { StreamingService } from '../mp2-extended/streaming.service';
+import { StreamingStreamService } from '../mp2-extended/streaming-stream.service';
 import { WebFIleType, WebMediaItem, WebMovieDetailed, WebSortField, WebSortOrder } from '../mp2-extended/web-media-items';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class MoviesService {
   private movies$: Subject<WebMovieDetailed[]> = new BehaviorSubject<WebMovieDetailed[]>(null);
   private selectedMovie$: Subject<WebMovieDetailed> = new BehaviorSubject<WebMovieDetailed>(null);
 
-  constructor(private mediaAccessService: MediaAccessService, private streamingService: StreamingService) {
+  constructor(private mediaAccessService: MediaAccessService, private streamingStreamService: StreamingStreamService) {
   }
 
   public getMovies(filter = '', sort = WebSortField.Title, order = WebSortOrder.Asc) {
@@ -40,6 +40,14 @@ export class MoviesService {
   }
 
   public getMovieCoverUrl(mediaItem: WebMediaItem, index = 0) {
-    return this.streamingService.getArtworkResizedUrl(mediaItem.Type, mediaItem.Id, WebFIleType.Cover, 256, 256, index);
+    return this.getArtworkUrl(mediaItem, WebFIleType.Cover, index);
+  }
+
+  public getMovieScreenshotUrl(mediaItem: WebMediaItem, index = 0) {
+    return this.getArtworkUrl(mediaItem, WebFIleType.Content, index);
+  }
+
+  getArtworkUrl(mediaItem: WebMediaItem, fileType: WebFIleType, index = 0, maxWidth = 256, maxHeight = 256) {
+    return this.streamingStreamService.getArtworkResizedUrl(mediaItem.Type, mediaItem.Id, fileType, maxWidth, maxHeight, index);
   }
 }

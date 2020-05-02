@@ -1,0 +1,7 @@
+<div class="container">
+  <div *ngIf="!doPlay" class="video-placeholder-container">
+    <img class="placeholder" [src]="placeholderUrl" />
+    <div class="play-button fas fa-play" (click)="play()"></div>
+  </div>
+  <video *ngIf="doPlay" [appVideoPlayer]="streamUrl" autoplay controls style="width: 100%;"></video>
+</div>

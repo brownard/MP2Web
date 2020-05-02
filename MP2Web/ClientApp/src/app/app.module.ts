@@ -12,8 +12,6 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { HomeComponent } from './home/home.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { SeriesComponent } from './series/series.component';
-import { PlayerDirective } from './video-player/player.directive';
-import { VideoPlayerComponent } from './video-player/video-player.component';
 
 
 @NgModule({
@@ -24,8 +22,6 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
     CounterComponent,
     FetchDataComponent,
     SeriesComponent,
-    VideoPlayerComponent,
-    PlayerDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,7 +33,7 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       {
-        path: 'movies',
+        path: 'movies', data: { animation: 'MoviesPage' },
         loadChildren: () => import('./movies/movies.module').then(m => m.MoviesModule)
       },
       { path: 'series', component: SeriesComponent, data: { animation: 'SeriesPage' } },

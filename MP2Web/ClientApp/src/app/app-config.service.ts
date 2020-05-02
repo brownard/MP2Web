@@ -1,11 +1,13 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppConfigService {
   public appConfig: AppConfig;
+  public appInstanceId = uuidv4();
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
@@ -22,4 +24,5 @@ export interface AppConfig {
   mp2ExtendedBasePath: string;
   mediaAccessServicePath: string;
   streamingServicePath: string;
+  streamingServiceStreamPath: string;
 }

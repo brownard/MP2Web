@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { switchMap, first } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
 import { MediaAccessService } from 'src/app/mp2-extended/media-access.service';
 import { WebMovieDetailed } from 'src/app/mp2-extended/web-media-items';
 import { MoviesService } from '../../movies.service';
-import { Store } from '@ngrx/store';
 import * as moviesSelectors from '../../store/movies.selectors';
 
 @Component({
