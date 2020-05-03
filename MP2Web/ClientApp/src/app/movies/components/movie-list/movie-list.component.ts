@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { WebMovieDetailed, WebSortField, WebSortOrder } from '../../../models/web-media-items';
-import { MoviesService } from '../../movies.service';
+import { ArtworkService } from '../../../services/artwork.service';
 import * as MoviesActions from '../../store/movies.actions';
 import * as MoviesSelectors from '../../store/movies.selectors';
 
@@ -18,10 +18,11 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
   public movies$: Observable<WebMovieDetailed[]>;
 
-  constructor(public moviesService: MoviesService, private store: Store) { }
+  constructor(public artworkService: ArtworkService, private store: Store) {
+    this.movies$ = this.store.select(MoviesSelectors.selectCurrentMovies);
+  }
 
   ngOnInit(): void {
-    this.movies$ = this.store.select(MoviesSelectors.selectCurrentMovies);
     this.store.dispatch(MoviesActions.getMovies('', WebSortField.Title, WebSortOrder.Asc));
   }
 

@@ -5,16 +5,16 @@ import { WebFIleType, WebMediaItem } from '../models/web-media-items';
 @Injectable({
   providedIn: 'root'
 })
-export class MoviesService {
+export class ArtworkService {
 
   constructor(private streamingStreamService: StreamingStreamService) {
   }
 
-  public getMovieCoverUrl(mediaItem: WebMediaItem, index = 0) {
+  public getCoverUrl(mediaItem: WebMediaItem, index = 0) {
     return this.getArtworkUrl(mediaItem, WebFIleType.Cover, index);
   }
 
-  public getMovieScreenshotUrl(mediaItem: WebMediaItem, index = 0) {
+  public getScreenshotUrl(mediaItem: WebMediaItem, index = 0) {
     return this.getArtworkUrl(mediaItem, WebFIleType.Content, index);
   }
 
