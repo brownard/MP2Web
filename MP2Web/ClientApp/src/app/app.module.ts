@@ -38,7 +38,7 @@ import { SeriesComponent } from './series/series.component';
         loadChildren: () => import('./movies/movies.module').then(m => m.MoviesModule)
       },
       { path: 'series', component: SeriesComponent, data: { animation: 'SeriesPage' } },
-    ]),
+    ], { scrollPositionRestoration: 'enabled' }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([])
   ],

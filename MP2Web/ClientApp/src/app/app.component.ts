@@ -27,6 +27,7 @@ export class AppComponent {
   }
 
   shouldAnimateRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+    return false;
+    //return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }
