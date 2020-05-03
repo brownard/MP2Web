@@ -8,7 +8,7 @@ import { WebFIleType, WebMediaItem, WebMediaType, WebTVShowDetailed } from '../m
   templateUrl: './series.component.html',
   styleUrls: [
     './series.component.css',
-    '../common/styles/media-common.styles.css'
+    '../shared/styles/media.styles.css'
   ]
 })
 export class SeriesComponent implements OnInit {

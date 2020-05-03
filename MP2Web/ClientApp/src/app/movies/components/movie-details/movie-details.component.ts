@@ -13,7 +13,7 @@ import * as MoviesSelectors from '../../store/movies.selectors';
   templateUrl: './movie-details.component.html',
   styleUrls: [
     './movie-details.component.css',
-    '../../../common/styles/media-common.styles.css'
+    '../../../shared/styles/media.styles.css'
   ]
 })
 export class MovieDetailsComponent implements OnInit {

@@ -11,7 +11,7 @@ import * as MoviesSelectors from '../../store/movies.selectors';
   templateUrl: './movie-list.component.html',
   styleUrls: [
     './movie-list.component.css',
-    '../../../common/styles/media-common.styles.css'
+    '../../../shared/styles/media.styles.css'
   ]
 })
 export class MovieListComponent implements OnInit, OnDestroy {

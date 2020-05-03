@@ -13,4 +13,4 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     StarRatingComponent
   ]
 })
-export class AppCommonModule { }
+export class SharedModule { }
