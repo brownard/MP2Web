@@ -3,8 +3,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { MediaAccessService } from 'src/app/mp2-extended/media-access.service';
-import { WebMovieDetailed } from 'src/app/mp2-extended/web-media-items';
+import { WebMovieDetailed } from '../../../models/web-media-items';
+import { MediaAccessService } from '../../../services/media-access.service';
 import { MoviesService } from '../../movies.service';
 import * as MoviesSelectors from '../../store/movies.selectors';
 

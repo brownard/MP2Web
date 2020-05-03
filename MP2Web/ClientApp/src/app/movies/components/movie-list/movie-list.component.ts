@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { WebMovieDetailed, WebSortField, WebSortOrder } from 'src/app/mp2-extended/web-media-items';
+import { WebMovieDetailed, WebSortField, WebSortOrder } from '../../../models/web-media-items';
 import { MoviesService } from '../../movies.service';
 import * as MoviesActions from '../../store/movies.actions';
 import * as MoviesSelectors from '../../store/movies.selectors';

@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StreamingStreamService } from 'src/app/mp2-extended/streaming-stream.service';
-import { WebFIleType, WebMediaItem, WebStringResult } from 'src/app/mp2-extended/web-media-items';
-import { StreamingService } from 'src/app/mp2-extended/streaming.service';
-import { AppConfigService } from 'src/app/app-config.service';
-import { exhaustMap, concatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
+import { AppConfigService } from 'src/app/app-config.service';
+import { WebFIleType, WebMediaItem, WebStringResult } from 'src/app/models/web-media-items';
+import { StreamingStreamService } from 'src/app/services/streaming-stream.service';
+import { StreamingService } from 'src/app/services/streaming.service';
 
 export enum PlaybackStatus {
   Starting,

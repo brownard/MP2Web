@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { MediaAccessService } from 'src/app/mp2-extended/media-access.service';
+import { MediaAccessService } from '../../services/media-access.service';
 import * as MoviesActions from './movies.actions';
 import * as MoviesSelectors from './movies.selectors';
 

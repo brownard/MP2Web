@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfigService } from '../app-config.service';
 import { ApiService } from './api.service';
-import { WebBoolResult, WebMediaType, WebStringResult } from './web-media-items';
+import { WebBoolResult, WebMediaType, WebStringResult } from '../models/web-media-items';
 
 @Injectable({
   providedIn: 'root'

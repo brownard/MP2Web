@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfigService } from '../app-config.service';
 import { ApiService } from './api.service';
-import { WebMovieBasic, WebMovieDetailed, WebSortField, WebSortOrder, WebTVShowBasic, WebTVShowDetailed } from './web-media-items';
+import { WebMovieBasic, WebMovieDetailed, WebSortField, WebSortOrder, WebTVShowBasic, WebTVShowDetailed } from '../models/web-media-items';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MediaAccessService } from '../mp2-extended/media-access.service';
-import { StreamingStreamService } from '../mp2-extended/streaming-stream.service';
-import { WebFIleType, WebMediaItem, WebMediaType, WebTVShowDetailed } from '../mp2-extended/web-media-items';
+import { MediaAccessService } from '../services/media-access.service';
+import { StreamingStreamService } from '../services/streaming-stream.service';
+import { WebFIleType, WebMediaItem, WebMediaType, WebTVShowDetailed } from '../models/web-media-items';
 
 @Component({
   selector: 'app-series',

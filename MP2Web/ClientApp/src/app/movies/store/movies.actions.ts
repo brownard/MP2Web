@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { WebMovieDetailed, WebSortField, WebSortOrder } from 'src/app/mp2-extended/web-media-items';
+import { WebMovieDetailed, WebSortField, WebSortOrder } from '../../models/web-media-items';
 
 export const getMovies = createAction(
   '[Movies] Get Movies',
