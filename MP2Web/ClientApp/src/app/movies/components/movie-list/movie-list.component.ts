@@ -3,8 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { WebMovieDetailed } from '../../../models/web-media-items';
 import { ArtworkService } from '../../../services/artwork.service';
-import * as MoviesActions from '../../store/movies.actions';
-import * as MoviesSelectors from '../../store/movies.selectors';
+import * as MoviesStore from '../../store/movies.store';
 
 @Component({
   selector: 'app-movie-list',
@@ -20,11 +19,11 @@ export class MovieListComponent implements OnInit, OnDestroy {
   public movies$: Observable<WebMovieDetailed[]>;
 
   constructor(public artworkService: ArtworkService, private store: Store) {
-    this.moviesStateSubscription$ = this.store.select(MoviesSelectors.selectMoviesState)
+    this.moviesStateSubscription$ = this.store.select(MoviesStore.MovieSelectors.selectState)
       .subscribe(state =>
-        this.store.dispatch(MoviesActions.getMovies()));
+        this.store.dispatch(MoviesStore.MovieActions.getItems()));
 
-    this.movies$ = this.store.select(MoviesSelectors.selectCurrentMovies);
+    this.movies$ = this.store.select(MoviesStore.MovieSelectors.selectCurrentItems);
   }
 
   ngOnInit(): void {
@@ -36,7 +35,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
   }
 
   public showMovieDetails(movie: WebMovieDetailed) {
-    this.store.dispatch(MoviesActions.setSelectedMovie(movie));
+    this.store.dispatch(MoviesStore.MovieActions.setSelectedItem(movie));
     //this.router.navigate(['/movies', movie.Id]);
   }
 }

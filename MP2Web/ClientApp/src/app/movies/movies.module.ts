@@ -9,8 +9,7 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
 import { MovieFilterComponent } from './components/movie-filter/movie-filter.component';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
 import { MoviesEffects } from './store/movies.effects';
-import * as MoviesReducers from './store/movies.reducers';
-import * as MoviesState from './store/movies.state';
+import * as MoviesStore from './store/movies.store';
   
 @NgModule({
   declarations: [
@@ -22,7 +21,7 @@ import * as MoviesState from './store/movies.state';
     CommonModule,
     SharedModule,
     VideoPlayerModule,
-    StoreModule.forFeature(MoviesState.featureKey, MoviesReducers.reducer),
+    StoreModule.forFeature(MoviesStore.featureKey, MoviesStore.reducer),
     EffectsModule.forFeature([MoviesEffects]),
     RouterModule.forChild([
       { path: '', redirectTo: 'list', pathMatch: 'full' },

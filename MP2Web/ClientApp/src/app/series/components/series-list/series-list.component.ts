@@ -3,8 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { WebTVShowDetailed } from '../../../models/web-media-items';
 import { ArtworkService } from '../../../services/artwork.service';
-import * as SeriesActions from '../../store/series.actions';
-import * as SeriesSelectors from '../../store/series.selectors';
+import * as SeriesStore from '../../store/series.store';
 
 @Component({
   selector: 'app-series-list',
@@ -20,11 +19,11 @@ export class SeriesListComponent implements OnInit, OnDestroy {
   public series$: Observable<WebTVShowDetailed[]>;
 
   constructor(public artworkService: ArtworkService, private store: Store) {
-    this.stateSubscription$ = this.store.select(SeriesSelectors.selectSeriesState)
+    this.stateSubscription$ = this.store.select(SeriesStore.SeriesSelectors.selectState)
       .subscribe(state =>
-        this.store.dispatch(SeriesActions.getSeries()));
+        this.store.dispatch(SeriesStore.SeriesActions.getItems()));
 
-    this.series$ = this.store.select(SeriesSelectors.selectCurrentSeries);
+    this.series$ = this.store.select(SeriesStore.SeriesSelectors.selectCurrentItems);
   }
 
   ngOnInit(): void {
@@ -36,6 +35,6 @@ export class SeriesListComponent implements OnInit, OnDestroy {
   }
 
   public showSeriesDetails(series: WebTVShowDetailed) {
-    this.store.dispatch(SeriesActions.setSelectedSeries(series));
+    this.store.dispatch(SeriesStore.SeriesActions.setSelectedItem(series));
   }
 }

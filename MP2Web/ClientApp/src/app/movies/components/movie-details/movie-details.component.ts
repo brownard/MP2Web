@@ -6,7 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { WebMovieDetailed } from '../../../models/web-media-items';
 import { ArtworkService } from '../../../services/artwork.service';
 import { MediaAccessService } from '../../../services/media-access.service';
-import * as MoviesSelectors from '../../store/movies.selectors';
+import * as MoviesStore from '../../store/movies.store';
 
 @Component({
   selector: 'app-movie-details',
@@ -21,7 +21,7 @@ export class MovieDetailsComponent implements OnInit {
   public movie$: Observable<WebMovieDetailed>;
 
   constructor(private route: ActivatedRoute, public artworkService: ArtworkService, private mediaAccessService: MediaAccessService, private store: Store) {
-    this.movie$ = this.store.select(MoviesSelectors.selectSelectedMovie).pipe(
+    this.movie$ = this.store.select(MoviesStore.MovieSelectors.selectSelectedItem).pipe(
       switchMap(selectedMovie => {
         if (selectedMovie)
           return of(selectedMovie);

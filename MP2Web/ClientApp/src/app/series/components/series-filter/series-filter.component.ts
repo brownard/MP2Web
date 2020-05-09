@@ -2,8 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
-import * as SeriesActions from '../../store/series.actions';
-import * as SeriesSelectors from '../../store/series.selectors';
+import * as SeriesStore from '../../store/series.store';
 
 @Component({
   selector: 'app-series-filter',
@@ -30,7 +29,7 @@ export class SeriesFilterComponent implements OnInit, OnDestroy {
   ];
 
   constructor(private store: Store) {
-    this.stateSubscription$ = this.store.select(SeriesSelectors.selectCurrentFilter)
+    this.stateSubscription$ = this.store.select(SeriesStore.SeriesSelectors.selectCurrentFilter)
       .subscribe(state => {
         this.currentSort = state.currentSort;
         this.currentOrder = state.currentOrder;
@@ -69,6 +68,6 @@ export class SeriesFilterComponent implements OnInit, OnDestroy {
   }
 
   private updateSeriesFilter() {
-    this.store.dispatch(SeriesActions.setSeriesFilter('', this.currentSort, this.currentOrder));
+    this.store.dispatch(SeriesStore.SeriesActions.setItemsFilter('', this.currentSort, this.currentOrder));
   }
 }

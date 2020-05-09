@@ -9,8 +9,7 @@ import { SeriesDetailsComponent } from './components/series-details/series-detai
 import { SeriesFilterComponent } from './components/series-filter/series-filter.component';
 import { SeriesListComponent } from './components/series-list/series-list.component';
 import { SeriesEffects } from './store/series.effects';
-import * as SeriesReducers from './store/series.reducers';
-import * as SeriesState from './store/series.state';
+import * as SeriesStore from './store/series.store';
   
 @NgModule({
   declarations: [
@@ -22,7 +21,7 @@ import * as SeriesState from './store/series.state';
     CommonModule,
     SharedModule,
     VideoPlayerModule,
-    StoreModule.forFeature(SeriesState.featureKey, SeriesReducers.reducer),
+    StoreModule.forFeature(SeriesStore.featureKey, SeriesStore.reducer),
     EffectsModule.forFeature([SeriesEffects]),
     RouterModule.forChild([
       { path: '', redirectTo: 'list', pathMatch: 'full' },

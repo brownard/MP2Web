@@ -4,9 +4,7 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { MediaAccessService } from '../../services/media-access.service';
-import * as MoviesActions from './movies.actions';
-import * as MoviesSelectors from './movies.selectors';
-import { MoviesState } from './movies.state';
+import * as MoviesStore from './movies.store';
 
 @Injectable()
 export class MoviesEffects {
@@ -15,20 +13,20 @@ export class MoviesEffects {
 
   loadMovies$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(MoviesActions.getMovies),
-      withLatestFrom(this.store.select(MoviesSelectors.selectMoviesState)),
+      ofType(MoviesStore.MovieActions.getItems),
+      withLatestFrom(this.store.select(MoviesStore.MovieSelectors.selectState)),
       // Only trigger the action if movies aren't already loaded otherwise we might get called
       // recursively as updating the movies will cause all bound selectors to run which might
       // then trigger another update
-      filter(([action, state]) => !state.currentMovies),
+      filter(([action, state]) => !state.currentItems),
       switchMap(([, state]) => this.setMovies(state))
     )
   );
 
-  setMovies(state: MoviesState) {
+  setMovies(state: MoviesStore.MoviesState) {
     return this.mediaAccessService.getMoviesDetailed(state.currentFilter, state.currentSort, state.currentOrder).pipe(
-      map(movies => MoviesActions.setMovies(movies)),
-      catchError(() => of(MoviesActions.setMovies(null)))
+      map(movies => MoviesStore.MovieActions.setItems(movies)),
+      catchError(() => of(MoviesStore.MovieActions.setItems(null)))
     )
   }
 }

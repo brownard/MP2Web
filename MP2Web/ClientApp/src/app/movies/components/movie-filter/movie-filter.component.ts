@@ -1,10 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
-import { MoviesState } from '../../store/movies.state';
 import { Subscription } from 'rxjs';
-import * as MoviesSelectors from '../../store/movies.selectors';
-import * as MoviesActions from '../../store/movies.actions';
+import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
+import * as MoviesStore from '../../store/movies.store';
 
 @Component({
   selector: 'app-movie-filter',
@@ -17,7 +15,7 @@ export class MovieFilterComponent implements OnInit, OnDestroy {
   currentOrder = WebSortOrder.Asc;
 
   moviesStateSubscription: Subscription;
-  moviesState: MoviesState;
+  moviesState: MoviesStore.MoviesState;
 
   sortFields = [
     { name: 'Title', field: WebSortField.Title },
@@ -32,7 +30,7 @@ export class MovieFilterComponent implements OnInit, OnDestroy {
   ];
 
   constructor(private store: Store) {
-    this.moviesStateSubscription = this.store.select(MoviesSelectors.selectCurrentFilter)
+    this.moviesStateSubscription = this.store.select(MoviesStore.MovieSelectors.selectCurrentFilter)
       .subscribe(state => {
         this.currentSort = state.currentSort;
         this.currentOrder = state.currentOrder;
@@ -71,6 +69,6 @@ export class MovieFilterComponent implements OnInit, OnDestroy {
   }
 
   private updateMoviesFilter() {
-    this.store.dispatch(MoviesActions.setMoviesFilter('', this.currentSort, this.currentOrder));
+    this.store.dispatch(MoviesStore.MovieActions.setItemsFilter('', this.currentSort, this.currentOrder));
   }
 }

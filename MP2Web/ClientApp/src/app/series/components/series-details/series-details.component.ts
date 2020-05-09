@@ -6,7 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { WebTVShowDetailed } from '../../../models/web-media-items';
 import { ArtworkService } from '../../../services/artwork.service';
 import { MediaAccessService } from '../../../services/media-access.service';
-import * as SeriesSelectors from '../../store/series.selectors';
+import * as SeriesStore from '../../store/series.store';
 
 @Component({
   selector: 'app-series-details',
@@ -21,7 +21,7 @@ export class SeriesDetailsComponent implements OnInit {
   public series$: Observable<WebTVShowDetailed>;
 
   constructor(private route: ActivatedRoute, public artworkService: ArtworkService, private mediaAccessService: MediaAccessService, private store: Store) {
-    this.series$ = this.store.select(SeriesSelectors.selectSelectedSeries).pipe(
+    this.series$ = this.store.select(SeriesStore.SeriesSelectors.selectSelectedItem).pipe(
       switchMap(selectedSeries => {
         if (selectedSeries)
           return of(selectedSeries);
