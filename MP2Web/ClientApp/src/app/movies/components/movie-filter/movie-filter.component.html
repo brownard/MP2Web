@@ -1,0 +1,21 @@
+<div class="form-row mt-1">
+
+  <div class="col"></div>
+
+  <div class="col-auto">
+    <select class="custom-select" (change)="onSortFieldChanged($event.target.value)">
+      <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == currentSort">
+        {{sortField.name}}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-auto">
+    <select class="custom-select" (change)="onSortOrderChanged($event.target.value)">
+      <option *ngFor="let sortOrder of sortOrders" value={{sortOrder.name}} [selected]="sortOrder.order == currentOrder">
+        {{sortOrder.name}}
+      </option>
+    </select>
+  </div>
+
+</div>

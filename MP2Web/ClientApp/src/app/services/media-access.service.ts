@@ -50,4 +50,10 @@ export class MediaAccessService extends ApiService {
       'order': order
     });
   }
+
+  public getTVShowDetailedById(id: string) {
+    return this.getData<WebTVShowDetailed>('GetTVShowDetailedById', {
+      'id': id
+    });
+  }
 }

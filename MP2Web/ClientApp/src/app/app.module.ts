@@ -12,8 +12,6 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { HomeComponent } from './home/home.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { SeriesComponent } from './series/series.component';
-
 
 @NgModule({
   declarations: [
@@ -21,8 +19,7 @@ import { SeriesComponent } from './series/series.component';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent,
-    SeriesComponent,
+    FetchDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,7 +34,10 @@ import { SeriesComponent } from './series/series.component';
         path: 'movies', data: { animation: 'MoviesPage' },
         loadChildren: () => import('./movies/movies.module').then(m => m.MoviesModule)
       },
-      { path: 'series', component: SeriesComponent, data: { animation: 'SeriesPage' } },
+      {
+        path: 'series', data: { animation: 'SeriesPage' },
+        loadChildren: () => import('./series/series.module').then(m => m.SeriesModule)
+      },
     ], { scrollPositionRestoration: 'enabled' }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([])

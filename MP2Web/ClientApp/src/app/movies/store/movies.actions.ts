@@ -1,14 +1,18 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
 import { WebMovieDetailed, WebSortField, WebSortOrder } from '../../models/web-media-items';
 
 export const getMovies = createAction(
-  '[Movies] Get Movies',
+  '[Movies] Get Movies'
+);
+
+export const setMoviesFilter = createAction(
+  '[Movies] Set Movies Filter',
   (filter: string, sort: WebSortField, order: WebSortOrder) => ({ filter, sort, order })
 );
 
 export const setMovies = createAction(
   '[Movies] Set Movies',
-  (filter: string, sort: WebSortField, order: WebSortOrder, movies: WebMovieDetailed[]) => ({ filter, sort, order, movies })
+  (movies: WebMovieDetailed[]) => ({ movies })
 );
 
 export const setSelectedMovie = createAction(

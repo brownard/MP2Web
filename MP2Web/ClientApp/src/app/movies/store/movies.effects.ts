@@ -6,6 +6,7 @@ import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operato
 import { MediaAccessService } from '../../services/media-access.service';
 import * as MoviesActions from './movies.actions';
 import * as MoviesSelectors from './movies.selectors';
+import { MoviesState } from './movies.state';
 
 @Injectable()
 export class MoviesEffects {
@@ -15,18 +16,19 @@ export class MoviesEffects {
   loadMovies$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MoviesActions.getMovies),
-      withLatestFrom(this.store.select(MoviesSelectors.selectMovies)),
-      filter(([action, state]) =>
-        !state.currentMovies || action.filter != state.currentFilter || action.sort != state.currentSort || action.order != state.currentOrder
-      ),
-      switchMap(([action]) => this.setMovies(action))
+      withLatestFrom(this.store.select(MoviesSelectors.selectMoviesState)),
+      // Only trigger the action if movies aren't already loaded otherwise we might get called
+      // recursively as updating the movies will cause all bound selectors to run which might
+      // then trigger another update
+      filter(([action, state]) => !state.currentMovies),
+      switchMap(([, state]) => this.setMovies(state))
     )
   );
 
-  setMovies(action: any) {
-    return this.mediaAccessService.getMoviesDetailed(action.filter, action.sort, action.order).pipe(
-      map(movies => MoviesActions.setMovies(action.filter, action.sort, action.order, movies)),
-      catchError(() => of(MoviesActions.setMovies(action.filter, action.sort, action.order, null)))
+  setMovies(state: MoviesState) {
+    return this.mediaAccessService.getMoviesDetailed(state.currentFilter, state.currentSort, state.currentOrder).pipe(
+      map(movies => MoviesActions.setMovies(movies)),
+      catchError(() => of(MoviesActions.setMovies(null)))
     )
   }
 }

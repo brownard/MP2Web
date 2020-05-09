@@ -5,8 +5,9 @@ import * as moviesState from './movies.state';
 const moviesReducer = createReducer(
   moviesState.initialState,
   on(MoviesActions.setSelectedMovie, (state, { movie }) => ({ ...state, selectedMovie: movie })),
-  on(MoviesActions.setMovies, (state, { filter, sort, order, movies }) =>
-    ({ ...state, currentFilter: filter, currentSort: sort, currentOrder: order, currentMovies: movies }))
+  // If the movies filters are updated, set currentMovies to null so they are reloaded the next time they are requested
+  on(MoviesActions.setMoviesFilter, (state, { filter, sort, order }) => ({ ...state, currentFilter: filter, currentSort: sort, currentOrder: order, currentMovies: null })),
+  on(MoviesActions.setMovies, (state, { movies }) => ({ ...state, currentMovies: movies }))
 );
 
 export function reducer(state: moviesState.MoviesState | undefined, action: Action) {

@@ -1,28 +1,28 @@
 <div class="container">
 
-  <app-movie-filter></app-movie-filter>
+  <app-series-filter></app-series-filter>
 
-  <div *ngIf="movies$ | async as movies; else loading">
+  <div *ngIf="series$ | async as series; else loading">
     <div class="row card-group no-gutters mt-1">
 
-      <div *ngFor="let movie of movies" class="col-6 col-sm-4 col-lg-3">
+      <div *ngFor="let serie of series" class="col-6 col-sm-4 col-lg-3">
 
-        <a (click)="showMovieDetails(movie)" [routerLink]="['/movies', movie.Id]">
+        <a (click)="showSeriesDetails(serie)" [routerLink]="['/series', serie.Id]">
           <div class="card shadow-sm">
-            <div class="card-img media-card movie-card" [ngStyle]="{'background-image': 'url(' + artworkService.getMediaItemCoverUrl(movie, 0) + ')'}"></div>
+            <div class="card-img media-card series-card" [ngStyle]="{'background-image': 'url(' + artworkService.getCoverUrl(5, serie.Id, 0) + ')'}"></div>
             <!-- extended information -->
             <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
               <div class="media-card-overlay">
-                <h6 class="card-title text-truncate">{{movie.Title}}</h6>
+                <h6 class="card-title text-truncate">{{serie.Title}}</h6>
                 <div class="container">
                   <div class="row">
                     <div class="col-4 metadata">
                       <i class="fa fa-star" aria-hidden="true"></i>
-                      <p class="text-truncate">{{movie.Rating | number: '1.0-0'}}/10</p>
+                      <p class="text-truncate">{{serie.Rating | number: '1.0-0'}}/10</p>
                     </div>
                     <div class="col-8 metadata metadata-right">
-                      <div class="text-truncate">{{movie.Year}}</div>
-                      <div class="text-truncate">{{movie.Runtime}} minutes</div>
+                      <div class="text-truncate">{{serie.Year}}</div>
+                      <div class="text-truncate">{{serie.EpisodeCount}} episodes</div>
                     </div>
                   </div>
                 </div>
