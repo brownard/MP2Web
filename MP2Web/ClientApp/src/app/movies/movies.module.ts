@@ -8,7 +8,7 @@ import { VideoPlayerModule } from '../video-player/video-player.module';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
 import { MovieFilterComponent } from './components/movie-filter/movie-filter.component';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
-import { MoviesEffects } from './store/movies.effects';
+import { MovieEffects } from './store/movies.effects';
 import * as MoviesStore from './store/movies.store';
   
 @NgModule({
@@ -22,7 +22,7 @@ import * as MoviesStore from './store/movies.store';
     SharedModule,
     VideoPlayerModule,
     StoreModule.forFeature(MoviesStore.featureKey, MoviesStore.reducer),
-    EffectsModule.forFeature([MoviesEffects]),
+    EffectsModule.forFeature([MovieEffects]),
     RouterModule.forChild([
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: MovieListComponent, data: { animation: 'MovieListPage' } },
