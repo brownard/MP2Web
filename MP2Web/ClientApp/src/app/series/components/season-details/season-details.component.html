@@ -1,0 +1,57 @@
+<a class="btn btn-link d-block" (click)="toggleExpanded()">
+  <div class="row justify-content-between">
+    <div class="col-auto">
+      Season {{season.SeasonNumber}} <span class="metadata" style="display: inline;">({{season.EpisodeCount}} episodes)</span>
+    </div>
+    <div class="col-auto">
+      <i class="fas" [ngClass]="isExpanded ? 'fa-caret-up' : 'fa-caret-down'"></i>
+    </div>
+  </div>
+</a>
+
+<div *ngIf="isExpanded">
+
+  <div *ngIf="episodes else loading">
+
+    <div class="row card-group no-gutters mt-1">
+
+      <div *ngFor="let episode of episodes" class="col-6 col-lg-4">
+
+        <a (click)="selectEpisode(episode)" style="cursor: pointer;">
+          <div class="card shadow-sm">
+            <div class="card-img media-card episode-card" [ngStyle]="{'background-image': 'url(' + artworkService.getScreenshotUrl(episode) + ')'}"></div>
+            <!-- extended information -->
+            <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
+              <div class="media-card-overlay">
+                <h6 class="card-title text-truncate">{{episode.EpisodeNumber}}. {{episode.Title}}</h6>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-4 metadata">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <p class="text-truncate">{{episode.Rating | number: '1.0-0'}}/10</p>
+                    </div>
+                    <div class="col-8 metadata metadata-right">
+                      <div class="text-truncate">{{episode.FirstAired | date}}</div>
+                      <!--<div class="text-truncate">{{episode.EpisodeCount}} episodes</div>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template #loading>
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

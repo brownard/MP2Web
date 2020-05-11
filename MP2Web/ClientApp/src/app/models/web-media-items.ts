@@ -147,3 +147,23 @@ export interface WebTVSeasonBasic {
 
 export interface WebTVSeasonDetailed extends WebTVSeasonBasic {
 }
+
+export interface WebTVEpisodeBasic extends WebMediaItem {
+  ShowId: string;
+  EpisodeNumber: number;
+  SeasonNumber: number;
+  SeasonId: string;
+  IsProtected: boolean;
+  Watched: boolean;
+  Rating: number;
+  FirstAired: Date;
+  ExternalId: WebExternalId[];
+}
+
+export interface WebTVEpisodeDetailed extends WebTVEpisodeBasic {
+  GuestStars: WebActor[];
+  Directors: string[];
+  Writers: string[];
+  Show: string;
+  Summary: string;
+}

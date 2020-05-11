@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfigService } from '../app-config.service';
+import { WebMovieBasic, WebMovieDetailed, WebSortField, WebSortOrder, WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowBasic, WebTVShowDetailed } from '../models/web-media-items';
 import { ApiService } from './api.service';
-import { WebMovieBasic, WebMovieDetailed, WebSortField, WebSortOrder, WebTVShowBasic, WebTVShowDetailed } from '../models/web-media-items';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +54,22 @@ export class MediaAccessService extends ApiService {
   public getTVShowDetailedById(id: string) {
     return this.getData<WebTVShowDetailed>('GetTVShowDetailedById', {
       'id': id
+    });
+  }
+
+  public getTVSeasonsDetailedForTVShow(id: string, sort = WebSortField.TVSeasonNumber, order = WebSortOrder.Asc) {
+    return this.getData<WebTVSeasonDetailed[]>('GetTVSeasonsDetailedForTVShow', {
+      'id': id,
+      'sort': sort,
+      'order': order
+    });
+  }
+
+  public getTVEpisodesDetailedForSeason(id: string, sort = WebSortField.TVEpisodeNumber, order = WebSortOrder.Asc) {
+    return this.getData<WebTVEpisodeDetailed[]>('GetTVEpisodesDetailedForSeason', {
+      'id': id,
+      'sort': sort,
+      'order': order
     });
   }
 }

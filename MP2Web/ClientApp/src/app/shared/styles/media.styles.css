@@ -1,8 +1,10 @@
-
-
 .media-card {
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.episode-card {
+  padding-top: 75%;
 }
 
 .media-card-overlay {

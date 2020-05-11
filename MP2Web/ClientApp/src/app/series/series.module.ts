@@ -10,12 +10,14 @@ import { SeriesFilterComponent } from './components/series-filter/series-filter.
 import { SeriesListComponent } from './components/series-list/series-list.component';
 import { SeriesEffects } from './store/series.effects';
 import * as SeriesStore from './store/series.store';
+import { SeasonDetailsComponent } from './components/season-details/season-details.component';
   
 @NgModule({
   declarations: [
     SeriesListComponent,
     SeriesDetailsComponent,
-    SeriesFilterComponent
+    SeriesFilterComponent,
+    SeasonDetailsComponent
   ],
   imports: [
     CommonModule,

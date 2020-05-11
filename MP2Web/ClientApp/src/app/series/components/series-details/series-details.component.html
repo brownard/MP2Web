@@ -1,10 +1,4 @@
-<div *ngIf="!(series$ | async)" class="text-center">
-  <div class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
-</div>
-
-<div *ngIf="series$ | async as series" class="container p-0">
+<div *ngIf="series$ | async as series; else loading" class="container p-0">
 
   <div class="mx-auto p-3 bg-white shadow-sm" style="max-width: 768px">
 
@@ -24,9 +18,14 @@
       <p>{{series.Summary}}</p>
     </div>
 
-    <!--<div class="row mx-0">
-      <app-video-player [mediaItem]="movie" style="width: 100%;"></app-video-player>
-    </div>-->
+    <div *ngIf="selectedEpisode" class="row mx-0">
+      <app-video-player [mediaItem]="selectedEpisode" style="width: 100%;"></app-video-player>
+    </div>
+
+    <div *ngFor="let season of seasons$ | async">
+      <hr class="mt-1" />
+      <app-season-details [season]="season" (episodeSelected)="onEpisodeSelected($event)"></app-season-details>
+    </div>
 
     <div class="row mx-0">
       <table class="table metadata">
@@ -47,4 +46,12 @@
       </table>
     </div>
   </div>
- </div>
+</div>
+
+<ng-template #loading>
+  <div class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-template>
