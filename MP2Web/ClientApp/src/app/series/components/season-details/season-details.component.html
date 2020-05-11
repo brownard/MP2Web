@@ -23,12 +23,12 @@
             <!-- extended information -->
             <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
               <div class="media-card-overlay">
-                <h6 class="card-title text-truncate">{{episode.EpisodeNumber}}. {{episode.Title}}</h6>
+                <h6 class="card-title text-truncate" style="font-size: small">{{episode.EpisodeNumber}}. {{episode.Title}}</h6>
                 <div class="container">
                   <div class="row">
                     <div class="col-4 metadata">
                       <i class="fa fa-star" aria-hidden="true"></i>
-                      <p class="text-truncate">{{episode.Rating | number: '1.0-0'}}/10</p>
+                      <span class="text-truncate">{{episode.Rating | number: '1.0-0'}}/10</span>
                     </div>
                     <div class="col-8 metadata metadata-right">
                       <div class="text-truncate">{{episode.FirstAired | date}}</div>
