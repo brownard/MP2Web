@@ -1,7 +1,8 @@
 <div class="container">
-  <div *ngIf="!doPlay" class="video-placeholder-container">
+  <div *ngIf="playbackStatus !== 2" class="video-placeholder-container">
     <img class="placeholder" [src]="placeholderUrl" />
-    <div class="play-button fas fa-play" (click)="play()"></div>
+    <div *ngIf="playbackStatus === 0" class="play-button fas fa-play" (click)="play()"></div>
+    <div *ngIf="playbackStatus === 1" class="loading-spinner"><span class="spinner-border"></span></div>
   </div>
-  <video *ngIf="doPlay" [appVideoPlayer]="streamUrl" autoplay controls style="width: 100%;"></video>
+  <video *ngIf="playbackStatus === 2" [appVideoPlayer]="streamUrl" autoplay controls style="width: 100%;"></video>
 </div>

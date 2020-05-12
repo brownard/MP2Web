@@ -36,3 +36,19 @@
       background-color: rgba(255,255,255,.8);
       cursor: pointer;
     }
+
+  .video-placeholder-container .loading-spinner {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1; /* needed if using Bootstrap */
+    text-align: center;
+    background-color: rgba(255,255,255,.8);
+    border-radius: 50px;
+    font-weight: 900;
+    /* positioning tweaks */
+    padding-top: 35px;
+  }

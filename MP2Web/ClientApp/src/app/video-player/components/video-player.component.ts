@@ -7,9 +7,9 @@ import { StreamingStreamService } from 'src/app/services/streaming-stream.servic
 import { StreamingService } from 'src/app/services/streaming.service';
 
 export enum PlaybackStatus {
-  Starting,
-  Started,
-  Stopped
+  Stopped = 0,
+  Starting = 1,
+  Started = 2
 }
 
 @Component({
@@ -25,8 +25,6 @@ export class VideoPlayerComponent implements OnInit {
   playbackStatus = PlaybackStatus.Stopped;
   placeholderUrl: string;
   streamUrl: string;
-
-  doPlay = false;
 
   constructor(private streamingService: StreamingService, private streamingStreamService: StreamingStreamService, appConfig: AppConfigService) {
     this.streamIdentifier = appConfig.appInstanceId;
@@ -96,7 +94,6 @@ export class VideoPlayerComponent implements OnInit {
       // url to a relative path, we should be hosted on the same machine so the request will still work.
       let url = new URL(streamUrl);
       this.streamUrl = url.pathname + url.search + '&hls=playlist.m3u8';
-      this.doPlay = true;
     }
   }
 }
