@@ -2,23 +2,14 @@ li .fa, .fas, .fab {
     margin-right: 10px;
 }
 
-/* Keep the nav menu independent of scrolling and on top of other items */
-.main-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-}
+/* On large screens, convert the nav menu to a vertical sidebar */
+@media (min-width: 768px) {
 
-@media (min-width: 576px) {
-  /* On large screens, convert the nav menu to a vertical sidebar */
   .main-nav {
     height: 100%;
-    width: calc(25% - 20px);
   }
 
-  .navbar .container {
+  .navbar .container-fluid {
     border-radius: 0px;
     border-width: 0px;
     height: 100%;
@@ -41,15 +32,10 @@ li .fa, .fas, .fab {
   }
 
     .navbar li a {
-      padding: 10px 16px;
-      border-radius: 4px;
+      /* If a menu item's text is too long, truncate it */
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-
-  .navbar a {
-    /* If a menu item's text is too long, truncate it */
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 }

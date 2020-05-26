@@ -1,6 +1,26 @@
-@media (max-width: 576px) {
+.body-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+@media (max-width: 767.98px) {
   /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
   .body-content {
     padding-top: 50px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+  .body-content {
+    padding-left: 208px;
+  }
+
+  .body-nav {
+    height: 100%;
+    width: 208px;
   }
 }
