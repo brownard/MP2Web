@@ -1,12 +1,12 @@
 <div *ngIf="series$ | async as series; else loading" class="container p-0">
 
-  <div class="mx-auto p-3 bg-white shadow-sm" style="max-width: 768px">
+  <div class="media-details-container">
 
-    <div class="row mx-0">
-      <div class="col-4 pl-0">
-        <img [src]="artworkService.getCoverUrl(5, series.Id, 0)" class="img-fluid d-block" />
+    <div class="row">
+      <div class="col-4 col-lg-auto">
+        <img [src]="artworkService.getCoverUrl(5, series.Id, 0)" class="img-fluid w-100" />
       </div>
-      <div class="col-8 metadata">
+      <div class="col metadata">
         <h6 class="media-title">{{series.Title}}</h6>
         <app-star-rating [rating]="series.Rating | number: '1.0-0'" class="yellow-star"></app-star-rating>
         <span class="text-truncate ml-2">{{series.Rating | number: '1.0-0'}}/10</span>
@@ -14,11 +14,11 @@
         <div class="text-truncate">{{series.EpisodeCount}} episodes</div>
       </div>
     </div>
-    <div class="row mx-0 media-summary">
+    <div class="row media-summary">
       <p>{{series.Summary}}</p>
     </div>
 
-    <div *ngIf="selectedEpisode" class="row mx-0">
+    <div *ngIf="selectedEpisode" class="row">
       <app-video-player [mediaItem]="selectedEpisode" style="width: 100%;"></app-video-player>
     </div>
 
@@ -27,7 +27,7 @@
       <app-season-details [season]="season" (episodeSelected)="onEpisodeSelected($event)"></app-season-details>
     </div>
 
-    <div class="row mx-0">
+    <div class="row">
       <table class="table metadata">
         <tbody>
           <tr>

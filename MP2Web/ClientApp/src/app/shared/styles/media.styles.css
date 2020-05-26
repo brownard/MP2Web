@@ -1,9 +1,24 @@
+.media-details-container {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)
+}
+
 .media-card {
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.episode-card {
+/* Poster aspect ratio */
+.poster-card {
+  padding-top: 148%;
+}
+
+/* Thumbnail aspect ratio */
+.thumbnail-card {
   padding-top: 75%;
 }
 
@@ -31,6 +46,8 @@
   font-size: 0.8rem;
   font-family: 'Open Sans', sans-serif;
   color: #414345;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .metadata {

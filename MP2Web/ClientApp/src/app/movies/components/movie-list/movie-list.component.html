@@ -9,7 +9,7 @@
 
         <a (click)="showMovieDetails(movie)" [routerLink]="['/movies', movie.Id]">
           <div class="card shadow-sm">
-            <div class="card-img media-card movie-card" [ngStyle]="{'background-image': 'url(' + artworkService.getMediaItemCoverUrl(movie, 0) + ')'}"></div>
+            <div class="card-img media-card poster-card" [ngStyle]="{'background-image': 'url(' + artworkService.getMediaItemCoverUrl(movie, 0) + ')'}"></div>
             <!-- extended information -->
             <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
               <div class="media-card-overlay">

@@ -19,7 +19,7 @@
 
         <a (click)="selectEpisode(episode)" style="cursor: pointer;">
           <div class="card shadow-sm">
-            <div class="card-img media-card episode-card" [ngStyle]="{'background-image': 'url(' + artworkService.getScreenshotUrl(episode) + ')'}"></div>
+            <div class="card-img media-card thumbnail-card" [ngStyle]="{'background-image': 'url(' + artworkService.getScreenshotUrl(episode) + ')'}"></div>
             <!-- extended information -->
             <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
               <div class="media-card-overlay">
