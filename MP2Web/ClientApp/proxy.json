@@ -1,0 +1,6 @@
+{
+  "/MediaPortal": {
+    "target": "http://localhost:55555",
+    "secure": false
+  }
+}
