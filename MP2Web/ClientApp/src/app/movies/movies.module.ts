@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { SharedModule } from '../shared/shared.module';
 import { VideoPlayerModule } from '../video-player/video-player.module';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
@@ -20,6 +21,7 @@ import * as MoviesStore from './store/movies.store';
   imports: [
     CommonModule,
     SharedModule,
+    LazyLoadImageModule,
     VideoPlayerModule,
     StoreModule.forFeature(MoviesStore.featureKey, MoviesStore.reducer),
     EffectsModule.forFeature([MovieEffects]),

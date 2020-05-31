@@ -1,12 +1,9 @@
-.media-details-container {
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 2rem;
-  background-color: white;
-  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)
-}
-
+/*
+  Base class for a media card to be displayed
+  in a grid with a covering background image.
+  Use in combination with one of the classes
+  below to set the correct aspect ratio.
+*/
 .media-card {
   background-size: cover;
   background-repeat: no-repeat;
@@ -22,56 +19,88 @@
   padding-top: 75%;
 }
 
+/* Square aspect ratio */
+.square-card {
+  padding-top: 100%;
+}
+
+/*
+  Container for title and metadata to overlay
+  the bottom of a card's background image. Set
+  a white background and reasonable padding.
+*/
 .media-card-overlay {
   padding: 0.25rem;
   background-color: white;
+  font-family: 'Open Sans', sans-serif;
+  color: #414345;
 }
 
-  .media-card-overlay .card-title {
-    margin-bottom: 0.25rem;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
-    color: #414345;
-  }
-
+/*
+  Media title, used for both cards and details screens,
+  set font weight and reasonable margin
+*/
 .media-title {
   display: block;
-  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 0.25rem;
   font-weight: 600;
+}
+
+/*
+  Container for a media details page. White background with small
+  shadow. Should be centred with a reasonable max width.
+*/
+.media-details-container {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  font-family: 'Open Sans', sans-serif;
   color: #414345;
 }
 
+/*
+  Media summary, used in details screens, set slightly smaller font
+  size and reasonable margins for potentially large block of text.
+*/
 .media-summary {
   margin-top: 1rem;
-  font-size: 0.8rem;
-  font-family: 'Open Sans', sans-serif;
-  color: #414345;
+  margin-bottom: 1rem;
   padding-left: 15px;
   padding-right: 15px;
+  font-size: 0.8rem;
 }
 
+/* Container for media metadata, slightly smaller font size and lighter text xolour */
 .metadata {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.75rem;
   display: block;
   padding: 0;
+  font-size: 0.75rem;
   color: #8F9799;
 }
 
-  .metadata p {
-    margin: 0px 1px;
-  }
-
-  .metadata i {
-    color: #ff9d00;
-    margin-top: 5px;
-    margin-left: 1px;
-  }
-
+/* Used in combination with the metadata class for right aligning text */
 .metadata-right {
   text-align: right;
 }
 
+  /* Metadata text, tight margins and truncate text that overflows */
+  .metadata p {
+    margin: 0px 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Container for the star icon  */
+  .metadata i {
+    margin-top: 5px;
+    margin-left: 1px;
+  }
+
+/* Colour for the star rating icons */
 .yellow-star {
   color: #ff9d00;
 }

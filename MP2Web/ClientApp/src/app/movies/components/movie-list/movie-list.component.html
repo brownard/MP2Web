@@ -1,31 +1,47 @@
 <div class="container">
 
+  <!-- Sort/filter bar, always visible --> 
   <app-movie-filter></app-movie-filter>
 
+  <!-- If no movies yet, show the loading template -->
   <div *ngIf="movies$ | async as movies; else loading">
+
+    <!-- Setup the bootstrap grid -->
     <div class="row card-group no-gutters mt-1">
 
+      <!-- Create each movie card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
       <div *ngFor="let movie of movies" class="col-6 col-sm-4 col-lg-3">
 
+        <!-- Navigate to the details page on click -->
         <a (click)="showMovieDetails(movie)" [routerLink]="['/movies', movie.Id]">
+          <!-- Card container, white background, small shadow -->
           <div class="card shadow-sm">
-            <div class="card-img media-card poster-card" [ngStyle]="{'background-image': 'url(' + artworkService.getMediaItemCoverUrl(movie, 0) + ')'}"></div>
-            <!-- extended information -->
+
+            <!-- Poster, lazily loaded when visible as a background image, .poster-card sets the correct aspect ratio --> 
+            <div class="card-img media-card poster-card" [lazyLoad]="artworkService.getMediaItemCoverUrl(movie, 0)"></div>
+
+            <!-- Extended information, overlays the bottom of the poster image -->
             <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
               <div class="media-card-overlay">
-                <h6 class="card-title text-truncate">{{movie.Title}}</h6>
+
+                <!-- Full width title, truncate -->
+                <h6 class="card-title media-title text-truncate">{{movie.Title}}</h6>                
+                <!-- 2 columns of metadata -->
                 <div class="container">
                   <div class="row">
+                    <!-- Column 1, star icon and rating -->
                     <div class="col-4 metadata">
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <p class="text-truncate">{{movie.Rating | number: '1.0-0'}}/10</p>
+                      <i class="fa fa-star yellow-star" aria-hidden="true"></i>
+                      <p>{{movie.Rating | number: '1.0-0'}}/10</p>
                     </div>
+                    <!-- Column 2, year and runtime, align right -->
                     <div class="col-8 metadata metadata-right">
-                      <div class="text-truncate">{{movie.Year}}</div>
-                      <div class="text-truncate">{{movie.Runtime}} minutes</div>
+                      <p>{{movie.Year}}</p>
+                      <p>{{movie.Runtime}} minutes</p>
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>

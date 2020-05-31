@@ -6,16 +6,19 @@
       <div class="col-4 col-lg-auto">
         <img [src]="artworkService.getCoverUrl(5, series.Id, 0)" class="img-fluid w-100" />
       </div>
-      <div class="col metadata">
+      <div class="col">
         <h6 class="media-title">{{series.Title}}</h6>
-        <app-star-rating [rating]="series.Rating | number: '1.0-0'" class="yellow-star"></app-star-rating>
-        <span class="text-truncate ml-2">{{series.Rating | number: '1.0-0'}}/10</span>
-        <div class="text-truncate">{{series.Year}}</div>
-        <div class="text-truncate">{{series.EpisodeCount}} episodes</div>
+        <div class="metadata">
+          <app-star-rating [rating]="series.Rating | number: '1.0-0'" class="yellow-star"></app-star-rating>
+          <span class="text-truncate ml-2">{{series.Rating | number: '1.0-0'}}/10</span>
+          <p>{{series.Year}}</p>
+          <p>{{series.EpisodeCount}} episodes</p>
+        </div>
       </div>
     </div>
+
     <div class="row media-summary">
-      <p>{{series.Summary}}</p>
+      {{series.Summary}}
     </div>
 
     <div *ngIf="selectedEpisode" class="row">
