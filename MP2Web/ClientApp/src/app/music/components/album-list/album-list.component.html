@@ -1,0 +1,62 @@
+<div class="container">
+
+  <!-- Sort/filter bar, always visible -->
+  <!--<app-album-filter></app-album-filter>-->
+
+  <!-- If no items yet, show the loading template -->
+  <div *ngIf="albums$ | async as albums; else loading">
+
+    <!-- Setup the bootstrap grid -->
+    <div class="row card-group no-gutters mt-1">
+
+      <!-- Create each card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
+      <div *ngFor="let album of albums" class="col-6 col-sm-4 col-lg-3">
+
+        <!-- Navigate to the details page on click -->
+        <a (click)="showAlbumDetails(album)" [routerLink]="['/album', album.Id]">
+          <!-- Card container, white background, small shadow -->
+          <div class="card shadow-sm">
+
+            <!-- Poster, lazily loaded when visible as a background image, .square-card sets the correct aspect ratio -->
+            <div class="card-img media-card square-card" [lazyLoad]="artworkService.getCoverUrl(7, album.Id, 0)"></div>
+
+            <!-- Extended information, overlays the bottom of the poster image -->
+            <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
+              <div class="media-card-overlay">
+
+                <!-- Full width title, truncate -->
+                <h6 class="card-title media-title text-truncate">{{album.Title}}</h6>
+                <!-- 2 columns of metadata -->
+                <div class="container">
+                  <div class="row">
+                    <!-- Column 1, star icon and rating -->
+                    <div class="col-4 metadata">
+                      <i class="fa fa-star yellow-star" aria-hidden="true"></i>
+                      <p>{{album.Rating | number: '1.0-0'}}/10</p>
+                    </div>
+                    <!-- Column 2, album artist and year, align right -->
+                    <div class="col-8 metadata metadata-right">
+                      <p>{{album.AlbumArtist}}</p>
+                      <p>{{album.Year}}</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

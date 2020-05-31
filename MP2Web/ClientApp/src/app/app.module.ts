@@ -38,6 +38,10 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
         path: 'series', data: { animation: 'SeriesPage' },
         loadChildren: () => import('./series/series.module').then(m => m.SeriesModule)
       },
+      {
+        path: 'music', data: { animation: 'MusicPage' },
+        loadChildren: () => import('./music/music.module').then(m => m.MusicModule)
+      },
     ], { scrollPositionRestoration: 'enabled' }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([])

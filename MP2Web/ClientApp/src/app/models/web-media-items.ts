@@ -167,3 +167,18 @@ export interface WebTVEpisodeDetailed extends WebTVEpisodeBasic {
   Show: string;
   Summary: string;
 }
+
+export interface WebMusicAlbumBasic {
+  Id: string;
+  Title: string;
+  Genres: string[];
+  AlbumArtist: string;
+  AlbumArtistId: string;
+  Artists: string[];
+  ArtistsId: string[];
+  Composer: string[];
+  DateAdded: Date;
+  Year: number;
+  Rating: number;
+  Artwork: WebArtwork[];
+}
