@@ -25,7 +25,7 @@ export abstract class MediaEffects<T> {
   setItems(state: MediaState<T>) {
     return this.getItems(state).pipe(
       map(movies => this.mediaActions.setItems(movies)),
-      catchError(() => of(this.mediaActions.setItems(null)))
+      catchError(() => of(this.mediaActions.setItems([])))
     )
   }
 
