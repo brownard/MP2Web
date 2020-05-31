@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { SharedModule } from '../shared/shared.module';
 import { VideoPlayerModule } from '../video-player/video-player.module';
 import { SeasonDetailsComponent } from './components/season-details/season-details.component';
@@ -23,7 +22,6 @@ import * as SeriesStore from './store/series.store';
   imports: [
     CommonModule,
     SharedModule,
-    LazyLoadImageModule,
     VideoPlayerModule,
     StoreModule.forFeature(SeriesStore.featureKey, SeriesStore.reducer),
     EffectsModule.forFeature([SeriesEffects]),

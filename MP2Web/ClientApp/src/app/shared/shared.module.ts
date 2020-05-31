@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     CommonModule
   ],
   exports: [
-    StarRatingComponent
+    StarRatingComponent,
+    LazyLoadImageModule
   ]
 })
 export class SharedModule { }
