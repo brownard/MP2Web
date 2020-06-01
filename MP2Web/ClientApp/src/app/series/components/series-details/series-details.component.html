@@ -9,7 +9,7 @@
       <div class="col">
         <h6 class="media-title">{{series.Title}}</h6>
         <div class="metadata">
-          <app-star-rating [rating]="series.Rating | number: '1.0-0'" class="yellow-star"></app-star-rating>
+          <app-star-rating [rating]="series.Rating | number: '1.0-0'" class="star"></app-star-rating>
           <span class="text-truncate ml-2">{{series.Rating | number: '1.0-0'}}/10</span>
           <p>{{series.Year}}</p>
           <p>{{series.EpisodeCount}} episodes</p>

@@ -3,6 +3,16 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
 
+/* Variables used to alter the color pallet throughout the app */
 body {
+  --primary-text-color: #414345;
+  --secondary-text-color: #8F9799;
+  --primary-background-color: #ffffff;
+  --secondary-background-color: #f8f9fa;
+  --star-color: #ff9d00;
+}
+
+body {
+  background-color: var(--secondary-background-color);
   font-family: 'Open Sans', sans-serif;
 }

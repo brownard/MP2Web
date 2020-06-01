@@ -9,7 +9,7 @@
       <div class="col">
         <h6 class="media-title">{{movie.Title}}</h6>
         <div class="metadata">
-          <app-star-rating [rating]="movie.Rating | number: '1.0-0'" class="yellow-star"></app-star-rating>
+          <app-star-rating [rating]="movie.Rating | number: '1.0-0'" class="star"></app-star-rating>
           <span class="text-truncate ml-2">{{movie.Rating | number: '1.0-0'}}/10</span>
           <p>{{movie.Year}}</p>
           <p>{{movie.Runtime}} minutes</p>
