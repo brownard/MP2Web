@@ -17,36 +17,40 @@
       </div>
     </div>
 
-    <div class="row media-summary">
-      {{series.Summary}}
+    <div class="row media-summary mt-1">
+      <div class="col">{{series.Summary}}</div>
     </div>
 
-    <div *ngIf="selectedEpisode" class="row">
+    <div *ngIf="selectedEpisode" class="row mt-1">
       <app-video-player [mediaItem]="selectedEpisode" style="width: 100%;"></app-video-player>
     </div>
 
-    <div *ngFor="let season of seasons$ | async">
-      <hr class="mt-1" />
-      <app-season-details [season]="season" (episodeSelected)="onEpisodeSelected($event)"></app-season-details>
+    <div *ngFor="let season of seasons$ | async" class="row mt-1">
+      <div class="col">
+        <hr class="mb-1" />
+        <app-season-details [season]="season" (episodeSelected)="onEpisodeSelected($event)"></app-season-details>
+      </div>
     </div>
 
-    <div class="row">
-      <table class="table metadata">
-        <tbody>
-          <tr>
-            <th scope="row">Genres</th>
-            <td>{{series.Genres.join(', ')}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Actors</th>
-            <td>{{mapProperty(series.Actors, 'Title').join(', ')}}</td>
-          </tr>
-          <tr>
-            <th scope="row">Id</th>
-            <td>{{series.Id}}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="row mt-1">
+      <div class="col">
+        <table class="table metadata">
+          <tbody>
+            <tr>
+              <th scope="row">Genres</th>
+              <td>{{series.Genres.join(', ')}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Actors</th>
+              <td>{{mapProperty(series.Actors, 'Title').join(', ')}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Id</th>
+              <td>{{series.Id}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

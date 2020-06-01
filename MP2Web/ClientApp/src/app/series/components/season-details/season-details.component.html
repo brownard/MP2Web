@@ -1,18 +1,18 @@
 <!-- Button that toggles the expanded state to show and hide the episodes  -->
-<a class="btn btn-link d-block" (click)="toggleExpanded()">
+<a class="btn btn-link d-block p-0" (click)="toggleExpanded()">
   <!-- Season number and caret on far right to show the expanded state  -->
-  <div class="row justify-content-between">
-    <div class="col-auto">
+  <div class="d-flex justify-content-between">
+    <div>
       Season {{season.SeasonNumber}} <span class="metadata" style="display: inline;">({{season.EpisodeCount}} episodes)</span>
     </div>
-    <div class="col-auto">
+    <div>
       <i class="fas" [ngClass]="isExpanded ? 'fa-caret-up' : 'fa-caret-down'"></i>
     </div>
   </div>
 </a>
 
 <!-- Show episodes if expanded -->
-<div *ngIf="isExpanded">
+<div *ngIf="isExpanded" class="my-1">
 
   <!-- Episodes should be being loaded by the component when isExpanded is true -->
   <div *ngIf="episodes else loading">

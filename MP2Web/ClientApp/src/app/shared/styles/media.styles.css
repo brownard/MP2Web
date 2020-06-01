@@ -66,11 +66,8 @@
   size and reasonable margins for potentially large block of text.
 */
 .media-summary {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding-left: 15px;
   padding-right: 15px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 /* Container for media metadata, slightly smaller font size and lighter text xolour */
