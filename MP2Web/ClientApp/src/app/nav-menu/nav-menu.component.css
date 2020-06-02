@@ -1,5 +1,5 @@
-li .fa, .fas, .fab {
-    margin-right: 10px;
+li .fa, li .fas, li .fab {
+  margin-right: 10px;
 }
 
 /* On large screens, convert the nav menu to a vertical sidebar */
