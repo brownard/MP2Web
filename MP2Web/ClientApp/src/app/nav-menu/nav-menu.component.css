@@ -1,3 +1,7 @@
+.navbar-brand img {
+  height: 1.5em;
+}
+
 li .fa, li .fas, li .fab {
   margin-right: 10px;
 }
@@ -7,6 +11,11 @@ li .fa, li .fas, li .fab {
 
   .main-nav {
     height: 100%;
+  }
+
+  .navbar-brand img {
+    width: 102px;
+    height: auto;
   }
 
   .navbar .container-fluid {

@@ -15,7 +15,7 @@
         <!-- Navigate to the details page on click -->
         <a (click)="showSeriesDetails(serie)" [routerLink]="['/series', serie.Id]">
           <!-- Card container, white background, small shadow -->
-          <div class="card shadow-sm">
+          <div class="card shadow-sm m-2">
 
             <!-- Poster, lazily loaded when visible as a background image, .poster-card sets the correct aspect ratio -->
             <div class="card-img media-card poster-card" [lazyLoad]="artworkService.getCoverUrl(5, serie.Id, 0)"></div>

@@ -6,7 +6,7 @@
 /* Variables used to alter the color pallet throughout the app */
 body {
   --primary-text-color: #414345;
-  --secondary-text-color: #8F9799;
+  --secondary-text-color: #777777;
   --primary-background-color: #ffffff;
   --secondary-background-color: #f8f9fa;
   --star-color: #ff9d00;

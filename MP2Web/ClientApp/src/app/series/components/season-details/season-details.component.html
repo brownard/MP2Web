@@ -26,7 +26,7 @@
         <!-- Set episode to video player on click -->
         <a (click)="selectEpisode(episode)" style="cursor: pointer;">
           <!-- Card container, white background, small shadow -->
-          <div class="card shadow-sm">
+          <div class="card shadow-sm m-2">
 
             <!-- Poster, lazily loaded when visible as a background image, .thumbnail-card sets the correct aspect ratio -->
             <div class="card-img media-card thumbnail-card" [lazyLoad]="artworkService.getScreenshotUrl(episode)"></div>
@@ -42,7 +42,7 @@
                   <div class="row">
                     <!-- Column 1, star icon and rating -->
                     <div class="col-4 metadata">
-                      <i class="fa fa-star star" aria-hidden="true"></i>
+                      <i class="fa fa-star star" aria-hidden="true" style="margin-right: 5px"></i>
                       <span class="text-truncate">{{episode.Rating | number: '1.0-0'}}/10</span>
                     </div>
                     <!-- Column 2, air date, align right -->

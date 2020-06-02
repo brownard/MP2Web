@@ -31,7 +31,7 @@
 */
 .media-card-overlay {
   padding: 0.25rem;
-  background-color: var(--primary-background-color);
+  background-color: rgba(255, 255, 255, 0.85);
   font-family: 'Open Sans', sans-serif;
   color: var(--primary-text-color);
 }
@@ -55,7 +55,7 @@
   margin-left: auto;
   margin-right: auto;
   padding: 2rem;
-  background-color: var(--primary-background-color);
+  background-color: rgba(255, 255, 255, 0.85);
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
   font-family: 'Open Sans', sans-serif;
   color: var(--primary-text-color);

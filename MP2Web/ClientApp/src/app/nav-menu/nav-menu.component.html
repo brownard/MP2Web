@@ -1,7 +1,9 @@
 <nav class='main-nav navbar navbar-expand-md navbar-dark bg-dark'>
   <div class='container-fluid'>
 
-    <a class='navbar-brand' [routerLink]='["/"]'>MP2Web</a>
+    <a class='navbar-brand' [routerLink]='["/"]'>
+      <img src="assets/MP2Web-sm.png" alt="MP2Web">
+    </a>
 
     <button type='button' class='navbar-toggler' (click)="toggle()">
       <span class='sr-only'>Toggle navigation</span>
@@ -29,7 +31,17 @@
         </li>
         <li class="nav-item" [routerLinkActive]='["active"]'>
           <a class="nav-link" [routerLink]='["/music"]' (click)='collapse()'>
-            <span class='fab fa-youtube'></span> Music
+            <span class='fas fa-headphones-alt'></span> Music
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]='["active"]'>
+          <a class="nav-link" [routerLink]='["/images"]' (click)='collapse()'>
+            <span class='fas fa-images'></span> Images
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]='["active"]'>
+          <a class="nav-link" [routerLink]='["/tv"]' (click)='collapse()'>
+            <span class='fas fa-tv'></span> TV
           </a>
         </li>
       </ul>
