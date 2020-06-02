@@ -44,6 +44,12 @@
             <span class='fas fa-tv'></span> TV
           </a>
         </li>
+        <li class="nav-item" [routerLinkActive]='["active"]'>
+          <a class="nav-link" [routerLink]='["/settings"]' (click)='collapse()'>
+            <span class='fa fa-cog'></span> Settings
+          </a>
+        </li>
+
         <li class="nav-item">
           <div class="nav-link">
             <div class="custom-control custom-switch">
