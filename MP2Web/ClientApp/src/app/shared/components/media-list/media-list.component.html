@@ -1,0 +1,23 @@
+<!-- If no series yet, show the loading template -->
+<div *ngIf="items else loading">
+
+  <!-- Setup the bootstrap grid -->
+  <div class="row card-group no-gutters mt-1">
+
+    <!-- Create each series card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
+    <div *ngFor="let item of items" [class]="itemContainerClass ? itemContainerClass : 'col-6 col-sm-4 col-lg-3'">
+
+      <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+
+    </div>
+
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</ng-template>
