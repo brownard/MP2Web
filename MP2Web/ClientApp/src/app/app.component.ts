@@ -1,7 +1,8 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { slideInAnimation } from './animations';
 import { AppConfigService } from './app-config.service';
+import { ThemeService } from './services/themes/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +13,14 @@ import { AppConfigService } from './app-config.service';
     // animation triggers go here
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
 
-  constructor(private appConfig: AppConfigService) { }
+  constructor(private appConfig: AppConfigService, private themeService: ThemeService) { }
+  
+  ngOnInit(): void {
+    this.themeService.initTheme();
+  }
 
   // Fallback that tries to stop any ongoing trancoding on the server when the page refreshes/closes
   @HostListener('window:beforeunload', ['$event'])

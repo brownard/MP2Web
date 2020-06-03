@@ -14,11 +14,8 @@
 
         <!-- Navigate to the details page on click -->
         <a (click)="showMovieDetails(movie)" [routerLink]="['/movies', movie.Id]">
-          <!-- Card container, white background, small shadow -->
-          <div class="card shadow-sm m-2">
-
-            <!-- Poster, lazily loaded when visible as a background image, .poster-card sets the correct aspect ratio --> 
-            <div class="card-img media-card poster-card" [lazyLoad]="artworkService.getMediaItemCoverUrl(movie, 0)"></div>
+          <!-- Card container, primary background, small shadow, background image lazily loaded when visible -->
+          <div class="card media-card poster-card" [lazyLoad]="artworkService.getMediaItemCoverUrl(movie, 0)">
 
             <!-- Extended information, overlays the bottom of the poster image -->
             <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">

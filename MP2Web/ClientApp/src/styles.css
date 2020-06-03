@@ -8,9 +8,19 @@ body {
   --primary-text-color: #414345;
   --secondary-text-color: #777777;
   --primary-background-color: #ffffff;
+  --primary-background-alpha: rgba(255, 255, 255, 0.85);
   --secondary-background-color: #f8f9fa;
   --star-color: #ff9d00;
 }
+
+  body.theme-dark {
+    --primary-text-color: #ffffff;
+    --secondary-text-color: #f8f9fa;
+    --primary-background-color: #414345;
+    --primary-background-alpha: rgba(65, 66, 67, 0.85);
+    --secondary-background-color: #777777;
+    --star-color: #ff9d00;
+  }
 
 body {
   background-color: var(--secondary-background-color);

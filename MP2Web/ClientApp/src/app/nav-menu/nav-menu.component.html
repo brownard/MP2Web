@@ -2,7 +2,7 @@
   <div class='container-fluid'>
 
     <a class='navbar-brand' [routerLink]='["/"]'>
-      <img src="assets/MP2Web-sm.png" alt="MP2Web">
+      <img src="assets/images/MP2Web-sm.png" alt="MP2Web">
     </a>
 
     <button type='button' class='navbar-toggler' (click)="toggle()">
@@ -43,6 +43,14 @@
           <a class="nav-link" [routerLink]='["/tv"]' (click)='collapse()'>
             <span class='fas fa-tv'></span> TV
           </a>
+        </li>
+        <li class="nav-item">
+          <div class="nav-link">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="customSwitch1" [ngModel]="isDarkMode" (ngModelChange)="toggleDarkMode($event)">
+              <label class="custom-control-label" for="customSwitch1">Dark mode</label>
+            </div>
+          </div>
         </li>
       </ul>
     </div>

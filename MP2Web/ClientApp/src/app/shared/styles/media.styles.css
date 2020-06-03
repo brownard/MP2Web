@@ -5,8 +5,12 @@
   below to set the correct aspect ratio.
 */
 .media-card {
+  margin: 0.5rem;
   background-size: cover;
   background-repeat: no-repeat;
+  background-color: var(--primary-background-color);
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  border: none;
 }
 
 /* Poster aspect ratio */
@@ -31,7 +35,7 @@
 */
 .media-card-overlay {
   padding: 0.25rem;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: var(--primary-background-alpha);
   font-family: 'Open Sans', sans-serif;
   color: var(--primary-text-color);
 }
@@ -55,7 +59,7 @@
   margin-left: auto;
   margin-right: auto;
   padding: 2rem;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: var(--primary-background-alpha);
   box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
   font-family: 'Open Sans', sans-serif;
   color: var(--primary-text-color);
