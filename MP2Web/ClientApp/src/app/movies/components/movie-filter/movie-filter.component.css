@@ -1,0 +1,7 @@
+.custom-select {
+  position: relative;
+  background-color: var(--primary-background-alpha);
+  border-color: var(--frame-color);
+  color: var(--primary-text-color);
+  height: 35px;
+}

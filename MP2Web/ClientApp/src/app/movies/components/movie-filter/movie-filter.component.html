@@ -10,7 +10,7 @@
     </select>
   </div>
 
-  <div class="col-auto">
+  <div class="col-auto" style="margin-right: 0.5em">
     <select class="custom-select" (change)="onSortOrderChanged($event.target.value)">
       <option *ngFor="let sortOrder of sortOrders" value={{sortOrder.name}} [selected]="sortOrder.order == currentOrder">
         {{sortOrder.name}}
