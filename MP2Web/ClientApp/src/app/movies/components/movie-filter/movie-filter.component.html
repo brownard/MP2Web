@@ -2,11 +2,11 @@
 
   <div class="col"></div>
 
-  <div class="col-auto mt-1 mr-1 ml-5 mb-1">
-    <span class='fas fa-th' style='font-size:24px'></span>
+  <div class="col-auto mt-1 mr-1 ml-5 mb-1 fixed-center">
+    <span class="fas fa-th" style="font-size:27px; color:var(--primary-text-color);"></span>
   </div>
 
-  <div class="col-auto">
+  <div class="col-auto fixed-center">
     <select class="custom-select" (change)="onSortFieldChanged($event.target.value)">
       <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == currentSort">
         {{sortField.name}}
@@ -14,11 +14,11 @@
     </select>
   </div>
 
-  <div class="col-auto mt-1 mr-1 ml-5 mb-1">
-    <span class="fas fa-filter" style='font-size:23px'></span>
+  <div class="col-auto mt-1 mr-1 ml-5 mb-1 fixed-center">
+    <span class="fas fa-filter" style="font-size:25px; color:var(--primary-text-color);"></span>
   </div>
 
-  <div class="col-auto">
+  <div class="col-auto fixed-center">
     <select class="custom-select" (change)="onSortFieldChanged($event.target.value)">
       <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == currentSort">
         {{sortField.name}}
@@ -26,11 +26,11 @@
     </select>
   </div>
 
-  <div class="col-auto mt-1 mr-1 ml-5 mb-1">
-    <span class='fas fa-sort' style='font-size:27px'></span>
+  <div class="col-auto mt-1 mr-1 ml-5 mb-1 fixed-center">
+    <span class="fas fa-sort" style="font-size:29px; color:var(--primary-text-color);"></span>
   </div>
 
-  <div class="col-auto">
+  <div class="col-auto fixed-center">
     <select class="custom-select" (change)="onSortFieldChanged($event.target.value)">
       <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == currentSort">
         {{sortField.name}}
@@ -38,7 +38,7 @@
     </select>
   </div>
 
-  <div class="col-auto" style="margin-right: 0.5em">
+  <div class="col-auto fixed-center" style="margin-right: 0.5em">
     <select class="custom-select" (change)="onSortOrderChanged($event.target.value)">
       <option *ngFor="let sortOrder of sortOrders" value={{sortOrder.name}} [selected]="sortOrder.order == currentOrder">
         {{sortOrder.name}}
