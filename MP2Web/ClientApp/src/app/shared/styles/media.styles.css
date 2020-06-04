@@ -9,7 +9,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-color: var(--primary-background-color);
-  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
   border: none;
 }
 
