@@ -11,6 +11,7 @@
   background-color: var(--primary-background-color);
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
   border: none;
+  overflow: hidden;
 }
 
 .media-card-img {
@@ -28,14 +29,16 @@
   -ms-transition: all 0.4s ease;
   -o-transition: all 0.4s ease;
   transition: all 0.4s ease;
+  overflow: hidden;
 }
 
 .media-card:hover .media-card-img {
-	-webkit-transform: scale(1.05);
-	-moz-transform: scale(1.05);
-	-ms-transform: scale(1.05);
-	-o-transform: scale(1.05);
-	transform: scale(1.05);
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	transform: scale(1.1);
+  -webkit-filter: brightness(130%);
 }
 
 /* Poster aspect ratio */
