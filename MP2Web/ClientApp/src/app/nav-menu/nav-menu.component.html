@@ -5,7 +5,7 @@
       <img src="assets/images/MP2Web-sm.png" alt="MP2Web">
     </a>
 
-    <button type='button' class='navbar-toggler' (click)="toggle()">
+    <button type='button_' class='navbar-toggler' (click)="toggle()" disabled>
       <span class='sr-only'>Toggle navigation</span>
       <span class='navbar-toggler-icon'></span>
     </button>
@@ -16,43 +16,43 @@
       <ul class='navbar-nav'>
         <li class="nav-item" [routerLinkActive]='["active"]' [routerLinkActiveOptions]='{ exact: true }'>
           <a class="nav-link" [routerLink]='["/"]' (click)='collapse()'>
-            <span class='fa fa-home'></span> Home
+            <span class='fa fa-home' style='margin-left:10px;'></span> Home
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]='["active"]'>
           <a class="nav-link" [routerLink]='["/movies"]' (click)='collapse()'>
-            <span class='fas fa-film'></span> Movies
+            <span class='fas fa-film' style='margin-left:10px;'></span> Movies
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]='["active"]'>
           <a class="nav-link" [routerLink]='["/series"]' (click)='collapse()'>
-            <span class='fab fa-youtube'></span> Series
+            <span class='fab fa-youtube' style='margin-left:10px;'></span> Series
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]='["active"]'>
           <a class="nav-link" [routerLink]='["/music"]' (click)='collapse()'>
-            <span class='fas fa-headphones-alt'></span> Music
+            <span class='fas fa-headphones-alt' style='margin-left:10px;'></span> Music
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]='["active"]'>
           <a class="nav-link" [routerLink]='["/images"]' (click)='collapse()'>
-            <span class='fas fa-images'></span> Images
+            <span class='fas fa-image' style='margin-left:10px;'></span> Images
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]='["active"]'>
           <a class="nav-link" [routerLink]='["/tv"]' (click)='collapse()'>
-            <span class='fas fa-tv'></span> TV
+            <span class='fas fa-tv' style='font-size: 15px; margin-left:10px;'></span> TV
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]='["active"]'>
           <a class="nav-link" [routerLink]='["/settings"]' (click)='collapse()'>
-            <span class='fa fa-cog'></span> Settings
+            <span class='fa fa-cog' style='margin-left:10px;'></span> Settings
           </a>
         </li>
 
         <li class="nav-item fixed-bottom">
           <div class="nav-link">
-            <div class="custom-control custom-switch">
+            <div class="custom-control custom-switch" style='margin-left:40px;'>
               <input type="checkbox" class="custom-control-input" id="customSwitch1" [ngModel]="isDarkMode" (ngModelChange)="toggleDarkMode($event)">
               <label class="custom-control-label" for="customSwitch1">Dark mode</label>
             </div>

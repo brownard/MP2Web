@@ -11,6 +11,7 @@ li .fa, li .fas, li .fab {
 
   .main-nav {
     height: 100%;
+    width: 100%;
   }
 
   .navbar-brand img {
@@ -35,9 +36,19 @@ li .fa, li .fas, li .fab {
     width: 100%;
   }
 
+  .navbar-collapse a:hover {
+    background-color: rgba(220,220,220,0.2);
+    color: rgba(255,255,255,1);
+  }
+
+  .active {
+    background-color: rgba(231,99,26,0.9);
+  }
+
   .navbar li {
-    font-size: 15px;
-    margin: 6px;
+    font-size: 18px;
+    margin-left: -31px;
+    margin-right: -31px;
   }
 
     .navbar li a {
