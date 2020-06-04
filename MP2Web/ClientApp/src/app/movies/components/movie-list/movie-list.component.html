@@ -10,7 +10,7 @@
     <div class="row card-group no-gutters mt-1">
 
       <!-- Create each movie card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
-      <div *ngFor="let movie of movies" class="col-6 col-sm-4 col-lg-3">
+      <div *ngFor="let movie of movies" class="col-6 col-sm-4 col-lg-3 col-xl-3">
 
         <!-- Navigate to the details page on click -->
         <a (click)="showMovieDetails(movie)" [routerLink]="['/movies', movie.Id]">

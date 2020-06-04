@@ -26,7 +26,9 @@
         <!-- Set episode to video player on click -->
         <a (click)="selectEpisode(episode)" style="cursor: pointer;">
           <!-- Card container, primary background, small shadow, background image lazily loaded when visible -->
-          <div class="card media-card thumbnail-card" [lazyLoad]="artworkService.getScreenshotUrl(episode)">
+          <div class="card media-card">
+
+          <div class="media-card-img thumbnail-card" [lazyLoad]="artworkService.getScreenshotUrl(episode)"></div>
 
             <!-- Extended information, overlays the bottom of the poster image -->
             <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
