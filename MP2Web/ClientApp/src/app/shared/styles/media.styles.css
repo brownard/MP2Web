@@ -1,4 +1,26 @@
 /*
+  Top bar, used for the filter bar, stuck to the top.
+  Leave a 60px space for the top nav menu on small screens.
+*/
+.media-top-bar {
+  z-index: 100;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 60px;
+  height: 40px;
+  background-color: var(--primary-background-alpha);
+  color: var(--primary-text-color);
+  transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* On large screens we don't need the space for the top nav menu */
+@media (min-width: 768px) {
+  .media-top-bar {
+    top: 0px;
+  }
+}
+
+/*
   Base class for a media card to be displayed
   in a grid with a covering background image.
   Use in combination with one of the classes

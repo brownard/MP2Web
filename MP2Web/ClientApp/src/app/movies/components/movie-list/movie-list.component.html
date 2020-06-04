@@ -1,7 +1,11 @@
 <div class="container">
 
-  <!-- Sort/filter bar, always visible --> 
-  <app-movie-filter></app-movie-filter>
+  <div class="media-top-bar">
+      <!-- Sort/filter bar, always visible -->
+      <app-media-list-bar [mediaListState]="movieListState$ | async" [sortFields]="sortFields"
+                          (filterChanged)="onFilterChanged($event)"></app-media-list-bar>
+
+  </div>
 
   <!-- If no movies yet, show the loading template -->
   <div *ngIf="movies$ | async as movies; else loading">

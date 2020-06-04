@@ -1,0 +1,21 @@
+
+
+/* remove the original arrow */
+select.input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  background: none;
+  border-color: var(--frame-color);
+  height: 35px;
+  color: var(--primary-text-color);
+}
+
+.input + i.fas {
+  float: right;
+  margin-top: -25px;
+  margin-right: 5px;
+  /* this is so when you click on the chevron, your click actually goes on the dropdown menu */
+  pointer-events: none;
+  padding-right: 5px;
+}

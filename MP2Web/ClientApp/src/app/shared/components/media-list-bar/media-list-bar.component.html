@@ -1,0 +1,40 @@
+<div class="form-group-sm row">
+
+  <div class="col-auto col-md"></div>
+
+  <div class="col col-md-auto ml-3">
+    <select class="form-control input" (change)="onSortFieldChanged($event.target.value)">
+      <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == mediaListState.sort">
+        {{sortField.name}}
+      </option>
+    </select>
+      <i class="fas fa-th"></i>
+  </div>
+
+  <div class="col col-md-auto ml-3 fixed-center">
+    <select class="form-control input" (change)="onSortFieldChanged($event.target.value)">
+      <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == mediaListState.sort">
+        {{sortField.name}}
+      </option>
+    </select>
+    <i class="fas fa-filter"></i>
+  </div>
+
+  <div *ngIf="sortFields" class="col col-md-auto ml-3 fixed-center">
+    <select class="form-control input" (change)="onSortFieldChanged($event.target.value)">
+      <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == mediaListState.sort">
+        {{sortField.name}}
+      </option>
+    </select>
+    <i class="fas fa-sort"></i>
+  </div>
+
+  <div *ngIf="sortOrders" class="col col-md-auto fixed-center" style="margin-right: 0.5em">
+    <select class="form-control input" (change)="onSortOrderChanged($event.target.value)">
+      <option *ngFor="let sortOrder of sortOrders" value={{sortOrder.name}} [selected]="sortOrder.order == mediaListState.order">
+        {{sortOrder.name}}
+      </option>
+    </select>
+  </div>
+
+</div>
