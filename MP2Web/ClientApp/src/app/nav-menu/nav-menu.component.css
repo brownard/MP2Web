@@ -2,8 +2,20 @@
   height: 1.5em;
 }
 
-li .fa, li .fas, li .fab {
+.navbar .nav-link .fa,
+.navbar .nav-link .fas,
+.navbar .nav-link .fab {
+  margin-left: 10px;
   margin-right: 10px;
+}
+
+.navbar-collapse a:hover {
+  background-color: rgba(220,220,220,0.2);
+  color: white;
+}
+
+.active {
+  background-color: var(--star-color);
 }
 
 /* On large screens, convert the nav menu to a vertical sidebar */
@@ -11,11 +23,14 @@ li .fa, li .fas, li .fab {
 
   .main-nav {
     height: 100%;
+    width: 100%;
+    padding: 0px;
   }
 
   .navbar .container-fluid {
     flex-direction: column;
     height: 100%;
+    padding: 0px;
     border-radius: 0px;
     border-width: 0px;
   }
@@ -31,6 +46,7 @@ li .fa, li .fas, li .fab {
     border-top: 1px solid #444;
     padding: 0px;
     height: 100%;
+    width: 100%;
   }
 
   .navbar .navbar-nav {
@@ -38,19 +54,8 @@ li .fa, li .fas, li .fab {
     width: 100%;
   }
 
-  .navbar-collapse a:hover {
-    background-color: rgba(220,220,220,0.2);
-    color: white;
-  }
-
-  .active {
-    background-color: var(--star-color);
-  }
-
   .navbar .nav-item {
     font-size: 18px;
-    margin-left: -31px;
-    margin-right: -31px;
   }
 
   .navbar .nav-link {
