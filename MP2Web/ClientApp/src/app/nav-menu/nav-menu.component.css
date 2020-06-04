@@ -61,7 +61,6 @@
   .navbar .nav-link {
     /* If a menu item's text is too long, truncate it */
     width: 100%;
-    font-size: 15px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
