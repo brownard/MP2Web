@@ -49,16 +49,15 @@
             <span class='fa fa-cog' style='margin-left:10px;'></span> Settings
           </a>
         </li>
-
-        <li class="nav-item fixed-bottom">
+      </ul>
+      <div class="navbar-nav mt-4">
           <div class="nav-link">
             <div class="custom-control custom-switch" style='margin-left:40px;'>
               <input type="checkbox" class="custom-control-input" id="customSwitch1" [ngModel]="isDarkMode" (ngModelChange)="toggleDarkMode($event)">
               <label class="custom-control-label" for="customSwitch1">Dark mode</label>
-            </div>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

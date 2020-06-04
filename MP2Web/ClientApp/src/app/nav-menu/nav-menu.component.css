@@ -13,24 +13,27 @@ li .fa, li .fas, li .fab {
     height: 100%;
   }
 
+  .navbar .container-fluid {
+    flex-direction: column;
+    height: 100%;
+    border-radius: 0px;
+    border-width: 0px;
+  }
+
   .navbar-brand img {
     width: 102px;
     height: auto;
   }
 
-  .navbar .container-fluid {
-    border-radius: 0px;
-    border-width: 0px;
-    height: 100%;
-    display: block;
-  }
-
   .navbar-collapse {
+    flex-direction: column;
+    justify-content:space-between;
     border-top: 1px solid #444;
     padding: 0px;
+    height: 100%;
   }
 
-  .navbar ul {
+  .navbar .navbar-nav {
     display: block;
     width: 100%;
   }
@@ -44,17 +47,18 @@ li .fa, li .fas, li .fab {
     background-color: var(--star-color);
   }
 
-  .navbar li {
+  .navbar .nav-item {
     font-size: 18px;
     margin-left: -31px;
     margin-right: -31px;
   }
 
-    .navbar li a {
-      /* If a menu item's text is too long, truncate it */
-      width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+  .navbar .nav-link {
+    /* If a menu item's text is too long, truncate it */
+    width: 100%;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
