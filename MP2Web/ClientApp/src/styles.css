@@ -10,7 +10,7 @@ body {
   --primary-background-color: #ffffff;
   --primary-background-alpha: rgba(255, 255, 255, 0.85);
   --secondary-background-color: #f8f9fa;
-  --star-color: #ff9d00;
+  --star-color: rgba(231,99,26,0.9);
   --frame-color: #ced4da;
 }
 

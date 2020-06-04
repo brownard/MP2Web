@@ -37,11 +37,11 @@ li .fa, li .fas, li .fab {
 
   .navbar-collapse a:hover {
     background-color: rgba(220,220,220,0.2);
-    color: rgba(255,255,255,1);
+    color: white;
   }
 
   .active {
-    background-color: rgba(231,99,26,0.9);
+    background-color: var(--star-color);
   }
 
   .navbar li {
