@@ -1,3 +1,7 @@
+.main-nav {
+  padding: 0px;
+}
+
 .navbar-brand img {
   height: 1.5em;
 }
@@ -7,6 +11,10 @@
 .navbar .nav-link .fab {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.navbar .nav-link .custom-control {
+  margin-left: 4px;
 }
 
 .navbar-collapse a:hover {
@@ -24,7 +32,6 @@
   .main-nav {
     height: 100%;
     width: 100%;
-    padding: 0px;
   }
 
   .navbar .container-fluid {
