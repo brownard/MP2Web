@@ -8,7 +8,6 @@
   position: relative;
   border-radius: 3px;
   border-radius: 3px;
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
 }
 
 .dropdown {
@@ -53,4 +52,5 @@
 
 .dropdown:hover .dropbtn {
   color: var(--primary-text-color);
+  background-color: var(--hover-overlay-stronger-color);
   }
