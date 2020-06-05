@@ -2,6 +2,8 @@
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
+@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
+@import url('http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css');
 
 /* Variables used to alter the color pallet throughout the app */
 body {
@@ -11,7 +13,8 @@ body {
   --primary-background-alpha: rgba(255, 255, 255, 0.85);
   --secondary-background-color: #f8f9fa;
   --star-color: rgba(231,99,26,0.9);
-  --frame-color: #ced4da;
+  --hover-overlay-color: rgba(110,110,110,0.2);
+  --button-color: rgba(0,0,0,0.1);
 }
 
   body.theme-dark {
@@ -21,7 +24,8 @@ body {
     --primary-background-alpha: rgba(65, 66, 67, 0.85);
     --secondary-background-color: #777777;
     --star-color: rgba(231,99,26,0.9);
-    --frame-color: #888888;
+    --hover-overlay-color: rgba(220,220,220,0.2);
+    --button-color: rgba(0,0,0,0.4);
   }
 
 body {
