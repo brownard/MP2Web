@@ -2,20 +2,40 @@
 
   <div class="col"></div>
 
-  <div class="col-auto">
-    <select class="custom-select" (change)="onSortFieldChanged($event.target.value)">
-      <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == currentSort">
-        {{sortField.name}}
-      </option>
-    </select>
+  <div class="dropdown">
+    <button class="dropbtn" style="height:30px">
+        <div class="fas fa-th ml-n3" style="font-size:16px;  padding:5px"></div>
+    </button>
+    <div class="dropdown-content">
+      <a *ngFor="let sortField of sortFields" [ngClass]="{ 'active': sortField.field == currentSort}">{{sortField.name}}</a>
+    </div>
   </div>
 
-  <div class="col-auto">
-    <select class="custom-select" (change)="onSortOrderChanged($event.target.value)">
-      <option *ngFor="let sortOrder of sortOrders" value={{sortOrder.name}} [selected]="sortOrder.order == currentOrder">
-        {{sortOrder.name}}
-      </option>
-    </select>
+  <div class="dropdown">
+    <button class="dropbtn" style="height:30px">
+        <div class="fas fa-filter ml-n3" style="font-size:16px; padding:5px"></div>
+    </button>
+    <div class="dropdown-content">
+      <a *ngFor="let sortField of sortFields" [ngClass]="{ 'active': sortField.field == currentSort}">{{sortField.name}}</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn" style="height:30px">
+        <div class="fas fa-sort ml-n3" style="font-size:20px; padding:5px"></div>
+    </button>
+    <div class="dropdown-content">
+      <a *ngFor="let sortField of sortFields" [ngClass]="{ 'active': sortField.field == currentSort}">{{sortField.name}}</a>
+    </div>
+  </div>
+
+  <div class="dropdown">
+    <button class="dropbtn" style="height:30px">
+        <div class="fa fa-sort-alpha-asc ml-n3" style="font-size:16px; padding:5px"></div>
+    </button>
+    <div class="dropdown-content">
+      <a *ngFor="let sortOrder of sortOrders" [ngClass]="{ 'active': sortOrder.order == currentOrder}">{{sortOrder.name}}</a>
+    </div>
   </div>
 
 </div>
