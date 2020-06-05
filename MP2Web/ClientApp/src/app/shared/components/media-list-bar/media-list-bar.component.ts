@@ -14,7 +14,7 @@ export class MediaListBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Input() mediaListState: MediaListState;
+  @Input() mediaListState: MediaListState = { search: '', sort: WebSortField.Title, order: WebSortOrder.Asc };
 
   @Input() sortFields: { name: string, field: WebSortField }[];
 

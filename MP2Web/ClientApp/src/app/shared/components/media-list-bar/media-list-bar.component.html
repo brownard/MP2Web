@@ -1,40 +1,41 @@
-<div class="form-group-sm row">
+<div class="form-row mt-1">
 
-  <div class="col-auto col-md"></div>
+  <div class="col"></div>
 
-  <div class="col col-md-auto ml-3">
-    <select class="form-control input" (change)="onSortFieldChanged($event.target.value)">
-      <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == mediaListState.sort">
-        {{sortField.name}}
-      </option>
-    </select>
-      <i class="fas fa-th"></i>
+  <div class="dropdown">
+    <button class="dropbtn" style="height:30px">
+      <div class="fas fa-th ml-n3" style="font-size:16px;  padding:5px"></div>
+    </button>
+    <div class="dropdown-content">
+      <a *ngFor="let sortField of sortFields" [ngClass]="{ 'active': sortField.field == mediaListState.sort}">{{sortField.name}}</a>
+    </div>
   </div>
 
-  <div class="col col-md-auto ml-3 fixed-center">
-    <select class="form-control input" (change)="onSortFieldChanged($event.target.value)">
-      <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == mediaListState.sort">
-        {{sortField.name}}
-      </option>
-    </select>
-    <i class="fas fa-filter"></i>
+  <div class="dropdown">
+    <button class="dropbtn" style="height:30px">
+      <div class="fas fa-filter ml-n3" style="font-size:16px; padding:5px"></div>
+    </button>
+    <div class="dropdown-content">
+      <a *ngFor="let sortField of sortFields" [ngClass]="{ 'active': sortField.field == mediaListState.sort}">{{sortField.name}}</a>
+    </div>
   </div>
 
-  <div *ngIf="sortFields" class="col col-md-auto ml-3 fixed-center">
-    <select class="form-control input" (change)="onSortFieldChanged($event.target.value)">
-      <option *ngFor="let sortField of sortFields" value={{sortField.name}} [selected]="sortField.field == mediaListState.sort">
-        {{sortField.name}}
-      </option>
-    </select>
-    <i class="fas fa-sort"></i>
+  <div class="dropdown">
+    <button class="dropbtn" style="height:30px">
+      <div class="fas fa-sort ml-n3" style="font-size:20px; padding:5px"></div>
+    </button>
+    <div class="dropdown-content">
+      <a *ngFor="let sortField of sortFields" (click)="onSortFieldChanged(sortField.name)" [ngClass]="{ 'active': sortField.field == mediaListState.sort}">{{sortField.name}}</a>
+    </div>
   </div>
 
-  <div *ngIf="sortOrders" class="col col-md-auto fixed-center" style="margin-right: 0.5em">
-    <select class="form-control input" (change)="onSortOrderChanged($event.target.value)">
-      <option *ngFor="let sortOrder of sortOrders" value={{sortOrder.name}} [selected]="sortOrder.order == mediaListState.order">
-        {{sortOrder.name}}
-      </option>
-    </select>
+  <div class="dropdown">
+    <button class="dropbtn" style="height:30px">
+      <div class="fa fa-sort-alpha-asc ml-n3" style="font-size:16px; padding:5px"></div>
+    </button>
+    <div class="dropdown-content">
+      <a *ngFor="let sortOrder of sortOrders" (click)="onSortOrderChanged(sortOrder.name)" [ngClass]="{ 'active': sortOrder.order == mediaListState.order}">{{sortOrder.name}}</a>
+    </div>
   </div>
 
 </div>
