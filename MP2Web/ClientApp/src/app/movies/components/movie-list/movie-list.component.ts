@@ -15,9 +15,8 @@ import * as MoviesStore from '../../store/movies.store';
     '../../../shared/styles/media.styles.css'
   ]
 })
-export class MovieListComponent implements OnInit, OnDestroy {
-
-  private moviesStateSubscription$: Subscription;
+export class MovieListComponent {
+  
   public movies$: Observable<WebMovieDetailed[]>;
   public movieListState$: Observable<MediaListState>
 
@@ -29,24 +28,16 @@ export class MovieListComponent implements OnInit, OnDestroy {
   ];
 
   constructor(public artworkService: ArtworkService, private store: Store) {
-    this.moviesStateSubscription$ = this.store.select(MoviesStore.MovieSelectors.selectState)
-      .subscribe(state =>
-        this.store.dispatch(MoviesStore.MovieActions.getItems()));
 
-    this.movieListState$ = this.store.select(MoviesStore.MovieSelectors.selectState)
-      .pipe(
-        map(s => { return { search: s.currentFilter, sort: s.currentSort, order: s.currentOrder } })
-      );
+    this.movieListState$ = this.store.select(MoviesStore.MovieSelectors.selectState).pipe(
+      map(s => {
+        this.store.dispatch(MoviesStore.MovieActions.getItems());
+        return { search: s.currentFilter, sort: s.currentSort, order: s.currentOrder };
+      })
+    );
 
+    this.store.dispatch(MoviesStore.MovieActions.getItems());
     this.movies$ = this.store.select(MoviesStore.MovieSelectors.selectCurrentItems);
-  }
-
-  ngOnInit(): void {
-    //this.store.dispatch(MoviesActions.getMovies('', WebSortField.Title, WebSortOrder.Asc));
-  }
-
-  ngOnDestroy(): void {
-    this.moviesStateSubscription$.unsubscribe();
   }
 
   public onFilterChanged(mediaListState: MediaListState) {
