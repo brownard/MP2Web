@@ -1,7 +1,7 @@
 
 .dropbtn {
-  background-color: var(--button-color);
-  color: var(--primary-text-color);
+  background-color: var(--button-background-color);
+  color: var(--button-color);
   padding-left: 23px;
   border: none;
   position: relative;
@@ -25,7 +25,7 @@
 }
 
 .dropdown-content a {
-  color: var(--primary-text-color);
+  color: var(--button-color);
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -34,6 +34,7 @@
 
 .dropdown-content a:hover {
   background-color: var(--hover-overlay-color);
+  color: var(--primary-text-color);
   }
 
 .dropdown-content a.active {
@@ -46,4 +47,5 @@
 }
 
 .dropdown:hover .dropbtn {
+  color: var(--primary-text-color);
   }

@@ -14,7 +14,8 @@ body {
   --secondary-background-color: #f8f9fa;
   --star-color: rgba(231,99,26,0.9);
   --hover-overlay-color: rgba(110,110,110,0.2);
-  --button-color: rgba(0,0,0,0.1);
+  --button-background-color: rgba(0,0,0,0.1);
+  --button-color: rgba(0,0,0,0.5);
 }
 
   body.theme-dark {
@@ -25,7 +26,8 @@ body {
     --secondary-background-color: #777777;
     --star-color: rgba(231,99,26,0.9);
     --hover-overlay-color: rgba(220,220,220,0.2);
-    --button-color: rgba(0,0,0,0.4);
+    --button-background-color: rgba(0,0,0,0.4);
+    --button-color: rgba(255,255,255,0.6);
   }
 
 body {
