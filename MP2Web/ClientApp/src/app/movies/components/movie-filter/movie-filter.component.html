@@ -31,7 +31,7 @@
 
   <div class="dropdown">
     <button class="dropbtn" style="height:30px">
-        <div class="ml-n3" style="font-size:16px; padding:5px"></div>
+        <div class="fa fa-sort-alpha-asc ml-n3" style="font-size:16px; padding:5px"></div>
     </button>
     <div class="dropdown-content">
       <a *ngFor="let sortOrder of sortOrders" [ngClass]="{ 'active': sortOrder.order == currentOrder}">{{sortOrder.name}}</a>
