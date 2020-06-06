@@ -66,7 +66,7 @@ export class BackgroundArtworkComponent implements OnInit, AfterViewInit, OnDest
     if (newUrl === this.nextUrl)
       return;
 
-    this.nextUrl = this.getImageUrl();
+    this.nextUrl = newUrl;
     if (this.nextUrl)
       this.loadImageAsync();
     else
