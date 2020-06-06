@@ -1,6 +1,10 @@
+<app-background-artwork [mediaType]="0" [fileType]="1" [imageWidth]="1024" [imageHeight]="768"
+                        [itemId]="(series$ | async)?.Id">
+</app-background-artwork>
+
 <div *ngIf="series$ | async as series; else loading" class="container p-0">
 
-  <div class="media-details-container">
+  <div class="media-details-container" style="border-radius:3px; box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.4); margin-top:15px; background-color: var(--primary-background-alpha-stronger);">
 
     <div class="row">
       <div class="col-4 col-lg-auto">
