@@ -4,7 +4,7 @@
 
 <div *ngIf="movie$ | async as movie; else loading" class="container-fluid p-0">
 
-  <div class="media-details-container" style="border-radius:3px; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);">
+  <div class="media-details-container" style="border-radius:3px; box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.4); margin-top:15px; background-color: var(--primary-background-alpha-stronger);">
 
     <div class="row">
       <div class="col-4 col-lg-auto">
@@ -19,6 +19,9 @@
           <p>{{movie.Runtime}} minutes</p>
         </div>
       </div>
+      
+<!--div class="col" [lazyLoad]="artworkService.getArtworkUrl(0, movie.Id, 5, 0, 300, 170)" style="background-size: cover;"></div-->
+
     </div>
 
     <div class="row media-summary mt-1">
