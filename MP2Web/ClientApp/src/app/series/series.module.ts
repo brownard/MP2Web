@@ -7,7 +7,6 @@ import { SharedModule } from '../shared/shared.module';
 import { VideoPlayerModule } from '../video-player/video-player.module';
 import { SeasonDetailsComponent } from './components/season-details/season-details.component';
 import { SeriesDetailsComponent } from './components/series-details/series-details.component';
-import { SeriesFilterComponent } from './components/series-filter/series-filter.component';
 import { SeriesListComponent } from './components/series-list/series-list.component';
 import { SeriesEffects } from './store/series.effects';
 import * as SeriesStore from './store/series.store';
@@ -16,7 +15,6 @@ import * as SeriesStore from './store/series.store';
   declarations: [
     SeriesListComponent,
     SeriesDetailsComponent,
-    SeriesFilterComponent,
     SeasonDetailsComponent
   ],
   imports: [
