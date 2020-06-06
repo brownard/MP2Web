@@ -1,14 +1,14 @@
 <div *ngIf="movie$ | async as movie; else loading" class="container-fluid p-0">
 
-  <div class="media-details-container">
+  <div class="media-details-container" style="border-radius:3px; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);">
 
     <div class="row">
       <div class="col-4 col-lg-auto">
-        <img [src]="artworkService.getMediaItemCoverUrl(movie, 0)" class="img-fluid w-100" />
+        <img [src]="artworkService.getMediaItemCoverUrl(movie, 0)" class="img-fluid w-100" style="border-radius: 3px; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);" />
       </div>
       <div class="col">
-        <h6 class="media-title">{{movie.Title}}</h6>
-        <div class="metadata">
+        <h6 class="media-title" style="font-size: 18px;">{{movie.Title}}</h6>
+        <div class="metadata" style="font-size: 14px; opacity:0.8">
           <app-star-rating [rating]="movie.Rating | number: '1.0-0'" class="star"></app-star-rating>
           <span class="text-truncate ml-2">{{movie.Rating | number: '1.0-0'}}/10</span>
           <p>{{movie.Year}}</p>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="row media-summary mt-1">
-      <div class="col">{{movie.Summary}}</div>
+      <div class="col" style="opacity:0.8">{{movie.Summary}}</div>
     </div>
 
     <div class="row mt-1">
@@ -30,28 +30,28 @@
         <table class="table metadata">
           <tbody>
             <tr>
-              <th scope="row">Genres</th>
-              <td>{{movie.Genres.join(', ')}}</td>
+              <th scope="row" class="fas fa-theater-masks" style="width:90px;"> Genres</th>
+              <td style="opacity:0.8">{{movie.Genres.join(', ')}}</td>
             </tr>
             <tr>
-              <th scope="row">Actors</th>
-              <td>{{mapProperty(movie.Actors, 'Title').join(', ')}}</td>
+              <th scope="row" class="fas fa-user" style="width:90px;"> Actors</th>
+              <td style="opacity:0.8">{{mapProperty(movie.Actors, 'Title').join(', ')}}</td>
             </tr>
             <tr>
-              <th scope="row">Director</th>
-              <td>{{movie.Directors.join(', ')}}</td>
+              <th scope="row" class="fas fa-user-tie" style="width:90px;"> Director</th>
+              <td style="opacity:0.8">{{movie.Directors.join(', ')}}</td>
             </tr>
             <tr>
-              <th scope="row">Writers</th>
-              <td>{{movie.Directors.join(', ')}}</td>
+              <th scope="row" class="fas fa-user-tag" style="width:90px;"> Writers</th>
+              <td style="opacity:0.8">{{movie.Writers.join(', ')}}</td>
             </tr>
             <tr>
-              <th scope="row">Language</th>
-              <td>{{movie.Language}}</td>
+              <th scope="row" class="fa fa-commenting" style="width:90px;"> Language</th>
+              <td style="opacity:0.8">{{movie.Language}}</td>
             </tr>
             <tr>
-              <th scope="row">Id</th>
-              <td>{{movie.Id}}</td>
+              <th scope="row" class="fa fa-hashtag" style="width:90px;"> Id</th>
+              <td style="opacity:0.8">{{movie.Id}}</td>
             </tr>
           </tbody>
         </table>
