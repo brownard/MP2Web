@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MediaListState } from 'src/app/shared/components/media-list-bar/media-list.state';
+import { MediaListState } from 'src/app/shared/components/media-list-filter/media-list.state';
 import { WebMovieDetailed, WebSortField } from '../../../models/web-media-items';
 import { ArtworkService } from '../../../services/artwork.service';
 import * as MoviesStore from '../../store/movies.store';
@@ -18,7 +18,7 @@ import * as MoviesStore from '../../store/movies.store';
 export class MovieListComponent {
   
   public movies$: Observable<WebMovieDetailed[]>;
-  public movieListState$: Observable<MediaListState>
+  public movieListState$: Observable<MediaListState>;
 
   sortFields = [
     { name: 'Title', field: WebSortField.Title },

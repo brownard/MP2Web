@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MediaListBarComponent } from './media-list-bar.component';
+import { MediaListFilterComponent } from './media-list-filter.component';
 
-describe('MediaListBarComponent', () => {
-  let component: MediaListBarComponent;
-  let fixture: ComponentFixture<MediaListBarComponent>;
+describe('MediaListFilterComponent', () => {
+  let component: MediaListFilterComponent;
+  let fixture: ComponentFixture<MediaListFilterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MediaListBarComponent ]
+      declarations: [MediaListFilterComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MediaListBarComponent);
+    fixture = TestBed.createComponent(MediaListFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

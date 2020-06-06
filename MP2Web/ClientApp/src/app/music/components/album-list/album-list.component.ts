@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { WebMusicAlbumBasic } from 'src/app/models/web-media-items';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { WebMusicAlbumBasic, WebSortField } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
+import { MediaListState } from 'src/app/shared/components/media-list-filter/media-list.state';
 import * as MusicAlbumStore from '../../store/music.store';
 
 @Component({
@@ -13,24 +15,33 @@ import * as MusicAlbumStore from '../../store/music.store';
     '../../../shared/styles/media.styles.css'
   ]
 })
-export class AlbumListComponent implements OnInit, OnDestroy {
-
-  private albumStateSubscription$: Subscription;
+export class AlbumListComponent {
+  
   public albums$: Observable<WebMusicAlbumBasic[]>;
+  public albumListState$: Observable<MediaListState>;
+
+  sortFields = [
+    { name: 'Title', field: WebSortField.Title },
+    { name: 'Date Added', field: WebSortField.DateAdded },
+    { name: 'Rating', field: WebSortField.Rating },
+    { name: 'Year', field: WebSortField.Year }
+  ];
 
   constructor(public artworkService: ArtworkService, private store: Store) {
-    this.albumStateSubscription$ = this.store.select(MusicAlbumStore.MusicAlbumSelectors.selectState)
-      .subscribe(state =>
-        this.store.dispatch(MusicAlbumStore.MusicAlbumActions.getItems()));
 
+    this.albumListState$ = this.store.select(MusicAlbumStore.MusicAlbumSelectors.selectState).pipe(
+      map(s => {
+        this.store.dispatch(MusicAlbumStore.MusicAlbumActions.getItems());
+        return { search: s.currentFilter, sort: s.currentSort, order: s.currentOrder };
+      })
+    );
+
+    this.store.dispatch(MusicAlbumStore.MusicAlbumActions.getItems());
     this.albums$ = this.store.select(MusicAlbumStore.MusicAlbumSelectors.selectCurrentItems);
   }
 
-  ngOnInit(): void {
-  }
-
-  ngOnDestroy(): void {
-    this.albumStateSubscription$.unsubscribe();
+  public onFilterChanged(mediaListState: MediaListState) {
+    this.store.dispatch(MusicAlbumStore.MusicAlbumActions.setItemsFilter(mediaListState.search, mediaListState.sort, mediaListState.order));
   }
 
   public showAlbumDetails(album: WebMusicAlbumBasic) {

@@ -2,8 +2,8 @@
 
   <div class="media-top-bar">
       <!-- Sort/filter bar, always visible -->
-      <app-media-list-bar [mediaListState]="movieListState$ | async" [sortFields]="sortFields"
-                          (filterChanged)="onFilterChanged($event)"></app-media-list-bar>
+      <app-media-list-filter [mediaListState]="movieListState$ | async" [sortFields]="sortFields"
+                             (filterChanged)="onFilterChanged($event)"></app-media-list-filter>
 
   </div>
 

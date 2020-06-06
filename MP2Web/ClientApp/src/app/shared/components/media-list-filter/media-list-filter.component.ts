@@ -3,11 +3,11 @@ import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
 import { MediaListState } from './media-list.state';
 
 @Component({
-  selector: 'app-media-list-bar',
-  templateUrl: './media-list-bar.component.html',
-  styleUrls: ['./media-list-bar.component.css']
+  selector: 'app-media-list-filter',
+  templateUrl: './media-list-filter.component.html',
+  styleUrls: ['./media-list-filter.component.css']
 })
-export class MediaListBarComponent implements OnInit {
+export class MediaListFilterComponent implements OnInit {
 
   constructor() { }
 

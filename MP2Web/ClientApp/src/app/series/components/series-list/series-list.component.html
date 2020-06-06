@@ -1,14 +1,18 @@
 <div class="container">
 
-  <!-- Sort/filter bar, always visible -->
-  <app-series-filter></app-series-filter>
+  <div class="media-top-bar">
+    <!-- Sort/filter bar, always visible -->
+    <app-media-list-filter [mediaListState]="seriesListState$ | async" [sortFields]="sortFields"
+                           (filterChanged)="onFilterChanged($event)"></app-media-list-filter>
+
+  </div>
 
   <!-- If no series yet, show the loading template -->
   <div *ngIf="series$ | async as series; else loading">
 
     <!-- Setup the bootstrap grid -->
     <div class="row card-group no-gutters mt-1">
-      
+
       <!-- Create each series card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
       <div *ngFor="let serie of series" class="col-6 col-sm-4 col-lg-3">
 
@@ -17,7 +21,7 @@
           <!-- Card container, primary background, small shadow, background image lazily loaded when visible -->
           <div class="card media-card">
 
-          <div class="media-card-img poster-card" [lazyLoad]="artworkService.getCoverUrl(5, serie.Id, 0)"></div>
+            <div class="media-card-img poster-card" [lazyLoad]="artworkService.getCoverUrl(5, serie.Id, 0)"></div>
 
             <!-- Extended information, overlays the bottom of the poster image -->
             <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">

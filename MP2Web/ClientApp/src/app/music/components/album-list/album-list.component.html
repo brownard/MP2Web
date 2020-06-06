@@ -1,7 +1,11 @@
 <div class="container">
 
-  <!-- Sort/filter bar, always visible -->
-  <!--<app-album-filter></app-album-filter>-->
+  <div class="media-top-bar">
+    <!-- Sort/filter bar, always visible -->
+    <app-media-list-filter [mediaListState]="albumListState$ | async" [sortFields]="sortFields"
+                           (filterChanged)="onFilterChanged($event)"></app-media-list-filter>
+
+  </div>
 
   <!-- If no items yet, show the loading template -->
   <div *ngIf="albums$ | async as albums; else loading">
