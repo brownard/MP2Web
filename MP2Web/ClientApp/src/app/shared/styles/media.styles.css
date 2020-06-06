@@ -1,6 +1,6 @@
 /*
   Top bar, used for the filter bar, stuck to the top.
-  Leave a 60px space for the top nav menu on small screens.
+  Leave a space for the top nav menu on small screens.
 */
 .media-top-bar {
   z-index: 100;
