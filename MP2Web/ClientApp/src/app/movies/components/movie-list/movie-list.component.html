@@ -1,3 +1,7 @@
+<app-background-artwork #fanartBackground
+                        [mediaType]="0" [fileType]="1" [imageWidth]="1024" [imageHeight]="768">
+</app-background-artwork>
+
 <div class="container">
 
   <div class="media-top-bar">
@@ -17,7 +21,7 @@
       <div *ngFor="let movie of movies" class="col-6 col-sm-4 col-lg-3 col-xl-3">
 
         <!-- Navigate to the details page on click -->
-        <a (click)="showMovieDetails(movie)" [routerLink]="['/movies', movie.Id]">
+        <a (click)="showMovieDetails(movie)" (mouseover)="fanartBackground.itemId = movie.Id" [routerLink]="['/movies', movie.Id]">
           <!-- Card container, primary background, small shadow, background image lazily loaded when visible -->
           <div class="card media-card">
 

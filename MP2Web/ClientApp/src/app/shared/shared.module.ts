@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { NgModule } from '@angular/core';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-import { MediaListComponent } from './components/media-list/media-list.component';
+import { BackgroundArtworkComponent } from './components/background-artwork/background-artwork.component';
 import { MediaListFilterComponent } from './components/media-list-filter/media-list-filter.component';
-import { ArtworkDirective } from './directives/artwork.directive';
+import { MediaListComponent } from './components/media-list/media-list.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
     StarRatingComponent,
     MediaListComponent,
     MediaListFilterComponent,
-    ArtworkDirective
+    BackgroundArtworkComponent
   ],
   imports: [
     CommonModule
@@ -21,7 +21,7 @@ import { ArtworkDirective } from './directives/artwork.directive';
     StarRatingComponent,
     MediaListComponent,
     MediaListFilterComponent,
-    ArtworkDirective
+    BackgroundArtworkComponent
   ]
 })
 export class SharedModule { }

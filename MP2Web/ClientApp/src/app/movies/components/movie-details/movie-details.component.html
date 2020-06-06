@@ -1,3 +1,7 @@
+<app-background-artwork [mediaType]="0" [fileType]="1" [imageWidth]="1024" [imageHeight]="768"
+                        [itemId]="(movie$ | async)?.Id">
+</app-background-artwork>
+
 <div *ngIf="movie$ | async as movie; else loading" class="container-fluid p-0">
 
   <div class="media-details-container" style="border-radius:3px; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);">
