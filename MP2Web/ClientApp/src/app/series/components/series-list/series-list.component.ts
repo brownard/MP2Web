@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MediaListState } from 'src/app/shared/components/media-list-filter/media-list.state';
-import { WebSortField, WebTVShowDetailed } from '../../../models/web-media-items';
+import { ListState } from 'src/app/media/store/media.state';
+import { WebTVShowDetailed } from '../../../models/web-media-items';
 import { ArtworkService } from '../../../services/artwork.service';
-import * as SeriesStore from '../../store/series.store';
+import { SeriesService, seriesSortFields } from '../../services/series.service';
 
 @Component({
   selector: 'app-series-list',
@@ -18,33 +16,21 @@ import * as SeriesStore from '../../store/series.store';
 export class SeriesListComponent {
   
   public series$: Observable<WebTVShowDetailed[]>;
-  public seriesListState$: Observable<MediaListState>;
+  public seriesListState$: Observable<ListState>;
 
-  sortFields = [
-    { name: 'Title', field: WebSortField.Title },
-    { name: 'Date Added', field: WebSortField.DateAdded },
-    { name: 'Rating', field: WebSortField.Rating },
-    { name: 'Year', field: WebSortField.Year }
-  ];
+  sortFields = seriesSortFields;
 
-  constructor(public artworkService: ArtworkService, private store: Store) {
+  constructor(public artworkService: ArtworkService, private seriesService: SeriesService) {
 
-    this.seriesListState$ = this.store.select(SeriesStore.SeriesSelectors.selectState).pipe(
-      map(s => {
-        this.store.dispatch(SeriesStore.SeriesActions.getItems());
-        return { search: s.currentFilter, sort: s.currentSort, order: s.currentOrder };
-      })
-    );
-
-    this.store.dispatch(SeriesStore.SeriesActions.getItems());
-    this.series$ = this.store.select(SeriesStore.SeriesSelectors.selectCurrentItems);
+    this.seriesListState$ = this.seriesService.getSeriesListState();
+    this.series$ = this.seriesService.getSeries();
   }
 
-  public onFilterChanged(mediaListState: MediaListState) {
-    this.store.dispatch(SeriesStore.SeriesActions.setItemsFilter(mediaListState.search, mediaListState.sort, mediaListState.order));
+  public onFilterChanged(state: ListState) {
+    this.seriesService.setSeriesListState(state);
   }
 
   public showSeriesDetails(series: WebTVShowDetailed) {
-    this.store.dispatch(SeriesStore.SeriesActions.setSelectedItem(series));
+    this.seriesService.setSelectedSeries(series);
   }
 }

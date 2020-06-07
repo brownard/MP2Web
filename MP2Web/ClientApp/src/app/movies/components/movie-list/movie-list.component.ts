@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MediaListState } from 'src/app/shared/components/media-list-filter/media-list.state';
-import { WebMovieDetailed, WebSortField } from '../../../models/web-media-items';
+import { ListState } from 'src/app/media/store/media.state';
+import { WebMovieDetailed } from '../../../models/web-media-items';
 import { ArtworkService } from '../../../services/artwork.service';
-import * as MoviesStore from '../../store/movies.store';
+import { movieSortFields, MovieService } from '../../services/movie.service';
 
 @Component({
   selector: 'app-movie-list',
@@ -18,34 +16,20 @@ import * as MoviesStore from '../../store/movies.store';
 export class MovieListComponent {
   
   public movies$: Observable<WebMovieDetailed[]>;
-  public movieListState$: Observable<MediaListState>;
+  public movieListState$: Observable<ListState>;
 
-  sortFields = [
-    { name: 'Title', field: WebSortField.Title },
-    { name: 'Date Added', field: WebSortField.DateAdded },
-    { name: 'Rating', field: WebSortField.Rating },
-    { name: 'Year', field: WebSortField.Year }
-  ];
+  sortFields = movieSortFields;
 
-  constructor(public artworkService: ArtworkService, private store: Store) {
-
-    this.movieListState$ = this.store.select(MoviesStore.MovieSelectors.selectState).pipe(
-      map(s => {
-        this.store.dispatch(MoviesStore.MovieActions.getItems());
-        return { search: s.currentFilter, sort: s.currentSort, order: s.currentOrder };
-      })
-    );
-
-    this.store.dispatch(MoviesStore.MovieActions.getItems());
-    this.movies$ = this.store.select(MoviesStore.MovieSelectors.selectCurrentItems);
+  constructor(public artworkService: ArtworkService, private moviesService: MovieService) {
+    this.movieListState$ = this.moviesService.getMoviesListState();
+    this.movies$ = this.moviesService.getMovies();
   }
 
-  public onFilterChanged(mediaListState: MediaListState) {
-    this.store.dispatch(MoviesStore.MovieActions.setItemsFilter(mediaListState.search, mediaListState.sort, mediaListState.order));
+  public onFilterChanged(state: ListState) {
+    this.moviesService.setMoviesListState(state);
   }
 
   public showMovieDetails(movie: WebMovieDetailed) {
-    this.store.dispatch(MoviesStore.MovieActions.setSelectedItem(movie));
-    //this.router.navigate(['/movies', movie.Id]);
+    this.moviesService.setSelectedMovie(movie);
   }
 }

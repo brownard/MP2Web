@@ -10,7 +10,7 @@ export class MediaSelectors<T> {
     this.selectState,
     (state: MediaState<T>) => {
       return {
-        currentFIter: state.currentFilter,
+        currentFilter: state.currentFilter,
         currentSort: state.currentSort,
         currentOrder: state.currentOrder
       }

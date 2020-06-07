@@ -2,7 +2,7 @@
 
   <div class="media-top-bar">
     <!-- Sort/filter bar, always visible -->
-    <app-media-list-filter [mediaListState]="seriesListState$ | async" [sortFields]="sortFields"
+    <app-media-list-filter [listState]="seriesListState$ | async" [sortFields]="sortFields"
                            (filterChanged)="onFilterChanged($event)"></app-media-list-filter>
 
   </div>

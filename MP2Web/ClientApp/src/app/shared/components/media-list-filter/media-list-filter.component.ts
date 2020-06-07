@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ListState } from 'src/app/media/store/media.state';
 import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
-import { MediaListState } from './media-list.state';
 
 @Component({
   selector: 'app-media-list-filter',
@@ -14,7 +14,11 @@ export class MediaListFilterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Input() mediaListState: MediaListState = { search: '', sort: WebSortField.Title, order: WebSortOrder.Asc };
+  @Input() listState: ListState = {
+    currentFilter: '',
+    currentSort: WebSortField.Title,
+    currentOrder: WebSortOrder.Asc
+  };
 
   @Input() sortFields: { name: string, field: WebSortField }[];
 
@@ -23,7 +27,7 @@ export class MediaListFilterComponent implements OnInit {
     { name: 'Descending', order: WebSortOrder.Desc }
   ];
 
-  @Output() filterChanged = new EventEmitter<MediaListState>();
+  @Output() filterChanged = new EventEmitter<ListState>();
 
   onSortFieldChanged(field: string) {
     let sortField = this.sortFields.find(s => s.name == field);
@@ -31,8 +35,8 @@ export class MediaListFilterComponent implements OnInit {
       console.error('Invalid movie sort field - ' + field);
       return;
     }
-    if (sortField.field !== this.mediaListState.sort)
-      this.onFIlterChanged(this.mediaListState.search, sortField.field, this.mediaListState.order);
+    if (sortField.field !== this.listState.currentSort)
+      this.onFIlterChanged({ ...this.listState, currentSort: sortField.field });
   }
 
   onSortOrderChanged(order: string) {
@@ -41,11 +45,11 @@ export class MediaListFilterComponent implements OnInit {
       console.error('Invalid movie sort order - ' + order);
       return;
     }
-    if (sortOrder.order !== this.mediaListState.order)
-      this.onFIlterChanged(this.mediaListState.search, this.mediaListState.sort, sortOrder.order);
+    if (sortOrder.order !== this.listState.currentOrder)
+      this.onFIlterChanged({ ...this.listState, currentOrder: sortOrder.order });
   }
 
-  private onFIlterChanged(search: string, sort: WebSortField, order: WebSortOrder) {
-    this.filterChanged.emit({ search, sort, order });
+  private onFIlterChanged(state: ListState) {
+    this.filterChanged.emit(state);
   }
 }

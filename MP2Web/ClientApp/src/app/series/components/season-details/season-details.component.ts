@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { Subscription } from 'rxjs';
 import { WebTVEpisodeDetailed, WebTVSeasonDetailed } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
-import { MediaAccessService } from 'src/app/services/media-access.service';
+import { SeriesService } from '../../services/series.service';
 
 @Component({
   selector: 'app-season-details',
@@ -24,7 +24,7 @@ export class SeasonDetailsComponent implements OnInit, OnDestroy {
   @Output()
   episodeSelected: EventEmitter<WebTVEpisodeDetailed> = new EventEmitter();
 
-  constructor(private mediaAccessService: MediaAccessService, public artworkService: ArtworkService) { }
+  constructor(private seriesService: SeriesService, public artworkService: ArtworkService) { }
 
   ngOnInit(): void {
   }
@@ -42,7 +42,7 @@ export class SeasonDetailsComponent implements OnInit, OnDestroy {
     // every time it's expanded, which would cause another web request because the
     // returned observable is cold.
     if (this.isExpanded && this.season && !this.episodesSubscription)
-      this.episodesSubscription = this.mediaAccessService.getTVEpisodesDetailedForSeason(this.season.Id)
+      this.episodesSubscription = this.seriesService.getEpisodesForSeason(this.season.Id)
         .subscribe(result => this.episodes = result);
   }
 

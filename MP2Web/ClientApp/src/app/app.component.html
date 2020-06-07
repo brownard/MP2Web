@@ -1,8 +1,8 @@
 <div class='container-fluid'>
-    <div class='body-nav'>
-      <app-nav-menu></app-nav-menu>
-    </div>
-    <div class='body-content' [@routeAnimations]='shouldAnimateRoute(outlet)'>
-      <router-outlet #outlet='outlet'></router-outlet>
-    </div>
+  <div class='body-nav'>
+    <app-nav-menu></app-nav-menu>
+  </div>
+  <div class='body-content' [@routeAnimations]='shouldAnimateRoute(outlet)'>
+    <router-outlet #outlet='outlet'></router-outlet>
+  </div>
 </div>

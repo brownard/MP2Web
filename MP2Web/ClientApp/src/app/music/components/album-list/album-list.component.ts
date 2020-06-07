@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { WebMusicAlbumBasic, WebSortField } from 'src/app/models/web-media-items';
+import { ListState } from 'src/app/media/store/media.state';
+import { WebMusicAlbumBasic } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
-import { MediaListState } from 'src/app/shared/components/media-list-filter/media-list.state';
-import * as MusicAlbumStore from '../../store/music.store';
+import { AlbumService, albumSortFields } from '../../services/album.service';
 
 @Component({
   selector: 'app-album-list',
@@ -18,34 +16,21 @@ import * as MusicAlbumStore from '../../store/music.store';
 export class AlbumListComponent {
   
   public albums$: Observable<WebMusicAlbumBasic[]>;
-  public albumListState$: Observable<MediaListState>;
+  public albumListState$: Observable<ListState>;
 
-  sortFields = [
-    { name: 'Title', field: WebSortField.Title },
-    { name: 'Date Added', field: WebSortField.DateAdded },
-    { name: 'Rating', field: WebSortField.Rating },
-    { name: 'Year', field: WebSortField.Year }
-  ];
+  sortFields = albumSortFields;
 
-  constructor(public artworkService: ArtworkService, private store: Store) {
+  constructor(public artworkService: ArtworkService, private albumService: AlbumService) {
 
-    this.albumListState$ = this.store.select(MusicAlbumStore.MusicAlbumSelectors.selectState).pipe(
-      map(s => {
-        this.store.dispatch(MusicAlbumStore.MusicAlbumActions.getItems());
-        return { search: s.currentFilter, sort: s.currentSort, order: s.currentOrder };
-      })
-    );
-
-    this.store.dispatch(MusicAlbumStore.MusicAlbumActions.getItems());
-    this.albums$ = this.store.select(MusicAlbumStore.MusicAlbumSelectors.selectCurrentItems);
+    this.albumListState$ = this.albumService.getAlbumListState();
+    this.albums$ = this.albumService.getAlbums();
   }
 
-  public onFilterChanged(mediaListState: MediaListState) {
-    this.store.dispatch(MusicAlbumStore.MusicAlbumActions.setItemsFilter(mediaListState.search, mediaListState.sort, mediaListState.order));
+  public onFilterChanged(state: ListState) {
+    this.albumService.setAlbumListState(state);
   }
 
   public showAlbumDetails(album: WebMusicAlbumBasic) {
-    this.store.dispatch(MusicAlbumStore.MusicAlbumActions.setSelectedItem(album));
-    //this.router.navigate(['/movies', movie.Id]);
+    this.albumService.setSelectedAlbum(album);
   }
 }

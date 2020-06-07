@@ -1,7 +1,7 @@
 import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
 
 export interface MediaListState {
-  search: string;
+  filter: string;
   sort: WebSortField;
   order: WebSortOrder;
 }

@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { WebTVShowDetailed, WebTVSeasonDetailed, WebTVEpisodeDetailed } from '../../../models/web-media-items';
+import { WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowDetailed } from '../../../models/web-media-items';
 import { ArtworkService } from '../../../services/artwork.service';
-import { MediaAccessService } from '../../../services/media-access.service';
-import * as SeriesStore from '../../store/series.store';
+import { SeriesService } from '../../services/series.service';
 
 @Component({
   selector: 'app-series-details',
@@ -23,20 +21,14 @@ export class SeriesDetailsComponent implements OnInit {
 
   selectedEpisode: WebTVEpisodeDetailed;
 
-  constructor(private route: ActivatedRoute, public artworkService: ArtworkService, private mediaAccessService: MediaAccessService, private store: Store) {
-    this.series$ = this.store.select(SeriesStore.SeriesSelectors.selectSelectedItem).pipe(
-      switchMap(selectedSeries => {
-        if (selectedSeries)
-          return of(selectedSeries);
-        else
-          return this.route.paramMap.pipe(
-            switchMap((params: ParamMap) =>
-              this.mediaAccessService.getTVShowDetailedById(params.get('id'))
-            ))
-      }));
+  constructor(private route: ActivatedRoute, private seriesService: SeriesService, public artworkService: ArtworkService) {
+    this.series$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+        seriesService.getSelectedSeries(params.get('id'))
+      ));
 
     this.seasons$ = this.series$.pipe(
-      switchMap(series => series ? this.mediaAccessService.getTVSeasonsDetailedForTVShow(series.Id) : of(null))
+      switchMap(series => series ? this.seriesService.getSeasonsForSeries(series.Id) : of(null))
     );
   }
 

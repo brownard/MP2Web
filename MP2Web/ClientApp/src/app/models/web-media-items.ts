@@ -168,6 +168,20 @@ export interface WebTVEpisodeDetailed extends WebTVEpisodeBasic {
   Summary: string;
 }
 
+export interface WebMusicArtistBasic {
+  Id: string;
+  Title: string;
+  HasAlbums: boolean;
+  Artwork: WebArtwork[];
+}
+
+export interface WebMusicArtistDetailed extends WebMusicArtistBasic {
+  Biography: string;
+  Tones: string;
+  Styles: string;
+  Genres: string[];
+}
+
 export interface WebMusicAlbumBasic {
   Id: string;
   Title: string;
@@ -181,4 +195,22 @@ export interface WebMusicAlbumBasic {
   Year: number;
   Rating: number;
   Artwork: WebArtwork[];
+}
+
+export interface WebMusicTrackBasic extends WebMediaItem {
+  AlbumArtist: string;
+  AlbumArtistId: string;
+  Artist: string[];
+  ArtistId: string[];
+  DiscNumber: number;
+  TrackNumber: number;
+  Year: number;
+  Duration: number;
+  Rating: number;
+  Genres: string[];
+}
+
+export interface WebMusicTrackDetailed extends WebMusicTrackBasic {
+  Artists: WebMusicArtistBasic[];
+  AlbumArtistObject: WebMusicArtistBasic;
 }

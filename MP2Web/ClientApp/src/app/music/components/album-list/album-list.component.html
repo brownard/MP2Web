@@ -6,7 +6,7 @@
 
   <div class="media-top-bar">
     <!-- Sort/filter bar, always visible -->
-    <app-media-list-filter [mediaListState]="albumListState$ | async" [sortFields]="sortFields"
+    <app-media-list-filter [listState]="albumListState$ | async" [sortFields]="sortFields"
                            (filterChanged)="onFilterChanged($event)"></app-media-list-filter>
 
   </div>
@@ -21,7 +21,7 @@
       <div *ngFor="let album of albums" class="col-6 col-sm-4 col-lg-3">
 
         <!-- Navigate to the details page on click -->
-        <a (click)="showAlbumDetails(album)" [routerLink]="['/album', album.Id]">
+        <a (click)="showAlbumDetails(album)" [routerLink]="['/music/album', album.Id]">
           <!-- Card container, primary background, small shadow, background image lazily loaded when visible -->
           <div class="card media-card">
 
