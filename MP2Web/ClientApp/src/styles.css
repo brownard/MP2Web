@@ -18,6 +18,7 @@ body {
   --hover-overlay-stronger-color: rgba(110,110,110,0.4);
   --button-background-color: rgba(0,0,0,0.1);
   --button-color: rgba(0,0,0,0.5);
+  --invert-parameter: 0;
 }
 
   body.theme-dark {
@@ -32,6 +33,7 @@ body {
     --hover-overlay-stronger-color: rgba(220,220,220,0.4);
     --button-background-color: rgba(0,0,0,0.4);
     --button-color: rgba(255,255,255,0.6);
+    --invert-parameter: 0.8;
   }
 
 body {
