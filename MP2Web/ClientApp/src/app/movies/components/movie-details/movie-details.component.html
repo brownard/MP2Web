@@ -34,33 +34,37 @@
 
     <div class="row mt-1">
       <div class="col">
-        <table class="table metadata">
-          <tbody>
+        <table class="table-new metadata" style="text-align:justify;">
             <tr>
-              <th scope="row" class="fas fa-theater-masks" style="width:90px;"> Genres</th>
-              <td style="opacity:0.8">{{movie.Genres.join(', ')}}</td>
+              <th class="fas fa-theater-masks"></th>
+              <td>Genres</td>
+              <td>{{movie.Genres.join(', ')}}</td>
             </tr>
             <tr>
-              <th scope="row" class="fas fa-user" style="width:90px;"> Actors</th>
-              <td style="opacity:0.8">{{mapProperty(movie.Actors, 'Title').join(', ')}}</td>
+              <th class="fas fa-user"></th>
+              <td>Actors</td>
+              <td>{{mapProperty(movie.Actors, 'Title').join(', ')}}</td>
             </tr>
             <tr>
-              <th scope="row" class="fas fa-user-tie" style="width:90px;"> Director</th>
-              <td style="opacity:0.8">{{movie.Directors.join(', ')}}</td>
+              <th class="fas fa-user-tie"></th>
+              <td>Director</td>
+              <td>{{movie.Directors.join(', ')}}</td>
             </tr>
             <tr>
-              <th scope="row" class="fas fa-user-tag" style="width:90px;"> Writers</th>
-              <td style="opacity:0.8">{{movie.Writers.join(', ')}}</td>
+              <th class="fas fa-user-tag"></th>
+              <td>Writers</td>
+              <td>{{movie.Writers.join(', ')}}</td>
             </tr>
             <tr>
-              <th scope="row" class="fa fa-commenting" style="width:90px;"> Language</th>
-              <td style="opacity:0.8">{{movie.Language}}</td>
+              <th class="fa fa-commenting"></th>
+              <td>Language</td>
+              <td>{{movie.Language}}</td>
             </tr>
             <tr>
-              <th scope="row" class="fa fa-hashtag" style="width:90px;"> Id</th>
-              <td style="opacity:0.8">{{movie.Id}}</td>
+              <th class="fa fa-hashtag"></th>
+              <td>Id</td>
+              <td>{{movie.Id}}</td>
             </tr>
-          </tbody>
         </table>
       </div>
     </div>
