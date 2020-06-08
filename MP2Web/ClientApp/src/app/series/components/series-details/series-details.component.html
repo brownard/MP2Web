@@ -11,18 +11,24 @@
         <img [src]="artworkService.getCoverUrl(5, series.Id, 0)" class="img-fluid w-100" />
       </div>
       <div class="col">
-        <h6 class="media-title">{{series.Title}}</h6>
-        <div class="metadata">
+        <h6 class="media-title" style="--max-size: 28; --min-size: 19; font-size: var(--responsive);">{{series.Title}}</h6>
+        <div class="metadata" style="opacity:0.8; --max-size: 19; --min-size: 14; font-size: var(--responsive);">
           <app-star-rating [rating]="series.Rating | number: '1.0-0'" class="star"></app-star-rating>
           <span class="text-truncate ml-2">{{series.Rating | number: '1.0-0'}}/10</span>
-          <p>{{series.Year}}</p>
-          <p>{{series.EpisodeCount}} episodes</p>
+          <div style="display: block;">
+            <i class="fa fa-play-circle" style="margin-top:0px; margin-bottom:4px; margin-right=2px"></i>
+            <a style="margin-top:2px; margin-bottom:4px"> {{series.SeasonCount}} Season(s), {{series.EpisodeCount}} Episode(s)</a>
+          </div>
+          <div style="display: block;">
+            <i class="far fa-calendar-alt" style="margin-top:2px; margin-bottom:4px; margin-right=2px"></i>
+            <a style="margin-top:2px; margin-bottom:4px"> {{series.Year}}</a>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="row media-summary mt-1">
-      <div class="col">{{series.Summary}}</div>
+      <div class="col" style="opacity:0.8">{{series.Summary}}</div>
     </div>
 
     <div *ngIf="selectedEpisode" class="row mt-1">
@@ -38,21 +44,22 @@
 
     <div class="row mt-1">
       <div class="col">
-        <table class="table metadata">
-          <tbody>
+        <table class="table-new metadata" style="text-align:justify;">
             <tr>
-              <th scope="row">Genres</th>
+              <th class="fas fa-theater-masks"></th>
+              <td>Genres</td>
               <td>{{series.Genres.join(', ')}}</td>
             </tr>
             <tr>
-              <th scope="row">Actors</th>
+              <th class="fas fa-user"></th>
+              <td>Actors</td>
               <td>{{mapProperty(series.Actors, 'Title').join(', ')}}</td>
             </tr>
             <tr>
-              <th scope="row">Id</th>
+              <th class="fa fa-hashtag"></th>
+              <td>Id</td>
               <td>{{series.Id}}</td>
             </tr>
-          </tbody>
         </table>
       </div>
     </div>
