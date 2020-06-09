@@ -11,8 +11,8 @@
         <img [src]="artworkService.getCoverUrl(5, series.Id, 0)" class="img-fluid w-100" />
       </div>
       <div class="col">
-        <h6 class="media-title" style="--max-size: 28; --min-size: 19; font-size: var(--responsive);">{{series.Title}}</h6>
-        <div class="metadata" style="opacity:0.8; --max-size: 19; --min-size: 14; font-size: var(--responsive);">
+        <h6 class="media-title" style="--max-size: 25; --min-size: 19; font-size: var(--responsive);">{{series.Title}}</h6>
+        <div class="metadata" style="opacity:0.8; --max-size: 17; --min-size: 14; font-size: var(--responsive);">
           <app-star-rating [rating]="series.Rating | number: '1.0-0'" class="star"></app-star-rating>
           <span class="text-truncate ml-2">{{series.Rating | number: '1.0-0'}}/10</span>
           <div style="display: block;">
