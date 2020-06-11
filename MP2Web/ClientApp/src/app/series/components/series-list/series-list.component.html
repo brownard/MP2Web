@@ -18,36 +18,7 @@
 
         <!-- Navigate to the details page on click -->
         <a (click)="showSeriesDetails(serie)" [routerLink]="['/series', serie.Id]">
-          <!-- Card container, primary background, small shadow, background image lazily loaded when visible -->
-          <div class="card media-card">
-
-            <div class="media-card-img poster-card" [lazyLoad]="artworkService.getCoverUrl(5, serie.Id, 0)"></div>
-
-            <!-- Extended information, overlays the bottom of the poster image -->
-            <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
-              <div class="media-card-overlay">
-
-                <!-- Full width title, truncate -->
-                <h6 class="card-title media-title text-truncate">{{serie.Title}}</h6>
-                <!-- 2 columns of metadata -->
-                <div class="container">
-                  <div class="row">
-                    <!-- Column 1, star icon and rating -->
-                    <div class="col-4 metadata">
-                      <i class="fa fa-star star" aria-hidden="true"></i>
-                      <p>{{serie.Rating | number: '1.0-0'}}/10</p>
-                    </div>
-                    <!-- Column 2, year and runtime, align right -->
-                    <div class="col-8 metadata metadata-right">
-                      <p>{{serie.Year}}</p>
-                      <p>{{serie.EpisodeCount}} episodes</p>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
+          <app-grid-series [item]="serie"></app-grid-series>
         </a>
 
       </div>

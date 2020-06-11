@@ -29,7 +29,9 @@
 
     <div class="mt-1">
       <hr class="mb-1" />
-      <app-list-track *ngFor="let track of tracks$ | async" [track]="track"></app-list-track>
+      <a *ngFor="let track of tracks$ | async">
+        <app-list-track [item]="track"></app-list-track>
+      </a>
     </div>
 
     <!--<div *ngFor="let track of tracks$ | async" class="row mt-1">

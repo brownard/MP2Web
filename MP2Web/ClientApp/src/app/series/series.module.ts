@@ -10,12 +10,14 @@ import { SeriesDetailsComponent } from './components/series-details/series-detai
 import { SeriesListComponent } from './components/series-list/series-list.component';
 import { SeriesEffects } from './store/series.effects';
 import * as SeriesStore from './store/series.store';
+import { GridSeriesComponent } from './components/series/grid-series/grid-series.component';
   
 @NgModule({
   declarations: [
     SeriesListComponent,
     SeriesDetailsComponent,
-    SeasonDetailsComponent
+    SeasonDetailsComponent,
+    GridSeriesComponent
   ],
   imports: [
     CommonModule,

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ListState } from 'src/app/media/store/media.state';
 import { WebMovieDetailed } from '../../../models/web-media-items';
 import { ArtworkService } from '../../../services/artwork.service';
-import { movieSortFields, MovieService } from '../../services/movie.service';
+import { MovieService, movieSortFields } from '../../services/movie.service';
 
 @Component({
   selector: 'app-movie-list',

@@ -6,9 +6,10 @@
 
   <div class="media-top-bar">
       <!-- Sort/filter bar, always visible -->
-      <app-media-list-filter [listState]="movieListState$ | async" [sortFields]="sortFields"
-                             (filterChanged)="onFilterChanged($event)"></app-media-list-filter>
-
+      <app-media-list-filter [listState]="movieListState$ | async"
+                             [sortFields]="sortFields"
+                             (filterChanged)="onFilterChanged($event)">
+      </app-media-list-filter>
   </div>
 
   <!-- If no movies yet, show the loading template -->
@@ -20,39 +21,9 @@
       <!-- Create each movie card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
       <div *ngFor="let movie of movies" class="col-6 col-sm-4 col-lg-3 col-xl-3">
 
-        <!-- Navigate to the details page on click -->
         <a (click)="showMovieDetails(movie)" (mouseover)="fanartBackground.itemId = movie.Id" [routerLink]="['/movies', movie.Id]">
-          <!-- Card container, primary background, small shadow, background image lazily loaded when visible -->
-          <div class="card media-card">
-
-            <div class="media-card-img poster-card" [lazyLoad]="artworkService.getMediaItemCoverUrl(movie, 0)"></div>
-
-            <!-- Extended information, overlays the bottom of the poster image -->
-            <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
-              <div class="media-card-overlay">
-
-                <!-- Full width title, truncate -->
-                <h6 class="card-title media-title text-truncate">{{movie.Title}}</h6>                
-                <!-- 2 columns of metadata -->
-                <div class="container">
-                  <div class="row">
-                    <!-- Column 1, star icon and rating -->
-                    <div class="col-4 metadata">
-                      <i class="fa fa-star star" aria-hidden="true"></i>
-                      <p>{{movie.Rating | number: '1.0-0'}}/10</p>
-                    </div>
-                    <!-- Column 2, year and runtime, align right -->
-                    <div class="col-8 metadata metadata-right">
-                      <p>{{movie.Year}}</p>
-                      <p>{{movie.Runtime}} minutes</p>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </a>
+          <app-grid-movie [item]="movie"></app-grid-movie>
+        </a>        
 
       </div>
     </div>

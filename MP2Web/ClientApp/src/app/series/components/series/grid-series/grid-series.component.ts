@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { BaseMediaItemComponent } from 'src/app/media/containers/base-media-item.component';
-import { WebMusicTrackDetailed } from 'src/app/models/web-media-items';
+import { WebTVShowDetailed } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
 
 @Component({
-  selector: 'app-list-track',
-  templateUrl: './list-track.component.html',
+  selector: 'app-grid-series',
+  templateUrl: './grid-series.component.html',
   styleUrls: [
-    './list-track.component.css',
+    './grid-series.component.css',
     '../../../../shared/styles/media.styles.css'
   ]
 })
-export class ListTrackComponent extends BaseMediaItemComponent<WebMusicTrackDetailed> {
+export class GridSeriesComponent extends BaseMediaItemComponent<WebTVShowDetailed> {
   constructor(artworkService: ArtworkService) {
     super(artworkService);
   }

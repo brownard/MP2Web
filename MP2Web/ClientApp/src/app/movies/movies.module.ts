@@ -9,11 +9,13 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
 import { MovieListComponent } from './components/movie-list/movie-list.component';
 import { MovieEffects } from './store/movies.effects';
 import * as MoviesStore from './store/movies.store';
+import { GridMovieComponent } from './components/movie/grid-movie/grid-movie.component';
   
 @NgModule({
   declarations: [
     MovieListComponent,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    GridMovieComponent
   ],
   imports: [
     CommonModule,

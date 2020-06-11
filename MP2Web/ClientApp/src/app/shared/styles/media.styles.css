@@ -75,6 +75,11 @@
   padding-top: 100%;
 }
 
+/* Bootstrap removes the pointer on anchors without hrefs, we want it */
+a {
+  cursor: pointer;
+}
+
 /*
   Container for title and metadata to overlay
   the bottom of a card's background image. Set
