@@ -7,12 +7,18 @@
         <img [src]="artworkService.getCoverUrl(7, album.Id, 0)" class="img-fluid w-100" />
       </div>
       <div class="col">
-        <h6 class="media-title">{{album.Title}}</h6>
-        <div class="metadata">
+        <h6 class="media-title responsive-font-lg">{{album.Title}}</h6>
+        <div class="metadata responsive-font-md" style="opacity:0.8;">
           <app-star-rating [rating]="album.Rating | number: '1.0-0'" class="star"></app-star-rating>
           <span class="text-truncate ml-2">{{album.Rating | number: '1.0-0'}}/10</span>
-          <p>{{album.AlbumArtist}}</p>
-          <p>{{album.Year}}</p>
+          <div>
+            <i class="fas fa-user" style="margin-top:2px; margin-bottom:4px; margin-right: 2px;"></i>
+            <span style="margin-top:2px; margin-bottom:4px"> {{album.AlbumArtist}}</span>
+          </div>
+          <div>
+            <i class="far fa-calendar-alt" style="margin-top:2px; margin-bottom:4px; margin-right: 2px;"></i>
+            <span style="margin-top:2px; margin-bottom:4px"> {{album.Year}}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -27,32 +33,33 @@
     </div>
 
     <!--<div *ngFor="let track of tracks$ | async" class="row mt-1">
-      <div class="col">
-        <hr class="mb-1" />
-        <app-season-details [season]="season" (episodeSelected)="onEpisodeSelected($event)"></app-season-details>
-      </div>
-    </div>-->
+    <div class="col">
+      <hr class="mb-1" />
+      <app-season-details [season]="season" (episodeSelected)="onEpisodeSelected($event)"></app-season-details>
+    </div>    </div>-->
 
     <div class="row mt-1">
       <div class="col">
-        <table class="table metadata">
-          <tbody>
-            <tr>
-              <th scope="row">Genres</th>
-              <td>{{album.Genres.join(', ')}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Artists</th>
-              <td>{{album.Artists.join(', ')}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Id</th>
-              <td>{{album.Id}}</td>
-            </tr>
-          </tbody>
+        <table class="metadata">
+          <tr>
+            <th class="fas fa-theater-masks"></th>
+            <td>Genres</td>
+            <td>{{album.Genres.join(', ')}}</td>
+          </tr>
+          <tr>
+            <th class="fas fa-user"></th>
+            <td>Artists</td>
+            <td>{{album.Artists.join(', ')}}</td>
+          </tr>
+          <tr>
+            <th class="fa fa-hashtag"></th>
+            <td>Id</td>
+            <td>{{album.Id}}</td>
+          </tr>
         </table>
       </div>
     </div>
+
   </div>
 </div>
 
