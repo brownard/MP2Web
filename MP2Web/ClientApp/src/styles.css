@@ -43,9 +43,22 @@ body {
 /* Calculation to set font size based on screen width */
 
 .responsive-font-lg {
-  font-size: calc(19px + 6 * (100vw - 420px) / (1200 - 420)) !important;
+  font-size: calc(19px + 12 * (100vw - 420px) / (1200 - 420)) !important;
 }
 
+@media (min-width: 1200px) {
+  .responsive-font-lg {
+    font-size: 31px !important;
+  }
+}
+
+
 .responsive-font-md {
-  font-size: calc(14px + 3 * (100vw - 420px) / (1200 - 420)) !important;
+  font-size: calc(14px + 6 * (100vw - 420px) / (1200 - 420)) !important;
+}
+
+@media (min-width: 1200px) {
+  .responsive-font-md {
+    font-size: 20px !important;
+  }
 }
