@@ -7,29 +7,16 @@
 
   </div>
 
-  <!-- If no series yet, show the loading template -->
-  <div *ngIf="series$ | async as series; else loading" class="row card-group no-gutters mt-1">
+  <app-media-list [items]="series$ | async"
+                  [gridItemTemplate]="gridItemTemplate">
 
-    <app-media-list [items]="series"
-                    [gridItemTemplate]="gridItemTemplate">
+    <ng-template #gridItemTemplate let-serie>
+      <!-- Navigate to the details page on click -->
+      <a (click)="showSeriesDetails(serie)" [routerLink]="['/series', serie.Id]">
+        <app-grid-series [item]="serie"></app-grid-series>
+      </a>
+    </ng-template>
 
-      <ng-template #gridItemTemplate let-serie>
-        <!-- Navigate to the details page on click -->
-        <a (click)="showSeriesDetails(serie)" [routerLink]="['/series', serie.Id]">
-          <app-grid-series [item]="serie"></app-grid-series>
-        </a>
-      </ng-template>
-
-    </app-media-list>
-
-  </div>
-
-  <ng-template #loading>
-    <div class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-  </ng-template>
+  </app-media-list>
 
 </div>
