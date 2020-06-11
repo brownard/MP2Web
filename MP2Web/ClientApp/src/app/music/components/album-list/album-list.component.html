@@ -16,7 +16,7 @@
 
     <ng-template #gridItemTemplate let-album>
       <!-- Navigate to the details page on click -->
-      <a (click)="showAlbumDetails(album)" [routerLink]="['/music/album', album.Id]">
+      <a (click)="showAlbumDetails(album)" (mouseover)="fanartBackground.itemId = album.Id" [routerLink]="['/music/album', album.Id]">
         <app-grid-album [item]="album"></app-grid-album>
       </a>
     </ng-template>
