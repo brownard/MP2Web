@@ -1,3 +1,7 @@
+<app-background-artwork [mediaType]="7" [fileType]="1" [imageWidth]="1024" [imageHeight]="768"
+                        [itemId]="(album$ | async)?.Id">
+</app-background-artwork>
+
 <div *ngIf="album$ | async as album; else loading" class="container p-0">
 
   <div class="media-details-container">
