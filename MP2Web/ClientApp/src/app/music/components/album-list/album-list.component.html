@@ -12,21 +12,20 @@
   </div>
 
   <!-- If no items yet, show the loading template -->
-  <div *ngIf="albums$ | async as albums; else loading">
+  <div *ngIf="albums$ | async as albums; else loading" class="row card-group no-gutters mt-1">
 
-    <!-- Setup the bootstrap grid -->
-    <div class="row card-group no-gutters mt-1">
+    <app-media-list [items]="albums"
+                    [gridItemTemplate]="gridItemTemplate">
 
-      <!-- Create each card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
-      <div *ngFor="let album of albums" class="col-6 col-sm-4 col-lg-3">
-
+      <ng-template #gridItemTemplate let-album>
         <!-- Navigate to the details page on click -->
         <a (click)="showAlbumDetails(album)" [routerLink]="['/music/album', album.Id]">
           <app-grid-album [item]="album"></app-grid-album>
         </a>
+      </ng-template>
 
-      </div>
-    </div>
+    </app-media-list>
+
   </div>
 
   <ng-template #loading>

@@ -8,21 +8,20 @@
   </div>
 
   <!-- If no series yet, show the loading template -->
-  <div *ngIf="series$ | async as series; else loading">
+  <div *ngIf="series$ | async as series; else loading" class="row card-group no-gutters mt-1">
 
-    <!-- Setup the bootstrap grid -->
-    <div class="row card-group no-gutters mt-1">
+    <app-media-list [items]="series"
+                    [gridItemTemplate]="gridItemTemplate">
 
-      <!-- Create each series card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
-      <div *ngFor="let serie of series" class="col-6 col-sm-4 col-lg-3">
-
+      <ng-template #gridItemTemplate let-serie>
         <!-- Navigate to the details page on click -->
         <a (click)="showSeriesDetails(serie)" [routerLink]="['/series', serie.Id]">
           <app-grid-series [item]="serie"></app-grid-series>
         </a>
+      </ng-template>
 
-      </div>
-    </div>
+    </app-media-list>
+
   </div>
 
   <ng-template #loading>

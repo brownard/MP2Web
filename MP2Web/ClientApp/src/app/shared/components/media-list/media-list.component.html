@@ -7,7 +7,7 @@
     <!-- Create each series card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
     <div *ngFor="let item of items" [class]="itemContainerClass ? itemContainerClass : 'col-6 col-sm-4 col-lg-3'">
 
-      <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"></ng-container>
+      <ng-container *ngTemplateOutlet="gridItemTemplate; context: {$implicit: item}"></ng-container>
 
     </div>
 

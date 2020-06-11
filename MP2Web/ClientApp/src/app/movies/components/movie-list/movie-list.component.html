@@ -5,28 +5,28 @@
 <div class="container">
 
   <div class="media-top-bar">
-      <!-- Sort/filter bar, always visible -->
-      <app-media-list-filter [listState]="movieListState$ | async"
-                             [sortFields]="sortFields"
-                             (filterChanged)="onFilterChanged($event)">
-      </app-media-list-filter>
+    <!-- Sort/filter bar, always visible -->
+    <app-media-list-filter [listState]="movieListState$ | async"
+                           [sortFields]="sortFields"
+                           (filterChanged)="onFilterChanged($event)">
+    </app-media-list-filter>
   </div>
 
   <!-- If no movies yet, show the loading template -->
-  <div *ngIf="movies$ | async as movies; else loading">
+  <div *ngIf="movies$ | async as movies; else loading" class="row card-group no-gutters mt-1">
 
-    <!-- Setup the bootstrap grid -->
-    <div class="row card-group no-gutters mt-1">
+    <app-media-list [items]="movies"
+                    [gridItemTemplate]="gridItemTemplate">
 
-      <!-- Create each movie card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
-      <div *ngFor="let movie of movies" class="col-6 col-sm-4 col-lg-3 col-xl-3">
-
+      <ng-template #gridItemTemplate let-movie>
+        <!-- Navigate to the details page on click -->
         <a (click)="showMovieDetails(movie)" (mouseover)="fanartBackground.itemId = movie.Id" [routerLink]="['/movies', movie.Id]">
           <app-grid-movie [item]="movie"></app-grid-movie>
-        </a>        
+        </a>
+      </ng-template>
 
-      </div>
-    </div>
+    </app-media-list>
+
   </div>
 
   <ng-template #loading>
