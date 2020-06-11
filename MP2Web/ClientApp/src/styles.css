@@ -40,42 +40,12 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* Media queries to set responsive font sizes */
+/* Calculation to set font size based on screen width */
 
 .responsive-font-lg {
-  font-size: 19px !important;
+  font-size: calc(19px + 6 * (100vw - 420px) / (1200 - 420)) !important;
 }
 
 .responsive-font-md {
-  font-size: 14px !important;
-}
-
-@media (min-width: 768px) {
-  .responsive-font-lg {
-    font-size: 21px !important;
-  }
-
-  .responsive-font-md {
-    font-size: 15px !important;
-  }  
-}
-
-@media (min-width: 992px) {
-  .responsive-font-lg {
-    font-size: 23px !important;
-  }
-
-  .responsive-font-md {
-    font-size: 16px !important;
-  }
-}
-
-@media (min-width: 1200px) {
-  .responsive-font-lg {
-    font-size: 25px !important;
-  }
-
-  .responsive-font-md {
-    font-size: 17px !important;
-  }
+  font-size: calc(14px + 3 * (100vw - 420px) / (1200 - 420)) !important;
 }
