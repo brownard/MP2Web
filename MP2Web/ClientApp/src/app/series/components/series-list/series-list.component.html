@@ -1,3 +1,7 @@
+<app-background-artwork #fanartBackground
+                        [mediaType]="5" [fileType]="1" [imageWidth]="1024" [imageHeight]="768">
+</app-background-artwork>
+
 <div class="container">
 
   <div class="media-top-bar">
@@ -12,7 +16,7 @@
 
     <ng-template #gridItemTemplate let-serie>
       <!-- Navigate to the details page on click -->
-      <a (click)="showSeriesDetails(serie)" [routerLink]="['/series', serie.Id]">
+      <a (click)="showSeriesDetails(serie)" (mouseover)="fanartBackground.itemId = serie.Id" [routerLink]="['/series', serie.Id]">
         <app-grid-series [item]="serie"></app-grid-series>
       </a>
     </ng-template>
