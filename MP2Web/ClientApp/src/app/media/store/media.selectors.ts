@@ -17,11 +17,6 @@ export class MediaSelectors<T> {
     }
   );
 
-  public selectCurrentItems = createSelector(
-    this.selectState,
-    (state: MediaState<T>) => state.currentItems
-  );
-
   public selectSelectedItem = createSelector(
     this.selectState,
     (state: MediaState<T>) => state.selectedItem

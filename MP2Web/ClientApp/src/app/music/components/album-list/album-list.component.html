@@ -11,29 +11,16 @@
 
   </div>
 
-  <!-- If no items yet, show the loading template -->
-  <div *ngIf="albums$ | async as albums; else loading" class="row card-group no-gutters mt-1">
+  <app-media-list [items]="albums$ | async"
+                  [gridItemTemplate]="gridItemTemplate">
 
-    <app-media-list [items]="albums"
-                    [gridItemTemplate]="gridItemTemplate">
+    <ng-template #gridItemTemplate let-album>
+      <!-- Navigate to the details page on click -->
+      <a (click)="showAlbumDetails(album)" [routerLink]="['/music/album', album.Id]">
+        <app-grid-album [item]="album"></app-grid-album>
+      </a>
+    </ng-template>
 
-      <ng-template #gridItemTemplate let-album>
-        <!-- Navigate to the details page on click -->
-        <a (click)="showAlbumDetails(album)" [routerLink]="['/music/album', album.Id]">
-          <app-grid-album [item]="album"></app-grid-album>
-        </a>
-      </ng-template>
-
-    </app-media-list>
-
-  </div>
-
-  <ng-template #loading>
-    <div class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-  </ng-template>
+  </app-media-list>
 
 </div>

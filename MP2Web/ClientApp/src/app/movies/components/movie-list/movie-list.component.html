@@ -12,29 +12,16 @@
     </app-media-list-filter>
   </div>
 
-  <!-- If no movies yet, show the loading template -->
-  <div *ngIf="movies$ | async as movies; else loading" class="row card-group no-gutters mt-1">
+  <app-media-list [items]="movies$ | async"
+                  [gridItemTemplate]="gridItemTemplate">
 
-    <app-media-list [items]="movies"
-                    [gridItemTemplate]="gridItemTemplate">
+    <ng-template #gridItemTemplate let-movie>
+      <!-- Navigate to the details page on click -->
+      <a (click)="showMovieDetails(movie)" (mouseover)="fanartBackground.itemId = movie.Id" [routerLink]="['/movies', movie.Id]">
+        <app-grid-movie [item]="movie"></app-grid-movie>
+      </a>
+    </ng-template>
 
-      <ng-template #gridItemTemplate let-movie>
-        <!-- Navigate to the details page on click -->
-        <a (click)="showMovieDetails(movie)" (mouseover)="fanartBackground.itemId = movie.Id" [routerLink]="['/movies', movie.Id]">
-          <app-grid-movie [item]="movie"></app-grid-movie>
-        </a>
-      </ng-template>
-
-    </app-media-list>
-
-  </div>
-
-  <ng-template #loading>
-    <div class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-  </ng-template>
+  </app-media-list>
 
 </div>
