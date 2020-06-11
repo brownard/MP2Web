@@ -11,17 +11,17 @@
         <img [src]="artworkService.getCoverUrl(5, series.Id, 0)" class="img-fluid w-100" />
       </div>
       <div class="col">
-        <h6 class="media-title" style="--max-size: 25; --min-size: 19; font-size: var(--responsive);">{{series.Title}}</h6>
-        <div class="metadata" style="opacity:0.8; --max-size: 17; --min-size: 14; font-size: var(--responsive);">
+        <h6 class="media-title responsive-font-lg">{{series.Title}}</h6>
+        <div class="metadata responsive-font-md" style="opacity:0.8;">
           <app-star-rating [rating]="series.Rating | number: '1.0-0'" class="star"></app-star-rating>
           <span class="text-truncate ml-2">{{series.Rating | number: '1.0-0'}}/10</span>
-          <div style="display: block;">
-            <i class="fa fa-play-circle" style="margin-top:0px; margin-bottom:4px; margin-right=2px"></i>
-            <a style="margin-top:2px; margin-bottom:4px"> {{series.SeasonCount}} Season(s), {{series.EpisodeCount}} Episode(s)</a>
+          <div>
+            <i class="fa fa-play-circle" style="margin-top:0px; margin-bottom:4px; margin-right: 2px;"></i>
+            <span style="margin-top:2px; margin-bottom:4px"> {{series.SeasonCount}} Season(s), {{series.EpisodeCount}} Episode(s)</span>
           </div>
-          <div style="display: block;">
-            <i class="far fa-calendar-alt" style="margin-top:2px; margin-bottom:4px; margin-right=2px"></i>
-            <a style="margin-top:2px; margin-bottom:4px"> {{series.Year}}</a>
+          <div>
+            <i class="far fa-calendar-alt" style="margin-top:2px; margin-bottom:4px; margin-right: 2px;"></i>
+            <span style="margin-top:2px; margin-bottom:4px"> {{series.Year}}</span>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
 
     <div class="row mt-1">
       <div class="col">
-        <table class="table-new metadata" style="text-align:justify;">
+        <table class="metadata" style="text-align:justify;">
             <tr>
               <th class="fas fa-theater-masks"></th>
               <td>Genres</td>

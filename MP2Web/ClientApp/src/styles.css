@@ -2,7 +2,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
-@import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
 @import url('http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css');
 
 /* Variables used to alter the color pallet throughout the app */
@@ -39,4 +38,44 @@ body {
 body {
   background-color: var(--secondary-background-color);
   font-family: 'Open Sans', sans-serif;
+}
+
+/* Media queries to set responsive font sizes */
+
+.responsive-font-lg {
+  font-size: 19px !important;
+}
+
+.responsive-font-md {
+  font-size: 14px !important;
+}
+
+@media (min-width: 768px) {
+  .responsive-font-lg {
+    font-size: 21px !important;
+  }
+
+  .responsive-font-md {
+    font-size: 15px !important;
+  }  
+}
+
+@media (min-width: 992px) {
+  .responsive-font-lg {
+    font-size: 23px !important;
+  }
+
+  .responsive-font-md {
+    font-size: 16px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .responsive-font-lg {
+    font-size: 25px !important;
+  }
+
+  .responsive-font-md {
+    font-size: 17px !important;
+  }
 }

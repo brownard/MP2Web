@@ -123,17 +123,16 @@
   font-size: 0.9rem;
 }
 
-/* Container for media metadata, slightly smaller font size and lighter text xolour */
-.metadata {
-  display: block;
-  padding: 0;
-  font-size: 0.75rem;
-  color: var(--secondary-text-color);
-}
-
 /* Used in combination with the metadata class for right aligning text */
 .metadata-right {
   text-align: right;
+}
+
+/* Container for media metadata, slightly smaller font size and lighter text xolour */
+.metadata {
+  padding: 0;
+  font-size: 0.75rem;
+  color: var(--secondary-text-color);
 }
 
   /* Metadata text, tight margins and truncate text that overflows */
@@ -148,6 +147,23 @@
   .metadata i {
     margin-top: 5px;
     margin-left: 1px;
+  }
+
+  /* Metadata tables  */
+  .metadata th {
+    padding-top: 5px;
+    color: var(--primary-text-color)
+  }
+
+  .metadata td {
+    vertical-align: top;
+    padding: 5px;
+    opacity: 0.8;
+    color: var(--primary-text-color)
+  }
+
+  .metadata tr {
+    border-bottom: 1px solid var(--hover-overlay-color);
   }
 
 /* Colour for the star rating icons */
