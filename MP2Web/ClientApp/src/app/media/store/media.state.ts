@@ -7,6 +7,5 @@ export class ListState {
 }
 
 export class MediaState<T> extends ListState {
-  public currentItems: T[] = null;
   public selectedItem: T = null;
 }
