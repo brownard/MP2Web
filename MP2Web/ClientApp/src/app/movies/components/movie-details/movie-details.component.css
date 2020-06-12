@@ -1,0 +1,33 @@
+.score {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.score-wrap {
+  display: inline-block;
+  position: relative;
+}
+
+.score .stars-active {
+  color: var(--star-color);
+  position: relative;
+  z-index: 10;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.score .stars-inactive {
+  color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-text-stroke: initial;
+  opacity: 0.2;
+}
+
+.text-truncate {
+  position: relative;
+  display: inline-block;
+}

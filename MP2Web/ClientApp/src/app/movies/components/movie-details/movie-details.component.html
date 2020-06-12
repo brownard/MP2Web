@@ -14,8 +14,25 @@
       <div class="col">
         <h6 class="media-title responsive-font-lg">{{movie.Title}}</h6>
         <div class="metadata responsive-font-md" style="opacity:0.8;">
-          <app-star-rating [rating]="movie.Rating | number: '1.0-0'" class="star"></app-star-rating>
-          <span class="text-truncate ml-2">{{movie.Rating | number: '1.0-0'}}/10</span>
+          <span class="score">
+            <div class="score-wrap">
+              <span class="stars-active" style="width:{{movie.Rating*10 | number: '1.0-0'}}%">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </span>
+              <span class="stars-inactive">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </span>
+            </div>
+            <span class="text-truncate ml-2">{{movie.Rating | number: '1.0-0'}}/10</span>
+          </span>
           <div>
             <i class="far fa-calendar-alt" style="margin-top:2px; margin-bottom:4px; margin-right: 2px;"></i>
             <span style="margin-top:2px; margin-bottom:4px"> {{movie.Year}}</span>
