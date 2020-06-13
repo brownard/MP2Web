@@ -1,6 +1,6 @@
 .overlay {
   position: fixed;
-  z-index: 0;
+  z-index: -1;
   display: block;
   opacity: 0.6;
   background-color: var(--secondary-background-color);
@@ -14,7 +14,7 @@
 
 .fanArtBackground {
   position: fixed;
-  z-index: -1;
+  z-index: -2;
   overflow: hidden;
   display: block;
   background-repeat: no-repeat;
