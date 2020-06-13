@@ -13,6 +13,7 @@ body {
   --primary-background-alpha-stronger: rgba(255, 255, 255, 0.4);
   --secondary-background-color: #f8f9fa;
   --star-color: rgba(231,99,26,0.9);
+  --star-color-inactive: rgba(0,0,0,0.2);
   --hover-overlay-color: rgba(110,110,110,0.2);
   --hover-overlay-stronger-color: rgba(110,110,110,0.4);
   --button-background-color: rgba(0,0,0,0.1);
@@ -28,6 +29,7 @@ body {
     --primary-background-alpha-stronger: rgba(0, 0, 0, 0.6);
     --secondary-background-color: #777777;
     --star-color: rgba(231,99,26,0.9);
+    --star-color-inactive: rgba(255,255,255,0.2);
     --hover-overlay-color: rgba(220,220,220,0.2);
     --hover-overlay-stronger-color: rgba(220,220,220,0.4);
     --button-background-color: rgba(0,0,0,0.4);

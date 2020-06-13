@@ -19,12 +19,11 @@
 }
 
 .score .stars-inactive {
-  color: black;
+  color: var(--star-color-inactive);
   position: absolute;
   top: 0;
   left: 0;
   -webkit-text-stroke: initial;
-  opacity: 0.2;
 }
 
 .text-truncate {
