@@ -1,76 +1,35 @@
-.main-nav {
-  padding: 0px;
-  min-height: 50px;
+/* Default link */
+mat-nav-list a {
+  position: relative;
+  color: rgba(255,255,255,.5);
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.navbar-brand img {
-  height: 2em;
-}
-
-.navbar .nav-link .fa,
-.navbar .nav-link .fas,
-.navbar .nav-link .fab {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.navbar .nav-link .custom-control {
-  margin-left: 4px;
-}
-
-.navbar-collapse a:hover {
-  background-color: rgba(220,220,220,0.2);
-  color: white;
-}
-
-.active {
-  background-color: var(--star-color);
-}
-
-/* On large screens, convert the nav menu to a vertical sidebar */
-@media (min-width: 768px) {
-
-  .main-nav {
-    height: 100%;
-    width: 100%;
+  /* Brighten the text on hover */
+  mat-nav-list a:hover {
+    color: white;
   }
 
-  .navbar .container-fluid {
-    flex-direction: column;
-    height: 100%;
-    padding: 0px;
-    border-radius: 0px;
-    border-width: 0px;
+  /* Semi-transparent overlay for hovered links */
+    mat-nav-list a:hover::before {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-color: var(--hover-overlay-color);
+    }
+
+  /* The link for the currently active route */
+  mat-nav-list a.active {
+    color: white;
+    background-color: var(--star-color);
   }
 
-  .navbar-brand img {
-    width: 102px;
-    height: auto;
+  /* Icons */
+  mat-nav-list a .mat-icon {
+    margin-right: 10px;
   }
-
-  .navbar-collapse {
-    flex-direction: column;
-    justify-content:space-between;
-    border-top: 1px solid #444;
-    padding: 0px;
-    height: 100%;
-    width: 100%;
-  }
-
-  .navbar .navbar-nav {
-    display: block;
-    width: 100%;
-  }
-
-  .navbar .nav-item {
-    font-size: 18px;
-  }
-
-  .navbar .nav-link {
-    /* If a menu item's text is too long, truncate it */
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}

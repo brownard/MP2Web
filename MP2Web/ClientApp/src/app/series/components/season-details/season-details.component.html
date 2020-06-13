@@ -18,7 +18,7 @@
   <div *ngIf="episodes else loading">
 
     <!-- Setup the bootstrap grid -->
-    <div class="row card-group no-gutters mt-1">
+    <div class="row no-gutters mt-1">
 
       <!-- Create each episode card column, 2 to a row on xs screens, rising to 3 in a row on lg and above -->
       <div *ngFor="let episode of episodes" class="col-6 col-lg-4">
@@ -26,34 +26,32 @@
         <!-- Set episode to video player on click -->
         <a (click)="selectEpisode(episode)" style="cursor: pointer;">
           <!-- Card container, primary background, small shadow, background image lazily loaded when visible -->
-          <div class="card media-card">
+          <div class="grid-container">
 
-          <div class="media-card-img thumbnail-card" [lazyLoad]="artworkService.getScreenshotUrl(episode)"></div>
+            <div class="media-card-img thumbnail-card" [lazyLoad]="artworkService.getScreenshotUrl(episode)"></div>
 
             <!-- Extended information, overlays the bottom of the poster image -->
-            <div class="card-img-overlay d-flex flex-column justify-content-end" style="padding: 0">
-              <div class="media-card-overlay">
+            <div class="media-card-overlay">
 
-                <!-- Full width title, truncate -->
-                <h6 class="card-title media-title text-truncate" style="font-size: small">{{episode.EpisodeNumber}}. {{episode.Title}}</h6>
-                <!-- 2 columns of metadata -->
-                <div class="container">
-                  <div class="row">
-                    <!-- Column 1, star icon and rating -->
-                    <div class="col-4 metadata">
-                      <i class="fa fa-star star" aria-hidden="true" style="margin-right: 5px"></i>
-                      <span class="text-truncate">{{episode.Rating | number: '1.0-0'}}/10</span>
-                    </div>
-                    <!-- Column 2, air date, align right -->
-                    <div class="col-8 metadata metadata-right">
-                      <p>{{episode.FirstAired | date}}</p>
-                      <!--<div class="text-truncate">{{episode.EpisodeCount}} episodes</div>-->
-                    </div>
+              <!-- Full width title, truncate -->
+              <h6 class="media-title text-truncate" style="font-size: small">{{episode.EpisodeNumber}}. {{episode.Title}}</h6>
+              <!-- 2 columns of metadata -->
+              <div class="container">
+                <div class="row">
+                  <!-- Column 1, star icon and rating -->
+                  <div class="col-4 metadata">
+                    <i class="fa fa-star star" aria-hidden="true" style="margin-right: 5px"></i>
+                    <span class="text-truncate">{{episode.Rating | number: '1.0-0'}}/10</span>
+                  </div>
+                  <!-- Column 2, air date, align right -->
+                  <div class="col-8 metadata metadata-right">
+                    <p>{{episode.FirstAired | date}}</p>
+                    <!--<div class="text-truncate">{{episode.EpisodeCount}} episodes</div>-->
                   </div>
                 </div>
-
               </div>
             </div>
+
           </div>
         </a>
 

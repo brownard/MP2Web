@@ -1,4 +1,29 @@
-<div class="form-row">
+<div style="z-index: 10">
+  <button mat-flat-button color="primary" [matMenuTriggerFor]="menu">
+    <mat-icon>sort</mat-icon>
+    <span>Sort</span>
+  </button>
+  <mat-menu #menu class="app-menu-panel">
+    <button *ngFor="let sortField of sortFields"
+            mat-menu-item
+            class="app-menu-button"
+            [class.active]="sortField.field == listState.currentSort"
+            (click)="onSortFieldChanged(sortField.name)">
+      {{sortField.name}}
+    </button>
+  </mat-menu>
+
+  <div class="dropdown">
+    <button class="dropbtn" style="height:30px">
+      <div class="fas fa-sort ml-n3" style="font-size:20px; padding:5px"></div>
+    </button>
+    <div class="dropdown-content">
+      <a *ngFor="let sortField of sortFields" (click)="onSortFieldChanged(sortField.name)" [ngClass]="{ 'active': sortField.field == listState.currentSort}">{{sortField.name}}</a>
+    </div>
+  </div>
+</div>
+
+<!--<div class="form-row">
 
   <div class="col"></div>
 
@@ -38,4 +63,4 @@
     </div>
   </div>
 
-</div>
+</div>-->

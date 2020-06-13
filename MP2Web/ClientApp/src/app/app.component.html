@@ -1,8 +1,43 @@
-<div class='container-fluid'>
-  <div class='body-nav'>
-    <app-nav-menu></app-nav-menu>
-  </div>
-  <div class='body-content' [@routeAnimations]='shouldAnimateRoute(outlet)'>
-    <router-outlet #outlet='outlet'></router-outlet>
-  </div>
+<div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
+  <mat-toolbar *ngIf="isMobile" color="primary" class="app-toolbar">
+    <button mat-icon-button (click)="toggleMenu()"><mat-icon>menu</mat-icon></button>
+
+    <span class="fill-space"></span>
+
+    <a class="toolbar-brand" [routerLink]='["/"]'>
+      <img src="assets/images/MP2Web-sm.png" alt="MP2Web">
+    </a>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="app-sidenav-container"
+                         [style.marginTop.px]="isMobile ? 56 : 0">
+
+    <mat-sidenav #sidenav
+                 [mode]="isMobile ? 'over' : 'side'"
+                 [(opened)]="isMenuOpen"
+                 [fixedInViewport]="isMobile"
+                 [fixedTopGap]="isMobile ? 56 : 0">
+
+      <div class="nav-container">
+
+        <a *ngIf="!isMobile" class="sidenav-brand" [routerLink]='["/"]'>
+          <img src="assets/images/MP2Web-sm.png" alt="MP2Web">
+        </a>
+
+        <app-nav-menu (navLinkClicked)="closeMenu()"></app-nav-menu>
+
+        <span class="fill-space"></span>
+
+        <mat-slide-toggle [(ngModel)]="isDarkMode">Dark mode</mat-slide-toggle>
+
+      </div>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet #outlet='outlet'></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
 </div>

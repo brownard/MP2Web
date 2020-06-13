@@ -1,26 +1,75 @@
-.body-nav {
-  position: fixed;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
   top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
 }
 
-@media (max-width: 767.98px) {
-  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
-  .body-content {
-    padding-top: 50px;
-  }
+.app-is-mobile .app-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
 }
 
-@media (min-width: 768px) {
-  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
-  .body-content {
-    padding-left: 208px;
+.app-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.app-is-mobile .app-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+mat-sidenav {
+  width: 208px;
+  background-color: #343a40;
+}
+
+  mat-sidenav .sidenav-brand {
+    display: block;
+    text-align: center;
   }
 
-  .body-nav {
-    height: 100%;
-    width: 208px;
-  }
+    mat-sidenav .sidenav-brand img {
+      width: 102px;
+      margin-right: 1rem;
+    }
+
+mat-toolbar .toolbar-brand img {
+  height: 2em;
 }
+
+/* Container for the menu items, set display flex so we
+   can align the dark mode toggle to the bottom */
+.nav-container {
+  display: flex;
+  flex-direction: column;
+  /* Need to take off a few pixels to avoid scrollbars showing*/
+  height: calc(100% - 16px);
+}
+
+/* Can be placed in a flexbox to expand to fill remaining space.
+   Used in the toolbar to push the icon to the right and in the
+   sidenav to push the dark mode toggle to the bottom. */
+.fill-space {
+  flex: 1 1 auto;
+}
+
+/* Dark mode toggle, align to the main nav items
+   and leave a reasonable margin at the top */
+mat-slide-toggle {
+  margin-top: 2em;
+  margin-left: 16px;
+  color: rgba(255,255,255,.5);
+}
+
+  /* Brighten the text on hover */
+  mat-slide-toggle:hover {
+    color: white;
+  }

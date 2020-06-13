@@ -1,32 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ThemeService } from '../services/themes/theme.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent implements OnInit {
+export class NavMenuComponent {
 
-  constructor(private themeService: ThemeService) { }
+  constructor() { }
 
-  isExpanded = false;
-  isDarkMode = false;
+  @Output()
+  navLinkClicked: EventEmitter<boolean> = new EventEmitter();
 
-  ngOnInit(): void {
-    this.isDarkMode = this.themeService.currentTheme == 'theme-dark';
-  }
-
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
-  }
-
-  toggleDarkMode(e) {
-    this.isDarkMode = e;
-    this.themeService.setTheme(this.isDarkMode ? 'theme-dark' : '');
+  onNavLinkClicked() {
+    this.navLinkClicked.emit(true);
   }
 }

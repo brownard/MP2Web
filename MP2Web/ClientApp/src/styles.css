@@ -4,6 +4,15 @@
 @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
 @import url('http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css');
 
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
 /* Variables used to alter the color pallet throughout the app */
 body {
   --primary-text-color: #414345;
@@ -38,7 +47,7 @@ body {
   }
 
 body {
-  background-color: var(--secondary-background-color);
+  background-color: var(--secondary-background-color) !important;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -48,19 +57,54 @@ body {
   font-size: calc(19px + 12 * (100vw - 420px) / (1200 - 420)) !important;
 }
 
-@media (min-width: 1200px) {
-  .responsive-font-lg {
-    font-size: 31px !important;
-  }
-}
-
-
 .responsive-font-md {
   font-size: calc(14px + 6 * (100vw - 420px) / (1200 - 420)) !important;
 }
 
 @media (min-width: 1200px) {
+  .responsive-font-lg {
+    font-size: 31px !important;
+  }
+
   .responsive-font-md {
     font-size: 20px !important;
   }
 }
+
+/* Utility class for adding text truncating */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Overrides for the default material menu styles */
+.mat-menu-panel.app-menu-panel {
+  background-color: var(--primary-background-color);
+  min-width: 160px;
+}
+
+  .mat-menu-panel.app-menu-panel .mat-menu-item {
+    color: var(--button-color);
+  }
+
+    .mat-menu-panel.app-menu-panel .mat-menu-item:hover {
+      color: var(--primary-text-color);
+    }
+
+      /* Semi-transparent overlay for hovered links */
+      .mat-menu-panel.app-menu-panel .mat-menu-item:hover::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: var(--hover-overlay-color);
+      }
+
+    .mat-menu-panel.app-menu-panel .mat-menu-item.active {
+      background-color: var(--star-color);
+      color: white;
+    }

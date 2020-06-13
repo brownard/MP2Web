@@ -1,23 +1,28 @@
-<!-- If no series yet, show the loading template -->
-<div *ngIf="items else loading">
+<!-- If no items yet, show the loading template -->
+<ng-container *ngIf="items else loading">
 
-  <!-- Setup the bootstrap grid -->
-  <div class="row card-group no-gutters mt-1">
+  <!-- Flex container to handle the grid columns -->
+  <div fxLayout="row wrap">
 
-    <!-- Create each series card column, 2 to a row on xs screens, rising to 4 in a row on lg and above -->
-    <div *ngFor="let item of items" [class]="itemContainerClass ? itemContainerClass : 'col-6 col-sm-4 col-lg-3'">
+    <!-- Each grid tile container, responsive breakpoints set the column width, padding sets the space between tiles -->
+    <div *ngFor="let item of items"
+         fxFlex="50%" fxFlex.gt-xs="33.3%" fxFlex.gt-md="25%" fxFlex.gt-lg="16.65%"
+         >
 
+      <!-- Create the item template, using the item as the implicit context -->
       <ng-container *ngTemplateOutlet="gridItemTemplate; context: {$implicit: item}"></ng-container>
 
     </div>
-
   </div>
-</div>
 
+</ng-container>
+
+<!--Template to show whilst no items are present-->
 <ng-template #loading>
-  <div class="text-center">
+  <mat-spinner diameter="48" style="margin:16px auto;"></mat-spinner>
+  <!--<div class="text-center">
     <div class="spinner-border" role="status">
       <span class="sr-only">Loading...</span>
     </div>
-  </div>
+  </div>-->
 </ng-template>

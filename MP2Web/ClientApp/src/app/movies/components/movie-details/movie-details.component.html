@@ -2,7 +2,7 @@
                         [itemId]="(movie$ | async)?.Id">
 </app-background-artwork>
 
-<div *ngIf="movie$ | async as movie; else loading" class="container-fluid p-0">
+<div *ngIf="movie$ | async as movie; else loading" class="container-fluid">
 
   <div class="media-details-container" style="border-radius:3px; box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.4);
                                               margin-top:15px; margin-bottom:15px; background-color: var(--primary-background-alpha-stronger);">

@@ -1,63 +1,44 @@
-<nav class='main-nav navbar navbar-expand-md navbar-dark bg-dark' style='box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.4);'>
-  <div class='container-fluid'>
-
-    <a class='navbar-brand' [routerLink]='["/"]'>
-      <img src="assets/images/MP2Web-sm.png" alt="MP2Web">
-    </a>
-
-    <button type='button' class='navbar-toggler' (click)="toggle()" style="margin-right:4px">
-      <span class='sr-only'>Toggle navigation</span>
-      <span class='navbar-toggler-icon'></span>
-    </button>
-
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar"
-         [ngClass]="{ 'show': isExpanded }">
-      <ul class='navbar-nav'>
-        <li class="nav-item" [routerLinkActive]='["active"]' [routerLinkActiveOptions]='{ exact: true }'>
-          <a class="nav-link" [routerLink]='["/"]' (click)='collapse()'>
-            <span class='fa fa-home'></span> Home
-          </a>
-        </li>
-        <li class="nav-item" [routerLinkActive]='["active"]'>
-          <a class="nav-link" [routerLink]='["/movies"]' (click)='collapse()'>
-            <span class='fas fa-film'></span> Movies
-          </a>
-        </li>
-        <li class="nav-item" [routerLinkActive]='["active"]'>
-          <a class="nav-link" [routerLink]='["/series"]' (click)='collapse()'>
-            <span class='fab fa-youtube'></span> Series
-          </a>
-        </li>
-        <li class="nav-item" [routerLinkActive]='["active"]'>
-          <a class="nav-link" [routerLink]='["/music"]' (click)='collapse()'>
-            <span class='fas fa-headphones-alt'></span> Music
-          </a>
-        </li>
-        <li class="nav-item" [routerLinkActive]='["active"]'>
-          <a class="nav-link" [routerLink]='["/images"]' (click)='collapse()'>
-            <span class='fas fa-image'></span> Images
-          </a>
-        </li>
-        <li class="nav-item" [routerLinkActive]='["active"]'>
-          <a class="nav-link" [routerLink]='["/tv"]' (click)='collapse()'>
-            <span class='fas fa-tv' style='font-size: 15px;'></span> TV
-          </a>
-        </li>
-        <li class="nav-item" [routerLinkActive]='["active"]'>
-          <a class="nav-link" [routerLink]='["/settings"]' (click)='collapse()'>
-            <span class='fa fa-cog'></span> Settings
-          </a>
-        </li>
-      </ul>
-      <div class="navbar-nav mt-4">
-          <div class="nav-link">
-            <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="customSwitch1" [ngModel]="isDarkMode" (ngModelChange)="toggleDarkMode($event)">
-              <label class="custom-control-label" for="customSwitch1">Dark mode</label>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
+<mat-nav-list>
+  <a mat-list-item [routerLink]='["/"]' routerLinkActive='active' [routerLinkActiveOptions]='{ exact: true }'
+     class="app-menu-button"
+     (click)='onNavLinkClicked()'>
+    <mat-icon>home</mat-icon>
+    Home
+  </a>
+  <a mat-list-item [routerLink]='["/movies"]' routerLinkActive='active'
+     class="app-menu-button"
+     (click)='onNavLinkClicked()'>
+    <mat-icon>movie</mat-icon>
+    Movies
+  </a>
+  <a mat-list-item [routerLink]='["/series"]' routerLinkActive='active'
+     class="app-menu-button"
+     (click)='onNavLinkClicked()'>
+    <mat-icon>ondemand_video</mat-icon>
+    Series
+  </a>
+  <a mat-list-item [routerLink]='["/music"]' routerLinkActive='active'
+     class="app-menu-button"
+     (click)='onNavLinkClicked()'>
+    <mat-icon>headset</mat-icon>
+    Music
+  </a>
+  <a mat-list-item [routerLink]='["/images"]' routerLinkActive='active'
+     class="app-menu-button"
+     (click)='onNavLinkClicked()'>
+    <mat-icon>photo</mat-icon>
+    Images
+  </a>
+  <a mat-list-item [routerLink]='["/tv"]' routerLinkActive='active'
+     class="app-menu-button"
+     (click)='onNavLinkClicked()'>
+    <mat-icon>tv</mat-icon>
+    TV
+  </a>
+  <a mat-list-item [routerLink]='["/settings"]' routerLinkActive='active'
+     class="app-menu-button"
+     (click)='onNavLinkClicked()'>
+    <mat-icon>settings</mat-icon>
+    Settings
+  </a>
+</mat-nav-list>

@@ -6,11 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+
 import { AppConfigService } from './app-config.service';
 import { AppComponent } from './app.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { HomeComponent } from './home/home.component';
+import { MaterialModule } from './material/material.module';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { ApiRequestInterceptor } from './services/cache/api-request.interceptor';
 
@@ -27,6 +29,7 @@ import { ApiRequestInterceptor } from './services/cache/api-request.interceptor'
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    MaterialModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', data: { animation: 'HomePage' } },
       { path: 'counter', component: CounterComponent },

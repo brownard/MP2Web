@@ -1,3 +1,39 @@
+.grid-container {
+  position: relative;
+  border-radius: .25rem;
+  overflow: hidden;
+  background-color: var(--primary-background-color);
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+  margin: 8px;
+}
+
+.grid-container .media-card-img {
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* SCALE */
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+  /* short delay */
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  overflow: hidden;
+}
+
+.grid-container:hover .media-card-img {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+  -webkit-filter: brightness(130%);
+}
+
 /*
   Top bar, used for the filter bar, stuck to the top.
   Leave a space for the top nav menu on small screens.
@@ -33,7 +69,7 @@
   overflow: hidden;
 }
 
-.media-card-img {
+.media-card .media-card-img {
   background-size: cover;
   background-repeat: no-repeat;
   /* SCALE */
@@ -86,6 +122,10 @@ a {
   a white background and reasonable padding.
 */
 .media-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   padding: 0.25rem;
   background-color: var(--primary-background-alpha);
   font-family: 'Open Sans', sans-serif;
@@ -100,8 +140,11 @@ a {
 */
 .media-title {
   display: block;
+  margin-top: 0;
   margin-bottom: 0.25rem;
+  font-size: 1rem;
   font-weight: 600;
+  line-height: 1.2;
 }
 
 /*
