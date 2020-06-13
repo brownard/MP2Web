@@ -15,8 +15,8 @@ body {
   --star-color: rgba(231,99,26,0.9);
   --star-color-inactive: rgba(0,0,0,0.2);
   --hover-overlay-color: rgba(110,110,110,0.2);
-  --hover-overlay-stronger-color: rgba(110,110,110,0.4);
-  --button-background-color: rgba(0,0,0,0.1);
+  --hover-overlay-stronger-color: rgba(100,100,100,0.6);
+  --button-background-color: rgba(150,150,150,0.6);
   --button-color: rgba(0,0,0,0.5);
   --invert-parameter: 0;
 }
@@ -31,7 +31,7 @@ body {
     --star-color: rgba(231,99,26,0.9);
     --star-color-inactive: rgba(255,255,255,0.2);
     --hover-overlay-color: rgba(220,220,220,0.2);
-    --hover-overlay-stronger-color: rgba(220,220,220,0.4);
+    --hover-overlay-stronger-color: rgba(200,200,200,0.6);
     --button-background-color: rgba(0,0,0,0.4);
     --button-color: rgba(255,255,255,0.6);
     --invert-parameter: 0.8;
