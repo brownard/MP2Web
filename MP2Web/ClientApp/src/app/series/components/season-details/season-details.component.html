@@ -21,7 +21,7 @@
     <div class="row no-gutters mt-1">
 
       <!-- Create each episode card column, 2 to a row on xs screens, rising to 3 in a row on lg and above -->
-      <div *ngFor="let episode of episodes" class="col-6 col-lg-4">
+      <div *ngFor="let episode of episodes" class="col-6 col-lg-4" style="padding: 4px">
 
         <!-- Set episode to video player on click -->
         <a (click)="selectEpisode(episode)" style="cursor: pointer;">
