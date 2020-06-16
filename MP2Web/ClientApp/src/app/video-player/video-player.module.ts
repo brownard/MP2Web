@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VideoPlayerComponent } from './components/video-player.component';
 import { VideoPlayerDirective } from './directives/video-player.directive';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { VideoPlayerDirective } from './directives/video-player.directive';
     VideoPlayerDirective
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule
   ],
   exports: [
     VideoPlayerComponent,
