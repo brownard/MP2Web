@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListState } from 'src/app/media/store/media.state';
-import { WebMovieDetailed } from '../../../models/web-media-items';
-import { ArtworkService } from '../../../services/artwork.service';
+import { WebMovieDetailed } from 'src/app/models/web-media-items';
+import { ArtworkService } from 'src/app/services/artwork.service';
 import { MovieService, movieSortFields } from '../../services/movie.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { MovieService, movieSortFields } from '../../services/movie.service';
   templateUrl: './movie-list.component.html',
   styleUrls: [
     './movie-list.component.css',
-    '../../../shared/styles/media.styles.css'
+    '../../../../../shared/styles/media.styles.css'
   ]
 })
 export class MovieListComponent {

@@ -1,4 +1,4 @@
-import { WebSortField, WebSortOrder } from '../../models/web-media-items';
+import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
 
 export class ListState {
   public currentFilter: string = '';

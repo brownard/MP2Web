@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { WebMovieDetailed } from '../../../models/web-media-items';
-import { ArtworkService } from '../../../services/artwork.service';
+import { WebMovieDetailed } from 'src/app/models/web-media-items';
+import { ArtworkService } from 'src/app/services/artwork.service';
 import { MovieService } from '../../services/movie.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { MovieService } from '../../services/movie.service';
   templateUrl: './movie-details.component.html',
   styleUrls: [
     './movie-details.component.css',
-    '../../../shared/styles/media.styles.css'
+    '../../../../../shared/styles/media.styles.css'
   ]
 })
 export class MovieDetailsComponent implements OnInit {

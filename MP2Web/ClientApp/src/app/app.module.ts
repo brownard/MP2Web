@@ -9,8 +9,6 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppConfigService } from './app-config.service';
 import { AppComponent } from './app.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material/material.module';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -21,8 +19,6 @@ import { ApiRequestInterceptor } from './services/cache/api-request.interceptor'
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,19 +28,17 @@ import { ApiRequestInterceptor } from './services/cache/api-request.interceptor'
     MaterialModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', data: { animation: 'HomePage' } },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       {
         path: 'movies', data: { animation: 'MoviesPage' },
-        loadChildren: () => import('./movies/movies.module').then(m => m.MoviesModule)
+        loadChildren: () => import('./media/modules/movies/movies.module').then(m => m.MoviesModule)
       },
       {
         path: 'series', data: { animation: 'SeriesPage' },
-        loadChildren: () => import('./series/series.module').then(m => m.SeriesModule)
+        loadChildren: () => import('./media/modules/series/series.module').then(m => m.SeriesModule)
       },
       {
         path: 'music', data: { animation: 'MusicPage' },
-        loadChildren: () => import('./music/music.module').then(m => m.MusicModule)
+        loadChildren: () => import('./media/modules/music/music.module').then(m => m.MusicModule)
       },
     ], { scrollPositionRestoration: 'enabled' }),
     StoreModule.forRoot({}),

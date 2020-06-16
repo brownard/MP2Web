@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowDetailed } from '../../../models/web-media-items';
-import { ArtworkService } from '../../../services/artwork.service';
+import { WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowDetailed } from 'src/app/models/web-media-items';
+import { ArtworkService } from 'src/app/services/artwork.service';
 import { SeriesService } from '../../services/series.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { SeriesService } from '../../services/series.service';
   templateUrl: './series-details.component.html',
   styleUrls: [
     './series-details.component.css',
-    '../../../shared/styles/media.styles.css'
+    '../../../../../shared/styles/media.styles.css'
   ]
 })
 export class SeriesDetailsComponent implements OnInit {

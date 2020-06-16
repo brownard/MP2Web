@@ -3,7 +3,7 @@ import { MediaActions } from 'src/app/media/store/media.actions';
 import { MediaReducer } from 'src/app/media/store/media.reducers';
 import { MediaSelectors } from 'src/app/media/store/media.selectors';
 import { MediaState } from 'src/app/media/store/media.state';
-import { WebMusicAlbumBasic } from '../../models/web-media-items';
+import { WebMusicAlbumBasic } from 'src/app/models/web-media-items';
 
 export const featureKey = 'music-albums';
 

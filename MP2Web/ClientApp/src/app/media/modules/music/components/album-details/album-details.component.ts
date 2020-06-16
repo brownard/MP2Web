@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators';
   templateUrl: './album-details.component.html',
   styleUrls: [
     './album-details.component.css',
-    '../../../shared/styles/media.styles.css'
+    '../../../../../shared/styles/media.styles.css'
   ]
 })
 export class AlbumDetailsComponent implements OnInit {

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListState } from 'src/app/media/store/media.state';
-import { WebTVShowDetailed } from '../../../models/web-media-items';
-import { ArtworkService } from '../../../services/artwork.service';
+import { WebTVShowDetailed } from 'src/app/models/web-media-items';
+import { ArtworkService } from 'src/app/services/artwork.service';
 import { SeriesService, seriesSortFields } from '../../services/series.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { SeriesService, seriesSortFields } from '../../services/series.service';
   templateUrl: './series-list.component.html',
   styleUrls: [
     './series-list.component.css',
-    '../../../shared/styles/media.styles.css'
+    '../../../../../shared/styles/media.styles.css'
   ]
 })
 export class SeriesListComponent {

@@ -10,7 +10,7 @@ import { AlbumService, albumSortFields } from '../../services/album.service';
   templateUrl: './album-list.component.html',
   styleUrls: [
     './album-list.component.css',
-    '../../../shared/styles/media.styles.css'
+    '../../../../../shared/styles/media.styles.css'
   ]
 })
 export class AlbumListComponent {

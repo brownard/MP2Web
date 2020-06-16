@@ -9,7 +9,7 @@ import { SeriesService } from '../../services/series.service';
   templateUrl: './season-details.component.html',
   styleUrls: [
     './season-details.component.css',
-    '../../../shared/styles/media.styles.css'
+    '../../../../../shared/styles/media.styles.css'
   ]
 })
 export class SeasonDetailsComponent implements OnInit, OnDestroy {
