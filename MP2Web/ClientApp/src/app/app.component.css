@@ -43,6 +43,7 @@ mat-sidenav {
 
 mat-toolbar .toolbar-brand img {
   height: 2em;
+  margin-top:5px;
 }
 
 /* Container for the menu items, set display flex so we

@@ -2,7 +2,7 @@
 
   <button mat-button class="menu-open-button" [matMenuTriggerFor]="sortFieldMenu">
     <!--<mat-icon fontSet="fa" fontIcon="fa-sort"></mat-icon>-->
-    <span class="fas fa-sort"></span>
+    <span class="fas fa-sort" style="font-size:22px"></span>
   </button>
   <mat-menu #sortFieldMenu class="app-menu-panel">
     <button *ngFor="let sortField of sortFields"
@@ -15,7 +15,7 @@
   </mat-menu>
 
   <button mat-button class="menu-open-button" [matMenuTriggerFor]="sortOrderMenu">
-    <span class="fa fa-sort-alpha-asc"></span>
+    <span class="fa fa-sort-alpha-asc" style="font-size:18px"></span>
   </button>
   <mat-menu #sortOrderMenu class="app-menu-panel">
     <button *ngFor="let sortOrder of sortOrders"
