@@ -4,12 +4,11 @@
 
 <div *ngIf="movie$ | async as movie; else loading" class="container-fluid">
 
-  <div class="media-details-container" style="border-radius:3px; box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.4);
-                                              margin-top:15px; margin-bottom:15px; background-color: var(--primary-background-alpha-stronger);">
+  <div class="media-details-container">
 
     <div class="row">
       <div class="col-4 col-lg-auto">
-        <img [src]="artworkService.getMediaItemCoverUrl(movie, 0)" class="img-fluid w-100" style="border-radius: 3px; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);"/>
+        <img class="media-details-image" [src]="artworkService.getMediaItemCoverUrl(movie, 0)"/>
       </div>
       <div class="col">
         <h6 class="media-title responsive-font-lg">{{movie.Title}}</h6>

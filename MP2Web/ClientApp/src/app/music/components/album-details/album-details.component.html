@@ -4,12 +4,11 @@
 
 <div *ngIf="album$ | async as album; else loading" class="container p-0">
 
-  <div class="media-details-container" style="border-radius:3px; box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.4);
-                                              margin-top:15px; margin-bottom:15px; background-color: var(--primary-background-alpha-stronger);">
+  <div class="media-details-container">
 
     <div class="row">
       <div class="col-4 col-lg-auto">
-        <img [src]="artworkService.getCoverUrl(7, album.Id, 0)" class="img-fluid w-100" style="border-radius: 3px; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);"/>
+        <img class="media-details-image" [src]="artworkService.getCoverUrl(7, album.Id, 0)"/>
       </div>
       <div class="col">
         <h6 class="media-title responsive-font-lg">{{album.Title}}</h6>
@@ -38,12 +37,6 @@
         <app-list-track [item]="track"></app-list-track>
       </a>
     </div>
-
-    <!--<div *ngFor="let track of tracks$ | async" class="row mt-1">
-    <div class="col">
-      <hr class="mb-1" />
-      <app-season-details [season]="season" (episodeSelected)="onEpisodeSelected($event)"></app-season-details>
-    </div>    </div>-->
 
     <div class="row mt-1">
       <div class="col">
