@@ -17,15 +17,13 @@
             <app-star-rating [rating]="movie.Rating | number: '1.0-0'" class="star"></app-star-rating>
             <span class="text-truncate ml-2">{{movie.Rating | number: '1.0-0'}}/10</span>
           </span>
-          <div style="display: inline;">
-            <mat-icon [inline]="true">calendar_today</mat-icon>
-            <!--i class="far fa-calendar-alt" style="margin-top:2px; margin-bottom:4px; margin-right: 2px;"></i-->
-            <span style="margin-top:0px; margin-bottom:4px;"> {{movie.Year}}</span>
+          <div>
+            <mat-icon [inline]="true" style="transform: translate(0%, 8%);">calendar_today</mat-icon>
+            <span> {{movie.Year}}</span>
           </div>
           <div>
-            <mat-icon [inline]="true">watch_later</mat-icon>
-            <!--i class="fa fa-clock-o" style="margin-top:2px; margin-bottom:4px; margin-right: 2px;"></i-->
-            <span style="margin-top:0px; margin-bottom:4px"> {{movie.Runtime}} minutes</span>
+            <mat-icon [inline]="true" style="transform: translate(0%, 8%);">watch_later</mat-icon>
+            <span> {{movie.Runtime}} minutes</span>
           </div>
         </div>
       </div>
