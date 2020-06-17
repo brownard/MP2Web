@@ -1,3 +1,8 @@
-<span *ngFor="let star of stars">
-  <span class="fa fa-star"></span>
+<span class="star-container">
+  <span class="stars-inactive">
+    <i *ngFor="let star of stars" class="fa fa-star" aria-hidden="true"></i>
+  </span>
+  <span class="stars-active" style="width:{{widthPercent}}%">
+    <i *ngFor="let star of stars" class="fa fa-star" aria-hidden="true"></i>
+  </span>
 </span>

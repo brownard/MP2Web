@@ -1,0 +1,16 @@
+.star-container {
+  position: relative;
+}
+
+.stars-inactive {
+  color: var(--star-color-inactive);
+  -webkit-text-stroke: initial;
+}
+
+.stars-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
