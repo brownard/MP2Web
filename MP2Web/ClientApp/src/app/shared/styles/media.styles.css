@@ -176,3 +176,16 @@
 .star {
   color: var(--star-color)
 }
+
+.inline-icon-container {
+  display: flex;
+  align-items: center;
+}
+
+span.inline-icon-container {
+  display: inline-flex;
+}
+
+  .inline-icon-container .mat-icon {
+    padding-right: 5px;
+  }

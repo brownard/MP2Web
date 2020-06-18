@@ -17,12 +17,12 @@
             <app-star-rating [rating]="movie.Rating | number: '1.0-0'" class="star"></app-star-rating>
             <span class="text-truncate ml-2">{{movie.Rating | number: '1.0-0'}}/10</span>
           </span>
-          <div>
-            <mat-icon [inline]="true" style="transform: translate(0%, 8%);">calendar_today</mat-icon>
+          <div class="inline-icon-container">
+            <mat-icon [inline]="true">calendar_today</mat-icon>
             <span> {{movie.Year}}</span>
           </div>
-          <div>
-            <mat-icon [inline]="true" style="transform: translate(0%, 8%);">watch_later</mat-icon>
+          <div class="inline-icon-container">
+            <mat-icon [inline]="true">watch_later</mat-icon>
             <span> {{movie.Runtime}} minutes</span>
           </div>
         </div>
