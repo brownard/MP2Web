@@ -1,12 +1,20 @@
 ﻿using Microsoft.Owin.FileSystems;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MP2Web.FileSystems
 {
+  /// <summary>
+  /// Implementation of <see cref="IFileSystem"/> that falls back to searching the root directory
+  /// for a specified path if no matching subpath was found.
+  /// </summary>
+  /// <remarks>
+  /// This is required for single page apps that use url based routing because the urls used for the routes
+  /// are not valid paths on the server. Ordinarily, when navigating within the app, this doesn't matter because
+  /// the browser doesn't actually follow the urls when changing routes. However if the user refreshes the page
+  /// in a route the browser will follow it and attempt to request all subsequent paths relative to it, we fall
+  /// back to returning relative to the route path in this case so everything still works correctly.
+  /// </remarks>
   public class SpaFileSystem : IFileSystem
   {
     protected string _root;
