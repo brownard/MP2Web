@@ -63,5 +63,21 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+  
+  <Target Name="CopyPluginFiles" AfterTargets="Build">  
+  <PropertyGroup>
+	<PluginDestination>..\MediaPortal-2\MediaPortal\Bin\MP2-Server\bin\$(Configuration)\Plugins\MP2Web\</PluginDestination>
+  </PropertyGroup>
+	<ItemGroup>
+	  <PluginFiles Include="$(TargetDir)$(ProjectName).dll" />
+	  <PluginFiles Include="$(TargetDir)Microsoft.Owin.StaticFiles.dll" />
+	  <PluginFiles Include="$(TargetDir)Microsoft.Owin.FileSystems.dll" />
+      <PluginFiles Include="$(ProjectDir)plugin.xml" />
+	</ItemGroup>	
+    <ItemGroup Condition=" '$(Configuration)' == 'Debug'">
+      <PluginFiles Include="$(TargetDir)$(ProjectName).pdb" />
+    </ItemGroup>	
+	<Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(PluginDestination)" />	
+  </Target>
 
 </Project>
