@@ -15,13 +15,13 @@
         <div class="metadata responsive-font-md" style="opacity:0.8;">
           <app-star-rating [rating]="series.Rating | number: '1.0-0'" class="star"></app-star-rating>
           <span class="text-truncate ml-2">{{series.Rating | number: '1.0-0'}}/10</span>
-          <div>
-            <i class="fa fa-play-circle" style="margin-top:0px; margin-bottom:4px; margin-right: 2px;"></i>
-            <span style="margin-top:2px; margin-bottom:4px"> {{series.SeasonCount}} Season(s), {{series.EpisodeCount}} Episode(s)</span>
+          <div class="inline-icon-container">
+            <mat-icon [inline]="true">ondemand_video</mat-icon>
+            <span> {{series.SeasonCount}} Season(s), {{series.EpisodeCount}} Episode(s)</span>
           </div>
-          <div>
-            <i class="far fa-calendar-alt" style="margin-top:2px; margin-bottom:4px; margin-right: 2px;"></i>
-            <span style="margin-top:2px; margin-bottom:4px"> {{series.Year}}</span>
+          <div class="inline-icon-container">
+            <mat-icon [inline]="true">calendar_today</mat-icon>
+            <span> {{series.Year}}</span>
           </div>
         </div>
       </div>
