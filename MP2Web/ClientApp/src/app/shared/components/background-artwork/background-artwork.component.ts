@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { WebFIleType, WebMediaType } from 'src/app/models/web-media-items';
+import { WebFileType, WebMediaType } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
 
 // Component that shows a fullscreen fanart image in the
@@ -28,7 +28,7 @@ export class BackgroundArtworkComponent implements OnInit, AfterViewInit, OnDest
   @ViewChild('image2') image2: ElementRef<HTMLElement>;
 
   // Needed to build the image url, must be set before itemId
-  @Input() fileType: WebFIleType;
+  @Input() fileType: WebFileType;
   @Input() mediaType: WebMediaType;
   @Input() imageWidth: number;
   @Input() imageHeight: number;

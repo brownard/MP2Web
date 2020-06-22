@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfigService } from '../app-config.service';
 import { ApiService } from './api.service';
-import { WebFIleType, WebMediaType, WebStringResult } from '../models/web-media-items';
+import { WebFileType, WebMediaType, WebStringResult } from '../models/web-media-items';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class StreamingStreamService extends ApiService {
     });
   }
 
-  public getArtworkResizedUrl(mediaType: WebMediaType, id: string, artworkType: WebFIleType, maxWidth: number, maxHeight: number, offset = 0) {
+  public getArtworkResizedUrl(mediaType: WebMediaType, id: string, artworkType: WebFileType, maxWidth: number, maxHeight: number, offset = 0) {
     return this.apiControllerUrl + 'GetArtworkResized' +
       `?mediaType=${mediaType}&id=${id}&artworkType=${artworkType}&maxWidth=${maxWidth}&maxHeight=${maxHeight}&offset=${offset}`;
   }

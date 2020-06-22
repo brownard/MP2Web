@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { AppConfigService } from 'src/app/app-config.service';
-import { WebFIleType, WebMediaItem, WebStringResult } from 'src/app/models/web-media-items';
+import { WebFileType, WebMediaItem, WebStringResult } from 'src/app/models/web-media-items';
 import { StreamingStreamService } from 'src/app/services/streaming-stream.service';
 import { StreamingService } from 'src/app/services/streaming.service';
 
@@ -44,7 +44,7 @@ export class VideoPlayerComponent implements OnInit {
   @Input()
   set mediaItem(mediaItem: WebMediaItem) {
     this._mediaItem = mediaItem;
-    this.placeholderUrl = mediaItem ? this.streamingStreamService.getArtworkResizedUrl(mediaItem.Type, mediaItem.Id, WebFIleType.Content, 512, 512, 0) : undefined;
+    this.placeholderUrl = mediaItem ? this.streamingStreamService.getArtworkResizedUrl(mediaItem.Type, mediaItem.Id, WebFileType.Content, 512, 512, 0) : undefined;
   }
 
   play() {

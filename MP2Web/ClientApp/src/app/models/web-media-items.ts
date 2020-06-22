@@ -32,7 +32,7 @@ export enum WebSortOrder {
   Custom = 2
 }
 
-export enum WebFIleType {
+export enum WebFileType {
   Content = 0,
   Backdrop = 1,
   Banner = 2,
@@ -61,7 +61,7 @@ export enum WebMediaType {
 }
 
 export interface WebArtwork {
-  Type: WebFIleType;
+  Type: WebFileType;
   Id: string;
   Rating: number;
   FileType: string;
