@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ListState } from 'src/app/media/store/media.state';
+import { ViewState } from 'src/app/media/store/media.state';
 import { WebMovieDetailed } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
 import { MovieService, movieSortFields } from '../../services/movie.service';
@@ -16,7 +16,7 @@ import { MovieService, movieSortFields } from '../../services/movie.service';
 export class MovieListComponent {
   
   public movies$: Observable<WebMovieDetailed[]>;
-  public movieListState$: Observable<ListState>;
+  public movieListState$: Observable<ViewState>;
 
   sortFields = movieSortFields;
 
@@ -25,7 +25,7 @@ export class MovieListComponent {
     this.movies$ = this.moviesService.getMovies();
   }
 
-  public onFilterChanged(state: ListState) {
+  public onFilterChanged(state: ViewState) {
     this.moviesService.setMoviesListState(state);
   }
 

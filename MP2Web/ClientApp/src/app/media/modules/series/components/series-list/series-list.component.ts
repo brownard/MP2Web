@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ListState } from 'src/app/media/store/media.state';
+import { ViewState } from 'src/app/media/store/media.state';
 import { WebTVShowDetailed } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
 import { SeriesService, seriesSortFields } from '../../services/series.service';
@@ -16,7 +16,7 @@ import { SeriesService, seriesSortFields } from '../../services/series.service';
 export class SeriesListComponent {
   
   public series$: Observable<WebTVShowDetailed[]>;
-  public seriesListState$: Observable<ListState>;
+  public seriesListState$: Observable<ViewState>;
 
   sortFields = seriesSortFields;
 
@@ -26,7 +26,7 @@ export class SeriesListComponent {
     this.series$ = this.seriesService.getSeries();
   }
 
-  public onFilterChanged(state: ListState) {
+  public onFilterChanged(state: ViewState) {
     this.seriesService.setSeriesListState(state);
   }
 

@@ -6,13 +6,14 @@ export class MediaSelectors<T> {
 
   public selectState = createFeatureSelector<any, MediaState<T>>(this.featureKey);
 
-  public selectCurrentFilter = createSelector(
+  public selectCurrentViewState = createSelector(
     this.selectState,
     (state: MediaState<T>) => {
       return {
         currentFilter: state.currentFilter,
         currentSort: state.currentSort,
-        currentOrder: state.currentOrder
+        currentOrder: state.currentOrder,
+        currentLayout: state.currentLayout
       }
     }
   );

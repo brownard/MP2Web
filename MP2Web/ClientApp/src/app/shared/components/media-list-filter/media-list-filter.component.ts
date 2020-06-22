@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ListState } from 'src/app/media/store/media.state';
+
+import { ViewState, Layout } from 'src/app/media/store/media.state';
 import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
 
 @Component({
@@ -14,10 +15,13 @@ export class MediaListFilterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Input() listState: ListState = {
+  layouts = Layout;
+
+  @Input() viewState: ViewState = {
     currentFilter: '',
     currentSort: WebSortField.Title,
-    currentOrder: WebSortOrder.Asc
+    currentOrder: WebSortOrder.Asc,
+    currentLayout: Layout.Grid
   };
 
   @Input() sortFields: { name: string, field: WebSortField }[];
@@ -27,7 +31,7 @@ export class MediaListFilterComponent implements OnInit {
     { name: 'Descending', order: WebSortOrder.Desc }
   ];
 
-  @Output() filterChanged = new EventEmitter<ListState>();
+  @Output() filterChanged = new EventEmitter<ViewState>();
 
   onSortFieldChanged(field: string) {
     let sortField = this.sortFields.find(s => s.name == field);
@@ -35,8 +39,8 @@ export class MediaListFilterComponent implements OnInit {
       console.error('Invalid movie sort field - ' + field);
       return;
     }
-    if (sortField.field !== this.listState.currentSort)
-      this.onFIlterChanged({ ...this.listState, currentSort: sortField.field });
+    if (sortField.field !== this.viewState.currentSort)
+      this.onFIlterChanged({ ...this.viewState, currentSort: sortField.field });
   }
 
   onSortOrderChanged(order: string) {
@@ -45,11 +49,16 @@ export class MediaListFilterComponent implements OnInit {
       console.error('Invalid movie sort order - ' + order);
       return;
     }
-    if (sortOrder.order !== this.listState.currentOrder)
-      this.onFIlterChanged({ ...this.listState, currentOrder: sortOrder.order });
+    if (sortOrder.order !== this.viewState.currentOrder)
+      this.onFIlterChanged({ ...this.viewState, currentOrder: sortOrder.order });
   }
 
-  private onFIlterChanged(state: ListState) {
+  onLayoutChanged(layout: Layout) {
+    if (layout !== this.viewState.currentLayout)
+      this.onFIlterChanged({ ...this.viewState, currentLayout: layout });
+  }
+
+  private onFIlterChanged(state: ViewState) {
     this.filterChanged.emit(state);
   }
 }

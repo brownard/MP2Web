@@ -5,7 +5,7 @@ import { AbstractMediaService } from 'src/app/media/services/abstract-media.serv
 import { WebSortField, WebSortOrder, WebTVShowDetailed, WebTVSeasonDetailed, WebTVEpisodeDetailed } from 'src/app/models/web-media-items';
 import { MediaAccessService } from 'src/app/services/media-access.service';
 import * as SeriesStore from '../store/series.store';
-import { ListState } from 'src/app/media/store/media.state';
+import { ViewState } from 'src/app/media/store/media.state';
 import { switchMap } from 'rxjs/operators';
 
 export const seriesSortFields = [
@@ -24,12 +24,12 @@ export class SeriesService extends AbstractMediaService<WebTVShowDetailed> {
     super(store, SeriesStore.SeriesSelectors, SeriesStore.SeriesActions);
   }
 
-  public getSeriesListState(): Observable<ListState> {
-    return this.getListState();
+  public getSeriesListState(): Observable<ViewState> {
+    return this.getViewState();
   }
 
-  public setSeriesListState(state: ListState): void {
-    this.setListState(state);
+  public setSeriesListState(state: ViewState): void {
+    this.setViewState(state);
   }
 
   public getSelectedSeries(id: string): Observable<WebTVShowDetailed> {

@@ -8,6 +8,6 @@ export class MediaReducer<T> {
   public mediaReducer = createReducer(
     this.initialState,
     on(this.actions.setSelectedItem, (state, { item }) => ({ ...state, selectedItem: item })),
-    on(this.actions.setItemsFilter, (state, { filter, sort, order }) => ({ ...state, currentFilter: filter, currentSort: sort, currentOrder: order }))
+    on(this.actions.setViewState, (state, { filter, sort, order, layout }) => ({ ...state, currentFilter: filter, currentSort: sort, currentOrder: order, currentLayout: layout }))
   );
 }

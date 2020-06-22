@@ -2,17 +2,25 @@
                         [mediaType]="5" [fileType]="1" [imageWidth]="1024" [imageHeight]="768">
 </app-background-artwork>
 
+<!-- Layout/sort bar, always visible -->
+<div class="media-top-bar">
+  <!-- Use the same container class as the content below to to ensure alignment -->
+  <div class="container">
+    <app-media-list-filter [viewState]="seriesListState$ | async"
+                           [sortFields]="sortFields"
+                           (filterChanged)="onFilterChanged($event)">
+    </app-media-list-filter>
+  </div>
+</div>
+
+<!-- Adds a margin the same size as the bar, so that the below container starts below it -->
+<div class="media-top-bar-fix"></div>
+
 <div class="container">
 
-  <div class="media-top-bar">
-    <!-- Sort/filter bar, always visible -->
-    <app-media-list-filter [listState]="seriesListState$ | async" [sortFields]="sortFields"
-                           (filterChanged)="onFilterChanged($event)"></app-media-list-filter>
-
-  </div>
-
   <app-media-list [items]="series$ | async"
-                  [gridItemTemplate]="gridItemTemplate">
+                  [gridItemTemplate]="gridItemTemplate"
+                  [layout]="(seriesListState$ | async)?.currentLayout">
 
     <ng-template #gridItemTemplate let-serie>
       <!-- Navigate to the details page on click -->

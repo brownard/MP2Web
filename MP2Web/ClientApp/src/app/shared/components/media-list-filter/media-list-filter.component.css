@@ -1,22 +1,15 @@
 .menu-container {
-  display: flex;
   align-items: center;
-  justify-content: flex-end;
   height: 100%;
+  background-color: var(--primary-background-color);
 }
 
-.menu-open-button {
-  background-color: var(--button-background-color);
-  color: var(--button-color);
-  border: none;
-  border-radius: 3px;
-  height: 30px;
-  font-size: 20px;
-  line-height: 20px;
-  margin-left: 5px;
-}
+  button.mat-icon-button .mat-icon {
+    color: var(--button-color);
+    font-size: 30px;
+    line-height: 30px;
+  }
 
-  .menu-open-button:hover {
-    color: white;
-    background-color: var(--hover-overlay-stronger-color);
+  button.mat-icon-button.active .mat-icon {
+    color: var(--star-color);
   }

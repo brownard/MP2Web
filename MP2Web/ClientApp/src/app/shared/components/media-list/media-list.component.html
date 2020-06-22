@@ -2,16 +2,26 @@
 <ng-container *ngIf="items else loading">
 
   <!-- Flex container to handle the grid columns -->
-  <div fxLayout="row wrap" style="margin: 0 -8px">
+  <div *ngIf="layout === 'Grid' && gridItemTemplate" fxLayout="row wrap" style="margin: 0 -8px">
 
     <!-- Each grid tile container, responsive breakpoints set the column width, padding sets the space between tiles -->
     <div *ngFor="let item of items"
          fxFlex="50%" fxFlex.gt-xs="33.3%" fxFlex.gt-md="25%" fxFlex.gt-lg="16.65%"
-         style="padding: 8px;"
-         >
+         style="padding: 8px;">
 
       <!-- Create the item template, using the item as the implicit context -->
       <ng-container *ngTemplateOutlet="gridItemTemplate; context: {$implicit: item}"></ng-container>
+
+    </div>
+  </div>
+
+  <div *ngIf="layout === 'List' && listItemTemplate" style="margin: 0 -8px">
+
+    <!-- Each grid tile container, responsive breakpoints set the column width, padding sets the space between tiles -->
+    <div *ngFor="let item of items">
+
+      <!-- Create the item template, using the item as the implicit context -->
+      <ng-container *ngTemplateOutlet="listItemTemplate; context: {$implicit: item}"></ng-container>
 
     </div>
   </div>

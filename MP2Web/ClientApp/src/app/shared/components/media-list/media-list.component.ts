@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import { Layout } from 'src/app/media/store/media.state';
 
 @Component({
   selector: 'app-media-list',
@@ -14,7 +15,7 @@ export class MediaListComponent implements OnInit {
   items: [];
 
   @Input()
-  itemContainerClass: string;
+  layout: Layout = Layout.Grid;
 
   @Input()
   gridItemTemplate: TemplateRef<HTMLElement>;

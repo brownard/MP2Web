@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AbstractMediaService } from 'src/app/media/services/abstract-media.service';
-import { ListState } from 'src/app/media/store/media.state';
+import { ViewState } from 'src/app/media/store/media.state';
 import { WebMusicAlbumBasic, WebSortField, WebSortOrder, WebMusicTrackDetailed } from 'src/app/models/web-media-items';
 import { MediaAccessService } from 'src/app/services/media-access.service';
 import * as MusicAlbumStore from '../store/music.store';
@@ -24,12 +24,12 @@ export class AlbumService extends AbstractMediaService<WebMusicAlbumBasic> {
     super(store, MusicAlbumStore.MusicAlbumSelectors, MusicAlbumStore.MusicAlbumActions);
   }
 
-  public getAlbumListState(): Observable<ListState> {
-    return this.getListState();
+  public getAlbumListState(): Observable<ViewState> {
+    return this.getViewState();
   }
 
-  public setAlbumListState(state: ListState): void {
-    this.setListState(state);
+  public setAlbumListState(state: ViewState): void {
+    this.setViewState(state);
   }
 
   public getSelectedAlbum(id: string): Observable<WebMusicAlbumBasic> {

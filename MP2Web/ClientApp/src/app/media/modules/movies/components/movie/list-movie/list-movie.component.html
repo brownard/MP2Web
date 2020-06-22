@@ -1,0 +1,30 @@
+<!-- List item container, fixed height, primary background,
+     small cover on the left and details on the right. -->
+<div class="list-container" fxLayout="row" style.height="75px">
+
+  <!-- Container for the cover image, currently fixed width to give the correct aspect ratio. -->
+  <div fxFlex="44px" class="list-image-container">
+    <div class="media-card-img poster-card" [lazyLoad]="artworkService.getMediaItemCoverUrl(item, 0)"></div>
+  </div>
+
+  <!-- Container for the details, fills the remaining space. -->
+  <div fxFlex="1 0" class="list-text-container">
+    <!-- Full width title. -->
+    <h6 class="media-title text-truncate">{{item.Title}}</h6>
+
+    <!-- Additional metadata, 2 columns aligned left and right -->
+    <div class="container">
+      <div class="row">
+        <div class="col-4 metadata">
+          <app-star-rating [rating]="item.Rating | number: '1.0-0'" class="star"></app-star-rating>
+          <p>{{item.Rating | number: '1.0-0'}}/10</p>
+        </div>
+        <div class="col-8 metadata metadata-right">
+          <p>{{item.Year}}</p>
+          <p>{{item.Runtime}} minutes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

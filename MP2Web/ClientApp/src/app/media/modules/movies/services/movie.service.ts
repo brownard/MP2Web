@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AbstractMediaService } from 'src/app/media/services/abstract-media.service';
-import { ListState } from 'src/app/media/store/media.state';
+import { ViewState } from 'src/app/media/store/media.state';
 import { WebMovieDetailed, WebSortField } from 'src/app/models/web-media-items';
 import { MediaAccessService } from 'src/app/services/media-access.service';
 import * as MoviesStore from '../store/movies.store';
@@ -24,12 +24,12 @@ export class MovieService extends AbstractMediaService<WebMovieDetailed> {
     super(store, MoviesStore.MovieSelectors, MoviesStore.MovieActions);
   }
 
-  public getMoviesListState(): Observable<ListState> {
-    return this.getListState();
+  public getMoviesListState(): Observable<ViewState> {
+    return this.getViewState();
   }
 
-  public setMoviesListState(state: ListState): void {
-    this.setListState(state);
+  public setMoviesListState(state: ViewState): void {
+    this.setViewState(state);
   }
 
   public getSelectedMovie(id: string): Observable<WebMovieDetailed> {

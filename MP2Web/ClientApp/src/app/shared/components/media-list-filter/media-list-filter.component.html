@@ -1,72 +1,52 @@
-<div class="menu-container">
+<div class="menu-container" fxLayout>
 
-  <button mat-button class="menu-open-button" [matMenuTriggerFor]="sortFieldMenu">
-    <!--<mat-icon fontSet="fa" fontIcon="fa-sort"></mat-icon>-->
-    <span class="fas fa-sort" style="font-size:22px"></span>
-  </button>
-  <mat-menu #sortFieldMenu class="app-menu-panel">
-    <button *ngFor="let sortField of sortFields"
-            mat-menu-item
-            class="app-menu-button"
-            [class.active]="sortField.field == listState.currentSort"
-            (click)="onSortFieldChanged(sortField.name)">
-      {{sortField.name}}
+  <!-- Grid/list layout buttons -->
+  <div>
+    <button mat-icon-button aria-label="Grid layout"
+            (click)="onLayoutChanged(layouts.Grid)"
+            [class.active]="viewState.currentLayout === layouts.Grid">
+      <mat-icon inline="true">view_comfy</mat-icon>
     </button>
-  </mat-menu>
+    <button mat-icon-button aria-label="List layout"
+            (click)="onLayoutChanged(layouts.List)"
+            [class.active]="viewState.currentLayout === layouts.List">
+      <mat-icon inline="true">reorder</mat-icon>
+    </button>
+  </div>
 
-  <button mat-button class="menu-open-button" [matMenuTriggerFor]="sortOrderMenu">
-    <span class="fa fa-sort-alpha-asc" style="font-size:18px"></span>
-  </button>
-  <mat-menu #sortOrderMenu class="app-menu-panel">
-    <button *ngFor="let sortOrder of sortOrders"
-            mat-menu-item
-            class="app-menu-button"
-            [class.active]="sortOrder.order == listState.currentOrder"
-            (click)="onSortOrderChanged(sortOrder.name)">
-      {{sortOrder.name}}
+  <!-- Flex box that expands to fill the remaining space to
+      align the button groups at either end of the container -->
+  <div fxFlex="1 1 auto"></div>
+
+  <!-- Grid/list layout buttons -->
+  <div>
+    <button mat-icon-button aria-label="Sort order"
+            [matMenuTriggerFor]="sortFieldMenu">
+      <mat-icon inline="true">sort</mat-icon>
     </button>
-  </mat-menu>
+    <mat-menu #sortFieldMenu class="app-menu-panel">
+      <button *ngFor="let sortField of sortFields"
+              mat-menu-item
+              class="app-menu-button"
+              [class.active]="sortField.field == viewState.currentSort"
+              (click)="onSortFieldChanged(sortField.name)">
+        {{sortField.name}}
+      </button>
+    </mat-menu>
+
+    <button mat-icon-button aria-label="Sort order"
+            [matMenuTriggerFor]="sortOrderMenu">
+      <mat-icon inline="true">sort_by_alpha</mat-icon>
+    </button>
+    <mat-menu #sortOrderMenu class="app-menu-panel">
+      <button *ngFor="let sortOrder of sortOrders"
+              mat-menu-item
+              class="app-menu-button"
+              [class.active]="sortOrder.order == viewState.currentOrder"
+              (click)="onSortOrderChanged(sortOrder.name)">
+        {{sortOrder.name}}
+      </button>
+    </mat-menu>
+  </div>
 
 </div>
-
-<!--<div class="form-row">
-
-  <div class="col"></div>
-
-  <div class="dropdown">
-    <button class="dropbtn" style="height:30px">
-      <div class="fas fa-th ml-n3" style="font-size:16px;  padding:5px"></div>
-    </button>
-    <div class="dropdown-content">
-      <a *ngFor="let sortField of sortFields" [ngClass]="{ 'active': sortField.field == listState.currentSort}">{{sortField.name}}</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn" style="height:30px">
-      <div class="fas fa-filter ml-n3" style="font-size:16px; padding:5px"></div>
-    </button>
-    <div class="dropdown-content">
-      <a *ngFor="let sortField of sortFields" [ngClass]="{ 'active': sortField.field == listState.currentSort}">{{sortField.name}}</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn" style="height:30px">
-      <div class="fas fa-sort ml-n3" style="font-size:20px; padding:5px"></div>
-    </button>
-    <div class="dropdown-content">
-      <a *ngFor="let sortField of sortFields" (click)="onSortFieldChanged(sortField.name)" [ngClass]="{ 'active': sortField.field == listState.currentSort}">{{sortField.name}}</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn" style="height:30px">
-      <div class="fa fa-sort-alpha-asc ml-n3" style="font-size:16px; padding:5px"></div>
-    </button>
-    <div class="dropdown-content">
-      <a *ngFor="let sortOrder of sortOrders" (click)="onSortOrderChanged(sortOrder.name)" [ngClass]="{ 'active': sortOrder.order == listState.currentOrder}">{{sortOrder.name}}</a>
-    </div>
-  </div>
-
-</div>-->
