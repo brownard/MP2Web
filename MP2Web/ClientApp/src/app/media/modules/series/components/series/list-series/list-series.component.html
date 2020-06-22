@@ -4,7 +4,7 @@
 
   <!-- Container for the cover image, currently fixed width to give the correct aspect ratio. -->
   <div fxFlex="40px" class="list-image-container">
-    <div class="media-card-img poster-card" [lazyLoad]="artworkService.getMediaItemCoverUrl(item, 0)"></div>
+    <div class="media-card-img poster-card" [lazyLoad]="artworkService.getCoverUrl(5, item.Id, 0)"></div>
   </div>
 
   <!-- Container for the details, fills the remaining space. -->
@@ -21,7 +21,7 @@
         </div>
         <div class="col-8 metadata metadata-right">
           <p>{{item.Year}}</p>
-          <p>{{item.Runtime}} minutes</p>
+          <p>{{item.EpisodeCount}} episodes</p>
         </div>
       </div>
     </div>

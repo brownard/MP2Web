@@ -9,9 +9,10 @@ import { AlbumListComponent } from './components/album-list/album-list.component
 import { GridAlbumComponent } from './components/album/grid-album/grid-album.component';
 import { ListTrackComponent } from './components/track/list-track/list-track.component';
 import * as MusicAlbumStore from './store/music.store';
+import { ListAlbumComponent } from './components/album/list-album/list-album.component';
 
 @NgModule({
-  declarations: [AlbumListComponent, AlbumDetailsComponent, ListTrackComponent, GridAlbumComponent],
+  declarations: [AlbumListComponent, AlbumDetailsComponent, ListTrackComponent, GridAlbumComponent, ListAlbumComponent],
   imports: [
     CommonModule,
     SharedModule,

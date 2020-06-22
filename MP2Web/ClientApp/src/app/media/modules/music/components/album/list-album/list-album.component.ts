@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 
 import { BaseMediaItemComponent } from 'src/app/media/components/base-media-item.component';
-import { WebMovieDetailed } from 'src/app/models/web-media-items';
+import { WebMusicAlbumBasic } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
 
-
 @Component({
-  selector: 'app-list-movie',
-  templateUrl: './list-movie.component.html',
+  selector: 'app-list-album',
+  templateUrl: './list-album.component.html',
   styleUrls: [
-    './list-movie.component.css',
+    './list-album.component.css',
     '../../../../../../shared/styles/media.styles.css'
   ]
 })
-export class ListMovieComponent extends BaseMediaItemComponent<WebMovieDetailed> {
+export class ListAlbumComponent extends BaseMediaItemComponent<WebMusicAlbumBasic> {
   constructor(artworkService: ArtworkService) {
     super(artworkService);
   }

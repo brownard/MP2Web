@@ -20,12 +20,20 @@
 
   <app-media-list [items]="series$ | async"
                   [gridItemTemplate]="gridItemTemplate"
+                  [listItemTemplate]="listItemTemplate"
                   [layout]="(seriesListState$ | async)?.currentLayout">
 
     <ng-template #gridItemTemplate let-serie>
       <!-- Navigate to the details page on click -->
       <a (click)="showSeriesDetails(serie)" (mouseover)="fanartBackground.itemId = serie.Id" [routerLink]="['/series', serie.Id]">
         <app-grid-series [item]="serie"></app-grid-series>
+      </a>
+    </ng-template>
+
+    <ng-template #listItemTemplate let-serie>
+      <!-- Navigate to the details page on click -->
+      <a (click)="showSeriesDetails(serie)" (mouseover)="fanartBackground.itemId = serie.Id" [routerLink]="['/series', serie.Id]">
+        <app-list-series [item]="serie"></app-list-series>
       </a>
     </ng-template>
 
