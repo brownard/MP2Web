@@ -23,6 +23,7 @@
 mat-sidenav {
   width: 208px;
   background-color: #343a40;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
   mat-sidenav .sidenav-brand {

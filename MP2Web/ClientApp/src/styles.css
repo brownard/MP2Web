@@ -18,6 +18,7 @@ body {
   --primary-text-color: #414345;
   --secondary-text-color: #777777;
   --primary-background-color: #ffffff;
+  --primary-focus-background-color: #dddddd;
   --primary-background-alpha: rgba(255, 255, 255, 0.85);
   --primary-background-alpha-stronger: rgba(255, 255, 255, 0.4);
   --secondary-background-color: #f8f9fa;
@@ -34,6 +35,7 @@ body {
     --primary-text-color: #ffffff;
     --secondary-text-color: #f8f9fa;
     --primary-background-color: #414345;
+    --primary-focus-background-color: #666666;
     --primary-background-alpha: rgba(65, 66, 67, 0.85);
     --primary-background-alpha-stronger: rgba(0, 0, 0, 0.6);
     --secondary-background-color: #777777;
