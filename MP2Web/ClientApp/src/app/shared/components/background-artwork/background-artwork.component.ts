@@ -136,6 +136,6 @@ export class BackgroundArtworkComponent implements OnInit, AfterViewInit, OnDest
 
   // Gets the url to the image specified by the input properties, or empty if no itemId has been set.
   private getImageUrl(): string {
-    return this.itemId ? this.artworkService.getArtworkUrl(this.mediaType, this._itemId, this.fileType, 0, this.imageWidth, this.imageHeight) : '';
+    return this.itemId ? this.artworkService.getArtworkUrl(this.mediaType, this._itemId, this.fileType, this.imageWidth, this.imageHeight, 0) : '';
   }
 }

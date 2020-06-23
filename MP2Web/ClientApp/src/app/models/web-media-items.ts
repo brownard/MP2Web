@@ -38,7 +38,9 @@ export enum WebFileType {
   Banner = 2,
   Poster = 3,
   Cover = 4,
-  Logo = 5
+  Logo = 5,
+  ClearArt = 6,
+  DiscArt = 7
 }
 
 export enum WebMediaType {

@@ -1,6 +1,6 @@
 <!-- Card container, primary background, small shadow, background image lazily loaded when visible -->
 <div class="grid-container">
-  <div class="media-card-img poster-card" [lazyLoad]="artworkService.getMediaItemCoverUrl(item, 0)"></div>
+  <div class="media-card-img poster-card" [lazyLoad]="artworkService.getArtworkUrl(0, item.Id, 3)"></div>
 
   <div class="media-card-overlay">
 
