@@ -22,8 +22,8 @@
 
 mat-sidenav {
   width: 208px;
-  background-color: var(--primary-background-color);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  background-color: var(--main-menu-background-color);
+  box-shadow: var(--menu-shadow);
 }
 
   mat-sidenav .sidenav-brand {
