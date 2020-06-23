@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { BaseMediaItemComponent } from 'src/app/media/components/base-media-item.component';
 import { WebMovieDetailed } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
-
 
 @Component({
   selector: 'app-list-movie',
@@ -11,7 +10,8 @@ import { ArtworkService } from 'src/app/services/artwork.service';
   styleUrls: [
     './list-movie.component.css',
     '../../../../../../shared/styles/media.styles.css'
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListMovieComponent extends BaseMediaItemComponent<WebMovieDetailed> {
   constructor(artworkService: ArtworkService) {
