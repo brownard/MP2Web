@@ -1,0 +1,15 @@
+<div class="container">
+  <div *ngIf="!playerSource" class="video-placeholder-container">
+    <img class="placeholder" [src]="placeholderUrl" />
+    <div *ngIf="!isLoading" class="play-button fas fa-play" (click)="play()"></div>
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner diameter="48" style="margin:16px auto;"></mat-spinner>
+    </div>
+  </div>
+
+  <div *ngIf="playerSource">
+    <video [appVideoPlayer]="playerSource" #player="videoPlayer" autoplay style="width: 100%;"></video>
+    <app-video-controls [player]="player"></app-video-controls>
+  </div>
+
+</div>

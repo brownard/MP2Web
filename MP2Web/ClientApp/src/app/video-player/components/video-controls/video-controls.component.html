@@ -1,0 +1,23 @@
+<div *ngIf="player" class="player-controls" fxLayout fxLayoutAlign="none center">
+  <button mat-icon-button (click)="togglePause()">
+    <mat-icon>{{(playbackState$ | async) === PlaybackState.Playing ? 'pause' : 'play_arrow'}}</mat-icon>
+  </button>
+
+  <span>{{(currentTime$ | async) | playbackTime}}</span>
+  <span>&nbsp;/&nbsp;</span>
+  <span style="margin-right: 8px;">{{(duration$ | async) | playbackTime}}</span>
+
+  <mat-slider fxFlex="1 0"
+              [max]="duration$ | async"
+              [value] ="currentTime$ | async"
+              (mousedown)="startSeeking()"
+              (input)="onSeekPositionChanged($event)">
+  </mat-slider>
+
+  <button mat-icon-button>
+    <mat-icon>volume_up</mat-icon>
+  </button>
+  <button mat-icon-button (click)="toggleFullscreen()">
+    <mat-icon>{{isFullscreen ? 'fullscreen_exit' : 'fullscreen'}}</mat-icon>
+  </button>
+</div>

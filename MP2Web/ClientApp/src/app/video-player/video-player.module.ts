@@ -1,17 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VideoPlayerComponent } from './components/video-player.component';
-import { VideoPlayerDirective } from './directives/video-player.directive';
+import { NgModule } from '@angular/core';
+
 import { MaterialModule } from '../material/material.module';
+import { VideoControlsComponent } from './components/video-controls/video-controls.component';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { VideoPlayerDirective } from './directives/video-player.directive';
+import { PlaybackTimePipe } from './pipes/playback-time.pipe';
+
 
 @NgModule({
   declarations: [
     VideoPlayerComponent,
-    VideoPlayerDirective
+    VideoPlayerDirective,
+    VideoControlsComponent,
+    PlaybackTimePipe
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
   ],
   exports: [
     VideoPlayerComponent,

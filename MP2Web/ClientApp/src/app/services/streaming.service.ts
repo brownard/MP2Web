@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfigService } from '../app-config.service';
-import { ApiService } from './api.service';
 import { WebBoolResult, WebMediaType, WebStringResult } from '../models/web-media-items';
+import { WebMediaInfo } from '../models/web-stream-items';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,13 @@ import { WebBoolResult, WebMediaType, WebStringResult } from '../models/web-medi
 export class StreamingService extends ApiService {
   constructor(http: HttpClient, config: AppConfigService) {
     super(http, config.appConfig.mp2ExtendedBasePath + config.appConfig.streamingServicePath);
+  }
+
+  public getMediaInfo(itemId: string, type: WebMediaType) {
+    return this.getData<WebMediaInfo>('GetMediaInfo', {
+      'itemId': itemId,
+      'type': type
+    });
   }
 
   public initStream(itemId: string, clientDescription: string, identifier: string, type: WebMediaType, idleTimeout: number) {
