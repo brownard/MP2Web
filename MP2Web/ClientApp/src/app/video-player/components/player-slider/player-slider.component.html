@@ -1,0 +1,10 @@
+<div class="slider-container">
+  <progress [value]="value" [max]="max"></progress>
+  <input class="slider" type="range" min="0"
+         #slider
+         [value]="value"
+         [max]="max"
+         [step]="step"
+         (input)="onInput(slider.value)"
+         (change)="onChange(slider.value)">
+</div>

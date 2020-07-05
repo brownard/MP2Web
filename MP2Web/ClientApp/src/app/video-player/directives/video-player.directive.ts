@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { PlaybackState, Player } from '../models/player';
 import { PlayerSource } from '../models/player-source';
 
-
 @Directive({
   selector: '[appVideoPlayer]',
   exportAs: 'videoPlayer'
@@ -51,7 +50,7 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
 
   get currentTime$(): Observable<number> {
     return this._currentTime$.pipe(
-      map(t => t + (this._source ? this._source.startPosition : 0))
+      map(t => this._source ? this._source.startPosition + t : t)
     );
   }
 
@@ -87,10 +86,12 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
     if (time < 0 || time > this._source.durationInSeconds)
       return false;
 
+    // If the seek time is within the times available in the current
+    // playlist then we can just seek the player directly
     if (this.trySeekPlayer(time - this._source.startPosition))
       return true;
 
-    this.pause()
+    // Else we'll need to start a new stream at the specified position
     if (this.hls)
       this.hls.destroy();
 

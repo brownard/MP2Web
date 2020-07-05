@@ -1,23 +1,36 @@
-<div *ngIf="player" class="player-controls" fxLayout fxLayoutAlign="none center">
-  <button mat-icon-button (click)="togglePause()">
-    <mat-icon>{{(playbackState$ | async) === PlaybackState.Playing ? 'pause' : 'play_arrow'}}</mat-icon>
-  </button>
+<div *ngIf="player" class="controls-container">
 
-  <span>{{(currentTime$ | async) | playbackTime}}</span>
-  <span>&nbsp;/&nbsp;</span>
-  <span style="margin-right: 8px;">{{(duration$ | async) | playbackTime}}</span>
+  <!-- Buttons -->
+  <div fxLayout fxLayoutAlign="none center">
 
-  <mat-slider fxFlex="1 0"
-              [max]="duration$ | async"
-              [value] ="currentTime$ | async"
-              (mousedown)="startSeeking()"
-              (input)="onSeekPositionChanged($event)">
-  </mat-slider>
+    <button mat-icon-button (click)="togglePause()">
+      <mat-icon>{{(playbackState$ | async) === PlaybackState.Playing ? 'pause' : 'play_arrow'}}</mat-icon>
+    </button>
 
-  <button mat-icon-button>
-    <mat-icon>volume_up</mat-icon>
-  </button>
-  <button mat-icon-button (click)="toggleFullscreen()">
-    <mat-icon>{{isFullscreen ? 'fullscreen_exit' : 'fullscreen'}}</mat-icon>
-  </button>
+    <span>{{(currentTime$ | async) | playbackTime}}</span>
+    <span>&nbsp;/&nbsp;</span>
+    <span>{{(duration$ | async) | playbackTime}}</span>
+
+    <!-- Flex box that expands to fill the remaining space to
+        align the button groups at either end of the container -->
+    <div fxFlex="1 1 auto"></div>
+
+    <button mat-icon-button>
+      <mat-icon>volume_up</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toggleFullscreen()">
+      <mat-icon>{{isFullscreen ? 'fullscreen_exit' : 'fullscreen'}}</mat-icon>
+    </button>
+  </div>
+
+  <!-- Timeline -->
+  <div style="margin: 12px 8px 0 8px;">
+
+    <app-player-slider [max]="duration$ | async"
+                       [value]="currentTime$ | async"
+                       (changing)="onSeeking($event)"
+                       (change)="onSeeked($event)">
+    </app-player-slider>
+  </div>
+
 </div>

@@ -9,6 +9,9 @@ export class StreamSource implements PlayerSource {
   private _startPosition: number = 0;
   private _streamUrl: string = undefined;
 
+  private _isBusy: boolean = false;
+  private _doFinish: boolean = false;
+
   constructor(private playerService: PlayerService, private mediaItem: WebMediaItem) {
   }
 
@@ -30,21 +33,60 @@ export class StreamSource implements PlayerSource {
   }
 
   async start(startPosition: number = 0): Promise<boolean> {
-    if (this._streamUrl) {
+    // Check if we are a;ready starting or started
+    if (this._isBusy || this._streamUrl) {
       console.warn('StreamSource: Tried to start an already started stream.');
       return false;
     }
 
+    this._isBusy = true;
     this._startPosition = startPosition;
-    return await this.startStream();
+    const result = await this.startStream();
+    this._isBusy = false;
+
+    // A finish might have been requested whilst startStream was awaited above
+    if (this._doFinish) {
+      await this.finish();
+      return false;
+    }
+
+    return result;
   }
 
-  seek(time: number): Promise<boolean> {
-    return this.seekStream(time);
+  async seek(time: number): Promise<boolean> {
+    // Only seek if we have a stream and aren't already seeking
+    if (!this._streamUrl || this._isBusy) {
+      return false;
+    }
+
+    this._isBusy = true;
+    const result = await this.seekStream(time);
+    this._isBusy = false;
+
+    // A finish might have been requested whilst startStream was awaited above
+    if (this._doFinish) {
+      await this.finish();
+      return false;
+    }
+
+    return result;
   }
 
   async finish(): Promise<boolean> {
+    // We need to wait for any async operations to complete before
+    // finishing to ensure the stream is in a consistent state.
+    if (this._isBusy) {
+      this._doFinish = true;
+      return false;
+    }
+
+    // Setting isBusy prevents calls to start and
+    // seek whilst the stream is finishing.
+    this._isBusy = true;
     const result = await this.finishStream();
+    this._isBusy = false;
+
+    this._doFinish = false;
     this._streamUrl = undefined;
     this._startPosition = 0;
     return result;
@@ -77,12 +119,12 @@ export class StreamSource implements PlayerSource {
       return false;
     }
 
+    this._startPosition = time;
     const result = await this.playerService.setStreamPosition(time).toPromise();
     if (!result || !result.Result) {
       console.warn(`StreamSource: Unable to seek stream to time ${time}.`);
       return false;
     }
-    this._startPosition = time;
     this._streamUrl = this.fixStreamUrl(result.Result);
     return true;
   }
@@ -91,7 +133,10 @@ export class StreamSource implements PlayerSource {
     // MP2Extended returns an absolute url that uses the first IP address that MP2's server is bound to.
     // This may be different to the IP address used to request this site, to avoid CORS issues, trim the
     // url to a relative path, we should be hosted on the same machine so the request will still work.
-    return this.getRelativeUrl(hlsStreamUrl) + '&hls=temp_playlist.m3u8';
+    const relativeUrl = this.getRelativeUrl(hlsStreamUrl);
+
+    // Request temp_playlist.m3u8 to bypass the transcoding service's 'predicted' playlist which causes issues.
+    return relativeUrl + '&hls=temp_playlist.m3u8';
   }
 
   private getRelativeUrl(absoluteUrl: string): string {

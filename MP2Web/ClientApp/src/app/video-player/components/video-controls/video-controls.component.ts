@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { MatSliderChange } from '@angular/material/slider';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { Observable, Subject, merge, Subscription } from 'rxjs';
-import { Player, PlaybackState } from '../../models/player';
+import { merge, Observable, Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { PlaybackState, Player } from '../../models/player';
+
 
 @Component({
   selector: 'app-video-controls',
@@ -17,7 +18,6 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   
   private _player: Player;
 
-  private _seekTime: number = undefined;
   private _seekTime$: Subject<number> = new Subject<number>();
 
   playbackState$: Observable<PlaybackState>;
@@ -48,7 +48,9 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
     this.playbackState$ = value.playbackState$;
     this.duration$ = value.duration$;
     this.volume$ = value.volume$;
-    this.currentTime$ = merge(value.currentTime$, this._seekTime$);
+
+    // When seeking, ignore any player time updates and return seek time updates instead
+    this.currentTime$ = merge(value.currentTime$.pipe(filter(() => !this.isSeeking)), this._seekTime$);
   }
 
   togglePause() {
@@ -60,31 +62,20 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
     this.isFullscreen = !this.isFullscreen;
   }
 
-  startSeeking(): void {
-    this.isSeeking = true;
-    this._seekTime = undefined;
-    if (this._player)
-      this._player.pause();
+  onSeeking(value: number): void {
+    if (!this.isSeeking) {
+      this.isSeeking = true;
+      if (this._player)
+        this._player.pause();
+    }
+    this._seekTime$.next(value);
   }
 
-  onSeekPositionChanged(e: MatSliderChange) {
-    if (!this.isSeeking)
-      return;
-    this._seekTime = e.value;
-    this._seekTime$.next(e.value);
-  }
-
-  // We need to use the global mouseup event to end seeking because
-  // the cursor might not be over the slider when the button is released.
-  @HostListener('window:mouseup', ['$event'])
-  async endSeeking(): Promise<void> {
-    if (!this.isSeeking)
-      return;
-
+  async onSeeked(value: number): Promise<void> {
     this.isSeeking = false;
-    if (!this._player || this._seekTime === undefined)
+    if (!this._player)
       return;
-    await this._player.seek(this._seekTime);
+    await this._player.seek(value);
     this._player.play();
   }
 }

@@ -6,6 +6,7 @@ import { VideoControlsComponent } from './components/video-controls/video-contro
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { VideoPlayerDirective } from './directives/video-player.directive';
 import { PlaybackTimePipe } from './pipes/playback-time.pipe';
+import { PlayerSliderComponent } from './components/player-slider/player-slider.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { PlaybackTimePipe } from './pipes/playback-time.pipe';
     VideoPlayerComponent,
     VideoPlayerDirective,
     VideoControlsComponent,
-    PlaybackTimePipe
+    PlaybackTimePipe,
+    PlayerSliderComponent
   ],
   imports: [
     CommonModule,
