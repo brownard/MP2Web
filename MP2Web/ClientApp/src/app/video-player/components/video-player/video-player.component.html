@@ -7,9 +7,22 @@
     </div>
   </div>
 
-  <div *ngIf="playerSource" class="video-player-container">
-    <video class="video-player" [appVideoPlayer]="playerSource" #player="videoPlayer" autoplay></video>
-    <app-video-controls class="video-controls show" [player]="player"></app-video-controls>
+  <div *ngIf="playerSource"
+       class="video-player-container"
+       [class.show]="showControls || (controls.playbackState$ | async) !== controls.PlaybackState.Playing"
+       (mousemove)="doShowControls(false)">
+
+    <video #player="videoPlayer"
+           class="video-player"
+           autoplay
+           [appVideoPlayer]="playerSource"></video>
+
+    <app-video-controls #controls
+                        class="video-controls"
+                        [player]="player"
+                        (mouseenter)="doShowControls(true)"
+                        (mouseleave)="doHideControls()">
+    </app-video-controls>
   </div>
 
 </div>

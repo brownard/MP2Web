@@ -55,7 +55,8 @@
 
 .video-player-container {
   position: relative;
-  background-color: white;
+  background-color: black;
+  cursor: none;
 }
 
   .video-player-container .video-player {
@@ -77,6 +78,10 @@
     transition: all 0.4s ease;
   }
 
-    .video-player-container .video-controls.show {
-      opacity: 1;
-    }
+.video-player-container.show {
+  cursor: default;
+}
+
+  .video-player-container.show .video-controls {
+    opacity: 1;
+  }
