@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { merge, Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -25,7 +25,6 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   currentTime$: Observable<number>;
   volume$: Observable<number>;
 
-  isFullscreen: boolean = false;
   isSeeking: boolean = false;
    
   constructor() {
@@ -53,13 +52,19 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
     this.currentTime$ = merge(value.currentTime$.pipe(filter(() => !this.isSeeking)), this._seekTime$);
   }
 
+  @Input()
+  isFullscreen: boolean = false;
+
+  @Output()
+  toggleFullscreen: EventEmitter<void> = new EventEmitter();
+
+  onToggleFullscreen() {
+    this.toggleFullscreen.emit();
+  }
+
   togglePause() {
     if (this._player)
       this._player.togglePause();
-  }
-
-  toggleFullscreen() {
-    this.isFullscreen = !this.isFullscreen;
   }
 
   onSeeking(value: number): void {

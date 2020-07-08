@@ -8,6 +8,8 @@
   </div>
 
   <div *ngIf="playerSource"
+       appFullscreen
+       #fullscreen="fullscreen"
        class="video-player-container"
        [class.show]="showControls || (controls.playbackState$ | async) !== controls.PlaybackState.Playing"
        (mousemove)="doShowControls(false)">
@@ -20,6 +22,8 @@
     <app-video-controls #controls
                         class="video-controls"
                         [player]="player"
+                        [isFullscreen] ="fullscreen.isFullscreen"
+                        (toggleFullscreen)="fullscreen.toggleFullscreen()"
                         (mouseenter)="doShowControls(true)"
                         (mouseleave)="doHideControls()">
     </app-video-controls>

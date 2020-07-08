@@ -63,6 +63,13 @@
     width: 100%;
   }
 
+  .video-player-container:fullscreen .video-player,
+  .video-player-container:webkit-full-screen .video-player,
+  .video-player-container:moz-full-screen .video-player,
+  .video-player-container:ms-fullscreen .video-player {
+    height: 100%;
+  }
+
   .video-player-container .video-controls {
     position: absolute;
     bottom: 0;
