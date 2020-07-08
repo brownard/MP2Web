@@ -134,34 +134,59 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
     return true;
   }
 
-  private addEventListeners() {
-    this._element.addEventListener('play', () => this.onPlayerStateChanged(PlaybackState.Playing));
-    this._element.addEventListener('pause', () => this.onPlayerStateChanged(PlaybackState.Paused));
-    this._element.addEventListener('timeupdate', () => this.onPlayerTimeChanged(this._element.currentTime));
-    this._element.addEventListener('volumechange', () => this.onPlayerVolumeChanged(this._element.volume));
-  }
-
   private setDuration(duration: number) {
     this._duration$.next(duration);
   }
 
-  private onPlayerStateChanged(playbackState: PlaybackState) {
+  private setPlaybackState(playbackState: PlaybackState) {
     this._playbackState$.next(playbackState);
   }
 
-  private onPlayerTimeChanged(currentTime: number) {
+  private setCurrentTime(currentTime: number) {
     this._currentTime$.next(currentTime);
   }
 
-  private onPlayerVolumeChanged(volume: number) {
+  private setCurrentVolume(volume: number) {
     this._volume$.next(volume);
   }
 
+  private addEventListeners() {
+    this._element.addEventListener('play', this.onPlayerPlay);
+    this._element.addEventListener('pause', this.onPlayerPause);
+    this._element.addEventListener('timeupdate', this.onPlayerTimeUpdate);
+    this._element.addEventListener('volumechange', this.onPlayerVolumeChanged);
+  }
+
+  private removeEventListeners() {
+    this._element.removeEventListener('play', this.onPlayerPlay);
+    this._element.removeEventListener('pause', this.onPlayerPause);
+    this._element.removeEventListener('timeupdate', this.onPlayerTimeUpdate);
+    this._element.removeEventListener('volumechange', this.onPlayerVolumeChanged);
+  }
+
+  private onPlayerPlay = () => {
+    this.setPlaybackState(PlaybackState.Playing);
+  }
+
+  private onPlayerPause = () => {
+    this.setPlaybackState(PlaybackState.Paused);
+  }
+
+  private onPlayerTimeUpdate = () => {
+    this.setCurrentTime(this._element.currentTime);
+  }
+
+  private onPlayerVolumeChanged = () => {
+    this.setCurrentVolume(this._element.volume);
+  }
+
   async destroy() {
+
+    this.removeEventListeners();
     if (this.hls)
       this.hls.destroy();
 
-    this.onPlayerStateChanged(PlaybackState.Stopped);
+    this.setPlaybackState(PlaybackState.Stopped);
 
     this._playbackState$.complete();
     this._duration$.complete();
