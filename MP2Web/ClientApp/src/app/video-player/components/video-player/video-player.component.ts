@@ -76,17 +76,19 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
    * @param force if true, the controls will be shown until doHideControls is called,
    * else the controls will be hidden after a timeout.
    */
-  doShowControls(force: boolean): void {
-    if (this._showControlsTimeoutHandle !== undefined)
-      clearTimeout(this._showControlsTimeoutHandle);
+  doShowControls(force: boolean): void {  
+    setTimeout(() => {
+      if (this._showControlsTimeoutHandle !== undefined)
+        clearTimeout(this._showControlsTimeoutHandle);
 
-    this.showControls = true;
+      this.showControls = true;
 
-    if (force)
-      this.forceShowControls = true;
+      if (force)
+        this.forceShowControls = true;
 
-    if (!this.forceShowControls)
-      this.hideControlsAfterTimeout();
+      if (!this.forceShowControls)
+        this.hideControlsAfterTimeout();
+    }, 0);
   }
 
   /** Hides the controls after a timeout. */

@@ -2,3 +2,9 @@
   font-size: 16px;
   color: white;
 }
+
+  /* The default mat-icon-button style changes the
+     color when disabled, this overrides it. */
+  .controls-container button.mat-icon-button {
+    color: white;
+  }

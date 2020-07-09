@@ -22,7 +22,8 @@
     <app-video-controls #controls
                         class="video-controls"
                         [player]="player"
-                        [isFullscreen] ="fullscreen.isFullscreen"
+                        [isFullscreen]="fullscreen.isFullscreen"
+                        [disabled]="!showControls && (controls.playbackState$ | async) === controls.PlaybackState.Playing"
                         (toggleFullscreen)="fullscreen.toggleFullscreen()"
                         (mouseenter)="doShowControls(true)"
                         (mouseleave)="doHideControls()">

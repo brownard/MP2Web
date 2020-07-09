@@ -55,6 +55,9 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   @Input()
   isFullscreen: boolean = false;
 
+  @Input()
+  disabled: boolean = false;
+
   @Output()
   toggleFullscreen: EventEmitter<void> = new EventEmitter();
 

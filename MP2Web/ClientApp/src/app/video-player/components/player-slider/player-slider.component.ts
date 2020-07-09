@@ -19,6 +19,9 @@ export class PlayerSliderComponent {
   @Input()
   value: number = 0;
 
+  @Input()
+  disabled: boolean = false;
+
   onInput(value: string) {
     this.value = parseFloat(value);
     this.changing.emit(this.value);

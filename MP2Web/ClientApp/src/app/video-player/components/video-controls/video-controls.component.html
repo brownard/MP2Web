@@ -3,7 +3,7 @@
   <!-- Buttons -->
   <div fxLayout fxLayoutAlign="none center">
 
-    <button mat-icon-button (click)="togglePause()">
+    <button mat-icon-button (click)="togglePause()" [disabled]="disabled">
       <mat-icon>{{(playbackState$ | async) === PlaybackState.Playing ? 'pause' : 'play_arrow'}}</mat-icon>
     </button>
 
@@ -15,10 +15,10 @@
         align the button groups at either end of the container -->
     <div fxFlex="1 1 auto"></div>
 
-    <button mat-icon-button>
+    <button mat-icon-button [disabled]="disabled">
       <mat-icon>volume_up</mat-icon>
     </button>
-    <button mat-icon-button (click)="onToggleFullscreen()">
+    <button mat-icon-button (click)="onToggleFullscreen()" [disabled]="disabled">
       <mat-icon>{{isFullscreen ? 'fullscreen_exit' : 'fullscreen'}}</mat-icon>
     </button>
   </div>
@@ -28,6 +28,7 @@
 
     <app-player-slider [max]="duration$ | async"
                        [value]="currentTime$ | async"
+                       [disabled]="disabled"
                        (changing)="onSeeking($event)"
                        (change)="onSeeked($event)">
     </app-player-slider>
