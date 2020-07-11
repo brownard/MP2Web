@@ -55,12 +55,12 @@
 
 .video-player-container {
   position: relative;
-  background-color: black;
   cursor: none;
 }
 
   .video-player-container .video-player {
     width: 100%;
+    background-color: black;
   }
 
   .video-player-container:fullscreen .video-player,

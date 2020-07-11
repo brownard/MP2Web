@@ -1,4 +1,5 @@
 <div class="container">
+
   <div *ngIf="!playerSource" class="video-placeholder-container">
     <img class="placeholder" [src]="placeholderUrl" />
     <div *ngIf="!isLoading" class="play-button fas fa-play" (click)="play()"></div>
@@ -7,11 +8,15 @@
     </div>
   </div>
 
-  <div *ngIf="playerSource"
+
+  <!--*ngIf="playerSource"-->
+
+  <span *ngIf="playerSource"
        appFullscreen
        #fullscreen="fullscreen"
        class="video-player-container"
        [class.show]="showControls || (controls.playbackState$ | async) !== controls.PlaybackState.Playing"
+       (touchstart)="controlsTouched = true"
        (mousemove)="doShowControls(false)">
 
     <video #player="videoPlayer"
@@ -28,6 +33,6 @@
                         (mouseenter)="doShowControls(true)"
                         (mouseleave)="doHideControls()">
     </app-video-controls>
-  </div>
+  </span>
 
 </div>

@@ -15,7 +15,7 @@ import { PlayerService } from '../../services/player.service';
 export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   // Timeout before hiding controls due to inactivity
-  private _showControlsTimeoutMs: number = 2000;
+  private _showControlsTimeoutMs: number = 3000;
 
   // Handle to the timeout timer, any type is used because the type
   // varies depending on the host environment, it's a NodJs.Timeout
@@ -37,6 +37,8 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   // Whether showControls should only be set to false after an explicit call to
   // doHideControls, else they'll be hidden after _showControlsTimeoutMs of inactivity
   private forceShowControls: boolean;
+
+  controlsTouched: boolean = false;
 
   // Bound to the template to determing whether to show/hide the player controls
   showControls: boolean;
@@ -76,14 +78,15 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
    * @param force if true, the controls will be shown until doHideControls is called,
    * else the controls will be hidden after a timeout.
    */
-  doShowControls(force: boolean): void {  
+  doShowControls(force: boolean): void {
     setTimeout(() => {
       if (this._showControlsTimeoutHandle !== undefined)
         clearTimeout(this._showControlsTimeoutHandle);
 
+      
       this.showControls = true;
 
-      if (force)
+      if (force && !this.controlsTouched)
         this.forceShowControls = true;
 
       if (!this.forceShowControls)
@@ -124,11 +127,13 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
   /** Sets showControls to false after a timeout. */
   private hideControlsAfterTimeout() {
+
     if (this._showControlsTimeoutHandle !== undefined)
       clearTimeout(this._showControlsTimeoutHandle);
 
     this._showControlsTimeoutHandle = setTimeout(() => {
       this.showControls = false;
+      this.controlsTouched = false;
     }, this._showControlsTimeoutMs);
   }
 }
