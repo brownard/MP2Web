@@ -21,9 +21,34 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
 
   private hls: Hls
 
+  canSetVolume: boolean = false;
+
   constructor(el: ElementRef) {
     this._element = el.nativeElement;
+
+    // Checks whether setting the volume is supported and
+    // initializes _volume$ with the current volume
+    this.checkVolume();
+
     this.addEventListeners();
+  }
+
+  private checkVolume() {
+    // Set the value of our volume observable to the player volume
+    this.onPlayerVolumeChanged();
+
+    // On some devices (like iOS) the volume property is read only
+    // because they use the hardware volume controls instead.
+    // Try and detect whether we can set the volume by testing if
+    // we can set the volume property.
+    const currentVolume = this._element.volume;
+    this._element.volume = currentVolume < 0.5 ? currentVolume + 0.1 : currentVolume - 0.1;
+
+    this.canSetVolume = this._element.volume != currentVolume;
+    // If it worked, set the player back to the original volume
+    if (this.canSetVolume) {
+      this._element.volume = currentVolume;
+    }
   }
 
   ngOnInit(): void {
@@ -75,6 +100,10 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
       this.play();
     else
       this.pause();
+  }
+
+  toggleMute() {
+    this._element.muted = !this._element.muted;
   }
 
   async seek(time: number): Promise<boolean> {
@@ -177,7 +206,7 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
   }
 
   private onPlayerVolumeChanged = () => {
-    this.setCurrentVolume(this._element.volume);
+    this.setCurrentVolume(this._element.muted ? 0 : this._element.volume);
   }
 
   async destroy() {

@@ -26,6 +26,7 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   volume$: Observable<number>;
 
   isSeeking: boolean = false;
+  private _showVolume: boolean = false;
    
   constructor() {
   }
@@ -53,10 +54,10 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  isFullscreen: boolean = false;
+  disabled: boolean = false;
 
   @Input()
-  disabled: boolean = false;
+  isFullscreen: boolean = false;
 
   @Output()
   toggleFullscreen: EventEmitter<void> = new EventEmitter();
@@ -85,5 +86,23 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
       return;
     await this._player.seek(value);
     this._player.play();
+  }
+
+  toggleMute(): void {
+    if (this._player)
+      this._player.toggleMute();
+  }
+
+  setVolume(volume: number): void {
+    if (this._player && this._player.canSetVolume)
+      this._player.setVolume(volume);
+  }
+
+  get showVolume(): boolean {
+    return this._showVolume && (!this._player || this._player.canSetVolume);
+  }
+
+  set showVolume(showVolume: boolean) {
+    this._showVolume = showVolume;
   }
 }

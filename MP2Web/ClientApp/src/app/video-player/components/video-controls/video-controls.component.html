@@ -3,7 +3,9 @@
   <!-- Buttons -->
   <div fxLayout fxLayoutAlign="none center">
 
-    <button mat-icon-button (click)="togglePause()" [disabled]="disabled">
+    <button mat-icon-button
+            [disabled]="disabled"
+            (click)="togglePause()">
       <mat-icon>{{(playbackState$ | async) === PlaybackState.Playing ? 'pause' : 'play_arrow'}}</mat-icon>
     </button>
 
@@ -15,16 +17,41 @@
         align the button groups at either end of the container -->
     <div fxFlex="1 1 auto"></div>
 
-    <button mat-icon-button [disabled]="disabled">
-      <mat-icon>volume_up</mat-icon>
-    </button>
-    <button mat-icon-button (click)="onToggleFullscreen()" [disabled]="disabled">
+    <!-- Volume container for a mute button and a volume slider
+         that expands out when the mute nutton is hovered-->
+    <div class="volume-container"
+         (mouseenter)="showVolume = true"
+         (mouseleave)="showVolume = false">
+
+      <!-- Mute button -->
+      <button mat-icon-button
+              [disabled]="disabled"
+              (click)="toggleMute()">
+        <mat-icon>{{(volume$ | async) > 0 ? 'volume_up' : 'volume_off'}}</mat-icon>
+      </button>
+
+      <!--Volume slider, css expands it to the left when showVolume is true-->
+      <span class="volume-slider-container" [class.show]="showVolume">
+        <app-player-slider class="volume-slider"
+                           max="1"
+                           step="0.01"
+                           [value]="volume$ | async"
+                           (changing)="setVolume($event)">
+        </app-player-slider>
+      </span>
+
+    </div>
+
+    <button mat-icon-button
+            [disabled]="disabled"
+            (click)="onToggleFullscreen()">
       <mat-icon>{{isFullscreen ? 'fullscreen_exit' : 'fullscreen'}}</mat-icon>
     </button>
+
   </div>
 
   <!-- Timeline -->
-  <div style="margin: 12px 8px 0 8px;">
+  <div class="timeline-container">
 
     <app-player-slider [max]="duration$ | async"
                        [value]="currentTime$ | async"
