@@ -23,22 +23,23 @@
          (mouseenter)="showVolume = true"
          (mouseleave)="showVolume = false">
 
+      <!--Volume slider, css expands it when showVolume is true-->
+      <span class="volume-slider-container" [class.show]="showVolume">
+        <app-player-slider class="volume-slider"
+                           max="1"
+                           step="0.01"
+                           [value]="volume$ | async"
+                           [disabled]="disabled"
+                           (sliderChanging)="setVolume($event)">
+        </app-player-slider>
+      </span>
+
       <!-- Mute button -->
       <button mat-icon-button
               [disabled]="disabled"
               (click)="toggleMute()">
         <mat-icon>{{(volume$ | async) > 0 ? 'volume_up' : 'volume_off'}}</mat-icon>
       </button>
-
-      <!--Volume slider, css expands it to the left when showVolume is true-->
-      <span class="volume-slider-container" [class.show]="showVolume">
-        <app-player-slider class="volume-slider"
-                           max="1"
-                           step="0.01"
-                           [value]="volume$ | async"
-                           (changing)="setVolume($event)">
-        </app-player-slider>
-      </span>
 
     </div>
 
@@ -56,8 +57,8 @@
     <app-player-slider [max]="duration$ | async"
                        [value]="currentTime$ | async"
                        [disabled]="disabled"
-                       (changing)="onSeeking($event)"
-                       (change)="onSeeked($event)">
+                       (sliderChanging)="onSeeking($event)"
+                       (sliderChanged)="onSeeked($event)">
     </app-player-slider>
   </div>
 

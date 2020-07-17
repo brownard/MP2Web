@@ -1,6 +1,7 @@
 .controls-container {
   font-size: 14px;
   color: white;
+  overflow: hidden;
 }
 
   /* The default mat-icon-button style changes the
@@ -14,19 +15,13 @@
   }
 
 .volume-container {
-  position: relative;
+  display: inline-flex;
+  align-items: center;
 }
 
 .volume-slider-container {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 0;
   overflow: hidden;
-
+  width: 0;
   -webkit-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
   -ms-transition: all 0.4s ease;
@@ -35,7 +30,6 @@
 }
 
 .volume-slider-container.show {
-  left: -75px;
   width: 75px;
 }
 

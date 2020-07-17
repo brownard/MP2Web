@@ -24,19 +24,19 @@ export class PlayerSliderComponent {
 
   onInput(value: string) {
     this.value = parseFloat(value);
-    this.changing.emit(this.value);
+    this.sliderChanging.emit(this.value);
   }
 
   onChange(value: string) {
     this.value = parseFloat(value);
-    this.change.emit(this.value);
+    this.sliderChanged.emit(this.value);
   }
 
   /** Emitted periodically with the current value when the slider is being moved */
   @Output()
-  changing: EventEmitter<number> = new EventEmitter();
+  sliderChanging: EventEmitter<number> = new EventEmitter();
   
   /** Emitted with the final value when the slider has finished being moved */
   @Output()
-  change: EventEmitter<number> = new EventEmitter();
+  sliderChanged: EventEmitter<number> = new EventEmitter();
 }

@@ -99,7 +99,8 @@ export class VideoControlsComponent implements OnInit, OnDestroy {
   }
 
   get showVolume(): boolean {
-    return this._showVolume && (!this._player || this._player.canSetVolume);
+    // Don't show the volume slider if disabled or there's a player and it's volume is read only
+    return this._showVolume && !this.disabled && (!this._player || this._player.canSetVolume);
   }
 
   set showVolume(showVolume: boolean) {
