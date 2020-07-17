@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { WebFileType, WebMediaItem } from 'src/app/models/web-media-items';
 import { StreamingStreamService } from 'src/app/services/streaming-stream.service';
+import { PlaybackState } from '../../models/player';
 import { PlayerSource } from '../../models/player-source';
 import { StreamSource } from '../../models/stream-source';
 import { PlayerService } from '../../services/player.service';
@@ -34,14 +35,21 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   // True if the player source hasn't been created or initialized yet
   isLoading: boolean;
 
-  // Whether showControls should only be set to false after an explicit call to
-  // doHideControls, else they'll be hidden after _showControlsTimeoutMs of inactivity
-  private forceShowControls: boolean;
+  /** Whether the controls should remain visible until a call to
+   *  doHideControls(), else they are hidden after a timeout. */
+  private _forceShowControls: boolean;
 
-  controlsTouched: boolean = false;
+  /** Whether to ignore mouse events when deciding whether to keep the controls visible. */
+  private _ignoreMouseEvents: boolean = false;
 
   // Bound to the template to determing whether to show/hide the player controls
-  showControls: boolean;
+  private _showControls: boolean;
+
+  playbackState: PlaybackState = PlaybackState.Stopped;
+
+  get showControls() {
+    return this._showControls || this.playbackState !== PlaybackState.Playing;
+  }
 
   constructor(private playerService: PlayerService, private streamingStreamService: StreamingStreamService) {
   }
@@ -73,33 +81,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     this.isLoading = false;
   }
 
-  /**
-   * Sets showControls to true and optionally starts a timer to set it back to false after a timeout.
-   * @param force if true, the controls will be shown until doHideControls is called,
-   * else the controls will be hidden after a timeout.
-   */
-  doShowControls(force: boolean): void {
-    setTimeout(() => {
-      if (this._showControlsTimeoutHandle !== undefined)
-        clearTimeout(this._showControlsTimeoutHandle);
-
-      
-      this.showControls = true;
-
-      if (force && !this.controlsTouched)
-        this.forceShowControls = true;
-
-      if (!this.forceShowControls)
-        this.hideControlsAfterTimeout();
-    }, 0);
-  }
-
-  /** Hides the controls after a timeout. */
-  doHideControls() {
-    this.forceShowControls = false;
-    this.hideControlsAfterTimeout();
-  }
-
   /** Creates a stream source and starts transcoding on the server. */
   private async createPlayerSource(): Promise<void> {
     // Destroy the current source.
@@ -117,12 +98,68 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     this.playerSource = streamSource;
   }
 
-  /** DEstroys the current stream source and stops transcoding on the server */
+  /** Destroys the current stream source and stops transcoding on the server */
   private async destroyPlayerSource(): Promise<void> {
     if (this.playerSource) {
       await this.playerSource.finish();
       this.playerSource = undefined;
     }
+  }
+
+  onPlayerTouchStart(): boolean {
+    // If the controls are hidden, just make them
+    // visible and prevent any further handling
+    const allowDefault = this.showControls;
+    this._ignoreMouseEvents = true;
+    this.doShowControls(true);
+    return allowDefault;
+  }
+
+  onPlayerTouchEnd() {
+    this.doHideControls();
+  }
+
+  onPlayerMouseMove() {
+    if (!this._ignoreMouseEvents)
+      this.doShowControls(false);
+  }
+
+  onControlsMouseEnter() {
+    if (!this._ignoreMouseEvents)
+      this.doShowControls(true);
+  }
+
+  onControlsMouseLeave() {
+    if (!this._ignoreMouseEvents)
+      this.doHideControls();
+  }
+
+  /**
+   * Sets showControls to true and optionally starts a timer to set it back to false after a timeout.
+   * @param force if true, the controls will be shown until doHideControls is called,
+   * else the controls will be hidden after a timeout.
+   */
+  doShowControls(force: boolean): void {
+    setTimeout(() => {
+      if (this._showControlsTimeoutHandle !== undefined)
+        clearTimeout(this._showControlsTimeoutHandle);
+
+      console.log('Show controls, force: ' + force);
+
+      this._showControls = true;
+
+      if (force)
+        this._forceShowControls = true;
+
+      if (!this._forceShowControls)
+        this.hideControlsAfterTimeout();
+    }, 0);
+  }
+
+  /** Hides the controls after a timeout. */
+  doHideControls() {
+    this._forceShowControls = false;
+    this.hideControlsAfterTimeout();
   }
 
   /** Sets showControls to false after a timeout. */
@@ -132,8 +169,8 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       clearTimeout(this._showControlsTimeoutHandle);
 
     this._showControlsTimeoutHandle = setTimeout(() => {
-      this.showControls = false;
-      this.controlsTouched = false;
+      this._showControls = false;
+      this._ignoreMouseEvents = false;
     }, this._showControlsTimeoutMs);
   }
 }

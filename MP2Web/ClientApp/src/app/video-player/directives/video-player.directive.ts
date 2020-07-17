@@ -1,10 +1,11 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import * as Hls from 'hls.js';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PlaybackState, Player } from '../models/player';
 import { PlayerSource } from '../models/player-source';
+
 
 @Directive({
   selector: '[appVideoPlayer]',
@@ -25,33 +26,13 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
 
   constructor(el: ElementRef) {
     this._element = el.nativeElement;
-
-    // Checks whether setting the volume is supported and
-    // initializes _volume$ with the current volume
-    this.checkVolume();
-
-    this.addEventListeners();
-  }
-
-  private checkVolume() {
-    // Set the value of our volume observable to the player volume
-    this.onPlayerVolumeChanged();
-
-    // On some devices (like iOS) the volume property is read only
-    // because they use the hardware volume controls instead.
-    // Try and detect whether we can set the volume by testing if
-    // we can set the volume property.
-    const currentVolume = this._element.volume;
-    this._element.volume = currentVolume < 0.5 ? currentVolume + 0.1 : currentVolume - 0.1;
-
-    this.canSetVolume = this._element.volume != currentVolume;
-    // If it worked, set the player back to the original volume
-    if (this.canSetVolume) {
-      this._element.volume = currentVolume;
-    }
   }
 
   ngOnInit(): void {
+    // Checks whether setting the volume is supported and
+    // initializes _volume$ with the current volume
+    this.checkVolume();
+    this.addEventListeners();
   }
 
   async ngOnDestroy(): Promise<void> {
@@ -86,6 +67,9 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
   get volume$(): Observable<number> {
     return this._volume$.asObservable();
   }
+
+  @Output()
+  playbackStateChanged: EventEmitter<PlaybackState> = new EventEmitter();
 
   play(): Promise<void> {
     return this._element.play();
@@ -169,6 +153,7 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
 
   private setPlaybackState(playbackState: PlaybackState) {
     this._playbackState$.next(playbackState);
+    this.playbackStateChanged.emit(playbackState);
   }
 
   private setCurrentTime(currentTime: number) {
@@ -207,6 +192,22 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
 
   private onPlayerVolumeChanged = () => {
     this.setCurrentVolume(this._element.muted ? 0 : this._element.volume);
+  }
+
+  private checkVolume() {
+    // Set the value of our volume observable to the player volume
+    this.onPlayerVolumeChanged();
+
+    // On some devices (like iOS) the volume property is read only, try
+    // and detect whether that's the case so we can hide the volume controls.
+    const currentVolume = this._element.volume;
+    this._element.volume = currentVolume < 0.5 ? currentVolume + 0.1 : currentVolume - 0.1;
+
+    this.canSetVolume = this._element.volume != currentVolume;
+    // If it worked, set the player back to the original volume
+    if (this.canSetVolume) {
+      this._element.volume = currentVolume;
+    }
   }
 
   async destroy() {

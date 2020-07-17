@@ -12,26 +12,29 @@
   <!--*ngIf="playerSource"-->
 
   <span *ngIf="playerSource"
-       appFullscreen
-       #fullscreen="fullscreen"
-       class="video-player-container"
-       [class.show]="showControls || (controls.playbackState$ | async) !== controls.PlaybackState.Playing"
-       (touchstart)="controlsTouched = true"
-       (mousemove)="doShowControls(false)">
+        appFullscreen
+        #fullscreen="fullscreen"
+        class="video-player-container"
+        [class.show]="showControls"
+        (touchstart)="onPlayerTouchStart()"
+        (touchend)="onPlayerTouchEnd()"
+        (mousemove)="onPlayerMouseMove()">
 
     <video #player="videoPlayer"
            class="video-player"
            autoplay
-           [appVideoPlayer]="playerSource"></video>
+           [appVideoPlayer]="playerSource"
+           (playbackStateChanged)="playbackState = $event"
+           (click)="player.togglePause()"></video>
 
     <app-video-controls #controls
                         class="video-controls"
                         [player]="player"
                         [isFullscreen]="fullscreen.isFullscreen"
-                        [disabled]="!showControls && (controls.playbackState$ | async) === controls.PlaybackState.Playing"
+                        [disabled]="!showControls"
                         (toggleFullscreen)="fullscreen.toggleFullscreen()"
-                        (mouseenter)="doShowControls(true)"
-                        (mouseleave)="doHideControls()">
+                        (mouseenter)="onControlsMouseEnter()"
+                        (mouseleave)="onControlsMouseLeave()">
     </app-video-controls>
   </span>
 
