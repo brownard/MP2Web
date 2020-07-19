@@ -63,27 +63,38 @@
     background-color: black;
   }
 
-  .video-player-container:fullscreen .video-player,
-  .video-player-container:webkit-full-screen .video-player,
-  .video-player-container:moz-full-screen .video-player,
-  .video-player-container:ms-fullscreen .video-player {
-    height: 100%;
-  }
+/* Set the video player to 100% height when fullscreen
+   so that the video is centred correctly */
+:fullscreen .video-player {
+  height: 100%;
+}
 
-  .video-player-container .video-controls {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 12px 4px;
-    background-color: rgba(0, 0, 0, 0.6);
-    opacity: 0;
-    -webkit-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    -ms-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-  }
+:-webkit-full-screen .video-player {
+  height: 100%;
+}
+
+:-ms-fullscreen .video-player {
+  height: 100%;
+}
+
+:-moz-full-screen .video-player {
+  height: 100%;
+}
+
+.video-player-container .video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 4px;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
 
 .video-player-container.show {
   cursor: default;
