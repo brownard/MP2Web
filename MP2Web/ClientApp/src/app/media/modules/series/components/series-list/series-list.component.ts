@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Observable } from 'rxjs';
-import { ViewState } from 'src/app/media/store/media.state';
+import { BaseMediaViewComponent } from 'src/app/media/components/base-media-view.component';
 import { WebTVShowDetailed } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
 import { SeriesService, seriesSortFields } from '../../services/series.service';
@@ -14,24 +13,11 @@ import { SeriesService, seriesSortFields } from '../../services/series.service';
     '../../../../../shared/styles/media.styles.css'
   ]
 })
-export class SeriesListComponent {
+export class SeriesListComponent extends BaseMediaViewComponent<WebTVShowDetailed> {
   
-  public series$: Observable<WebTVShowDetailed[]>;
-  public seriesListState$: Observable<ViewState>;
-
   sortFields = seriesSortFields;
 
-  constructor(public artworkService: ArtworkService, private seriesService: SeriesService) {
-
-    this.seriesListState$ = this.seriesService.getViewState();
-    this.series$ = this.seriesService.getItems();
-  }
-
-  public onFilterChanged(state: ViewState) {
-    this.seriesService.setViewState(state);
-  }
-
-  public showSeriesDetails(series: WebTVShowDetailed) {
-    this.seriesService.setSelectedItem(series);
+  constructor(public artworkService: ArtworkService, seriesService: SeriesService) {
+    super(seriesService)
   }
 }

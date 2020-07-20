@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Observable } from 'rxjs';
-import { ViewState } from 'src/app/media/store/media.state';
+import { BaseMediaViewComponent } from 'src/app/media/components/base-media-view.component';
 import { WebMovieDetailed } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
 import { MovieService, movieSortFields } from '../../services/movie.service';
+
 
 @Component({
   selector: 'app-movie-list',
@@ -14,23 +14,11 @@ import { MovieService, movieSortFields } from '../../services/movie.service';
     '../../../../../shared/styles/media.styles.css'
   ]
 })
-export class MovieListComponent {
+export class MovieListComponent extends BaseMediaViewComponent<WebMovieDetailed> {
   
-  public movies$: Observable<WebMovieDetailed[]>;
-  public movieListState$: Observable<ViewState>;
-
   sortFields = movieSortFields;
 
-  constructor(public artworkService: ArtworkService, private moviesService: MovieService) {
-    this.movieListState$ = this.moviesService.getViewState();
-    this.movies$ = this.moviesService.getItems();
-  }
-
-  public onFilterChanged(state: ViewState) {
-    this.moviesService.setViewState(state);
-  }
-
-  public showMovieDetails(movie: WebMovieDetailed) {
-    this.moviesService.setSelectedItem(movie);
+  constructor(public artworkService: ArtworkService, movieService: MovieService) {
+    super(movieService);
   }
 }

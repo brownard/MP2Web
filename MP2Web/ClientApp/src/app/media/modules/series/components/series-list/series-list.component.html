@@ -6,9 +6,9 @@
 <div class="media-top-bar">
   <!-- Use the same container class as the content below to to ensure alignment -->
   <div class="container">
-    <app-media-list-filter [viewState]="seriesListState$ | async"
+    <app-media-list-filter [viewState]="viewState$ | async"
                            [sortFields]="sortFields"
-                           (filterChanged)="onFilterChanged($event)">
+                           (filterChanged)="onViewStateChanged($event)">
     </app-media-list-filter>
   </div>
 </div>
@@ -18,21 +18,21 @@
 
 <div class="container">
 
-  <app-media-list [items]="series$ | async"
+  <app-media-list [items]="items$ | async"
                   [gridItemTemplate]="gridItemTemplate"
                   [listItemTemplate]="listItemTemplate"
-                  [layout]="(seriesListState$ | async)?.layout">
+                  [layout]="(viewState$ | async)?.layout">
 
     <ng-template #gridItemTemplate let-serie>
       <!-- Navigate to the details page on click -->
-      <a (click)="showSeriesDetails(serie)" (mouseover)="fanartBackground.itemId = serie.Id" [routerLink]="['/series', serie.Id]">
+      <a (click)="onSelectedItemChanged(serie)" (mouseover)="fanartBackground.itemId = serie.Id" [routerLink]="['/series', serie.Id]">
         <app-grid-series [item]="serie"></app-grid-series>
       </a>
     </ng-template>
 
     <ng-template #listItemTemplate let-serie>
       <!-- Navigate to the details page on click -->
-      <a (click)="showSeriesDetails(serie)" (mouseover)="fanartBackground.itemId = serie.Id" [routerLink]="['/series', serie.Id]">
+      <a (click)="onSelectedItemChanged(serie)" (mouseover)="fanartBackground.itemId = serie.Id" [routerLink]="['/series', serie.Id]">
         <app-list-series [item]="serie"></app-list-series>
       </a>
     </ng-template>

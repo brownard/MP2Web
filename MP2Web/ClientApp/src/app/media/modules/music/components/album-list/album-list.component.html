@@ -6,9 +6,9 @@
 <div class="media-top-bar">
   <!-- Use the same container class as the content below to to ensure alignment -->
   <div class="container">
-    <app-media-list-filter [viewState]="albumListState$ | async"
+    <app-media-list-filter [viewState]="viewState$ | async"
                            [sortFields]="sortFields"
-                           (filterChanged)="onFilterChanged($event)">
+                           (filterChanged)="onViewStateChanged($event)">
     </app-media-list-filter>
   </div>
 </div>
@@ -18,21 +18,21 @@
 
 <div class="container">
 
-  <app-media-list [items]="albums$ | async"
+  <app-media-list [items]="items$ | async"
                   [gridItemTemplate]="gridItemTemplate"
                   [listItemTemplate]="listItemTemplate"
-                  [layout]="(albumListState$ | async)?.layout">
+                  [layout]="(viewState$ | async)?.layout">
 
     <ng-template #gridItemTemplate let-album>
       <!-- Navigate to the details page on click -->
-      <a (click)="showAlbumDetails(album)" (mouseover)="fanartBackground.itemId = album.Id" [routerLink]="['/music/album', album.Id]">
+      <a (click)="onSelectedItemChanged(album)" (mouseover)="fanartBackground.itemId = album.Id" [routerLink]="['/music/album', album.Id]">
         <app-grid-album [item]="album"></app-grid-album>
       </a>
     </ng-template>
 
     <ng-template #listItemTemplate let-album>
       <!-- Navigate to the details page on click -->
-      <a (click)="showAlbumDetails(album)" (mouseover)="fanartBackground.itemId = album.Id" [routerLink]="['/music/album', album.Id]">
+      <a (click)="onSelectedItemChanged(album)" (mouseover)="fanartBackground.itemId = album.Id" [routerLink]="['/music/album', album.Id]">
         <app-list-album [item]="album"></app-list-album>
       </a>
     </ng-template>

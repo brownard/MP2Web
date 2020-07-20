@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ViewState } from 'src/app/media/store/media.state';
+
+import { BaseMediaViewComponent } from 'src/app/media/components/base-media-view.component';
 import { WebMusicAlbumBasic } from 'src/app/models/web-media-items';
 import { ArtworkService } from 'src/app/services/artwork.service';
 import { AlbumService, albumSortFields } from '../../services/album.service';
@@ -13,24 +13,11 @@ import { AlbumService, albumSortFields } from '../../services/album.service';
     '../../../../../shared/styles/media.styles.css'
   ]
 })
-export class AlbumListComponent {
-  
-  public albums$: Observable<WebMusicAlbumBasic[]>;
-  public albumListState$: Observable<ViewState>;
+export class AlbumListComponent extends BaseMediaViewComponent<WebMusicAlbumBasic> {
 
   sortFields = albumSortFields;
 
-  constructor(public artworkService: ArtworkService, private albumService: AlbumService) {
-
-    this.albumListState$ = this.albumService.getViewState();
-    this.albums$ = this.albumService.getItems();
-  }
-
-  public onFilterChanged(state: ViewState) {
-    this.albumService.setViewState(state);
-  }
-
-  public showAlbumDetails(album: WebMusicAlbumBasic) {
-    this.albumService.setSelectedItem(album);
+  constructor(public artworkService: ArtworkService, albumService: AlbumService) {
+    super(albumService);
   }
 }
