@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { Observable } from 'rxjs';
 import { ViewState } from 'src/app/media/store/media.state';
 import { WebMovieDetailed } from 'src/app/models/web-media-items';
@@ -21,15 +22,15 @@ export class MovieListComponent {
   sortFields = movieSortFields;
 
   constructor(public artworkService: ArtworkService, private moviesService: MovieService) {
-    this.movieListState$ = this.moviesService.getMoviesListState();
-    this.movies$ = this.moviesService.getMovies();
+    this.movieListState$ = this.moviesService.getViewState();
+    this.movies$ = this.moviesService.getItems();
   }
 
   public onFilterChanged(state: ViewState) {
-    this.moviesService.setMoviesListState(state);
+    this.moviesService.setViewState(state);
   }
 
   public showMovieDetails(movie: WebMovieDetailed) {
-    this.moviesService.setSelectedMovie(movie);
+    this.moviesService.setSelectedItem(movie);
   }
 }

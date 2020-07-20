@@ -22,15 +22,15 @@ export class AlbumListComponent {
 
   constructor(public artworkService: ArtworkService, private albumService: AlbumService) {
 
-    this.albumListState$ = this.albumService.getAlbumListState();
-    this.albums$ = this.albumService.getAlbums();
+    this.albumListState$ = this.albumService.getViewState();
+    this.albums$ = this.albumService.getItems();
   }
 
   public onFilterChanged(state: ViewState) {
-    this.albumService.setAlbumListState(state);
+    this.albumService.setViewState(state);
   }
 
   public showAlbumDetails(album: WebMusicAlbumBasic) {
-    this.albumService.setSelectedAlbum(album);
+    this.albumService.setSelectedItem(album);
   }
 }

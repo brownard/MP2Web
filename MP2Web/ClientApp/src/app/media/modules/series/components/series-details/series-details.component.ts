@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowDetailed } from 'src/app/models/web-media-items';
@@ -24,7 +25,7 @@ export class SeriesDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private seriesService: SeriesService, public artworkService: ArtworkService) {
     this.series$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        seriesService.getSelectedSeries(params.get('id'))
+        seriesService.getItem(params.get('id'))
       ));
 
     this.seasons$ = this.series$.pipe(

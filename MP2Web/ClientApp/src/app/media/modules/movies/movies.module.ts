@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
+
 import { SharedModule } from 'src/app/shared/shared.module';
 import { VideoPlayerModule } from 'src/app/video-player/video-player.module';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
 import { GridMovieComponent } from './components/movie/grid-movie/grid-movie.component';
-import * as MoviesStore from './store/movies.store';
 import { ListMovieComponent } from './components/movie/list-movie/list-movie.component';
+import { featureKey, reducers } from './store/movies.store';
   
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { ListMovieComponent } from './components/movie/list-movie/list-movie.com
     CommonModule,
     SharedModule,
     VideoPlayerModule,
-    StoreModule.forFeature(MoviesStore.featureKey, MoviesStore.reducer),
+    StoreModule.forFeature(featureKey, reducers),
     RouterModule.forChild([
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: MovieListComponent, data: { animation: 'MovieListPage' } },

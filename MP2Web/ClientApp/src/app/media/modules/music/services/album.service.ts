@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { AbstractMediaService } from 'src/app/media/services/abstract-media.service';
+
+import { Observable } from 'rxjs';
+import { AbstractMediaViewService } from 'src/app/media/services/abstract-media-view.service';
 import { ViewState } from 'src/app/media/store/media.state';
-import { WebMusicAlbumBasic, WebSortField, WebSortOrder, WebMusicTrackDetailed } from 'src/app/models/web-media-items';
+import { WebMusicAlbumBasic, WebMusicTrackDetailed, WebSortField } from 'src/app/models/web-media-items';
 import { MediaAccessService } from 'src/app/services/media-access.service';
-import * as MusicAlbumStore from '../store/music.store';
+import { musicStore } from '../store/music.store';
+
 
 export const albumSortFields = [
   { name: 'Title', field: WebSortField.Title },
@@ -18,32 +19,18 @@ export const albumSortFields = [
 @Injectable({
   providedIn: 'root'
 })
-export class AlbumService extends AbstractMediaService<WebMusicAlbumBasic> {
+export class AlbumService extends AbstractMediaViewService<WebMusicAlbumBasic> {
 
   constructor(private mediaAccessService: MediaAccessService, store: Store) {
-    super(store, MusicAlbumStore.MusicAlbumSelectors, MusicAlbumStore.MusicAlbumActions);
+    super(store, musicStore.albums);
   }
 
-  public getAlbumListState(): Observable<ViewState> {
-    return this.getViewState();
+  protected loadItems(viewState: ViewState): Observable<WebMusicAlbumBasic[]> {
+    return this.mediaAccessService.getMusicAlbumsBasic(viewState.currentFilter, viewState.currentSort, viewState.currentOrder);
   }
 
-  public setAlbumListState(state: ViewState): void {
-    this.setViewState(state);
-  }
-
-  public getSelectedAlbum(id: string): Observable<WebMusicAlbumBasic> {
-    return this.getSelectedItem().pipe(
-      switchMap(m => m && m.Id === id ? of(m) : this.mediaAccessService.getMusicAlbumBasicById(id))
-    );
-  }
-
-  public setSelectedAlbum(album: WebMusicAlbumBasic): void {
-    this.setSelectedItem(album);
-  }
-
-  public getAlbums(): Observable<WebMusicAlbumBasic[]> {
-    return this.getItemsWithState((filter, sort, order) => this.mediaAccessService.getMusicAlbumsBasic(filter, sort, order));
+  protected loadItem(id: string): Observable<WebMusicAlbumBasic> {
+    return this.mediaAccessService.getMusicAlbumBasicById(id);
   }
 
   public getAlbumsByArtist(artistId: string): Observable<WebMusicAlbumBasic[]> {

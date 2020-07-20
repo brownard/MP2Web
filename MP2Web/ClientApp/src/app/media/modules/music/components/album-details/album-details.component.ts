@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AlbumService } from '../../services/album.service';
-import { ArtworkService } from 'src/app/services/artwork.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { WebMusicAlbumBasic, WebMusicTrackDetailed } from 'src/app/models/web-media-items';
+
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { WebMusicAlbumBasic, WebMusicTrackDetailed } from 'src/app/models/web-media-items';
+import { ArtworkService } from 'src/app/services/artwork.service';
+import { AlbumService } from '../../services/album.service';
 
 @Component({
   selector: 'app-album-details',
@@ -24,7 +25,7 @@ export class AlbumDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private albumService: AlbumService, public artworkService: ArtworkService) {
     this.album$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        albumService.getSelectedAlbum(params.get('id'))
+        albumService.getItem(params.get('id'))
       ));
 
     this.tracks$ = this.album$.pipe(

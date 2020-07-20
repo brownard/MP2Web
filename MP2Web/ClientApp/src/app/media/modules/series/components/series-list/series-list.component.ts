@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { Observable } from 'rxjs';
 import { ViewState } from 'src/app/media/store/media.state';
 import { WebTVShowDetailed } from 'src/app/models/web-media-items';
@@ -22,15 +23,15 @@ export class SeriesListComponent {
 
   constructor(public artworkService: ArtworkService, private seriesService: SeriesService) {
 
-    this.seriesListState$ = this.seriesService.getSeriesListState();
-    this.series$ = this.seriesService.getSeries();
+    this.seriesListState$ = this.seriesService.getViewState();
+    this.series$ = this.seriesService.getItems();
   }
 
   public onFilterChanged(state: ViewState) {
-    this.seriesService.setSeriesListState(state);
+    this.seriesService.setViewState(state);
   }
 
   public showSeriesDetails(series: WebTVShowDetailed) {
-    this.seriesService.setSelectedSeries(series);
+    this.seriesService.setSelectedItem(series);
   }
 }

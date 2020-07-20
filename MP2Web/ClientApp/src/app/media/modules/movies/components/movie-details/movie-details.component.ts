@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { WebMovieDetailed } from 'src/app/models/web-media-items';
@@ -21,7 +22,7 @@ export class MovieDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, public artworkService: ArtworkService, private movieService: MovieService) {
     this.movie$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        this.movieService.getSelectedMovie(params.get('id'))
+        this.movieService.getItem(params.get('id'))
       ));
   }
 

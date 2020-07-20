@@ -1,21 +1,26 @@
-import { Action } from '@ngrx/store';
-import { MediaActions } from 'src/app/media/store/media.actions';
-import { MediaReducer } from 'src/app/media/store/media.reducers';
-import { MediaSelectors } from 'src/app/media/store/media.selectors';
+import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
+
+import { MediaViewStore } from 'src/app/media/store/media-view.store';
 import { MediaState } from 'src/app/media/store/media.state';
 import { WebTVShowDetailed } from 'src/app/models/web-media-items';
 
 export const featureKey = 'series';
 
-export class SeriesState extends MediaState<WebTVShowDetailed>{ }
+export interface SeriesNavigationState {
+  series: MediaState<WebTVShowDetailed>;
+}
 
-export const initialState: SeriesState = new SeriesState();
+const selectState = createFeatureSelector<any, SeriesNavigationState>(featureKey);
 
-export const SeriesActions = new MediaActions<WebTVShowDetailed>(featureKey);
-export const SeriesSelectors = new MediaSelectors<WebTVShowDetailed>(featureKey);
+const selectSeriesNavigationState = createSelector(
+  selectState,
+  (state: SeriesNavigationState) => state.series
+);
 
-const seriesReducer = new MediaReducer<WebTVShowDetailed>(initialState, SeriesActions);
+export const seriesStore = {
+  series: new MediaViewStore<WebTVShowDetailed>(featureKey + '->series', selectSeriesNavigationState)
+}
 
-export function reducer(state: SeriesState | undefined, action: Action) {
-  return seriesReducer.mediaReducer(state, action);
+export const reducers: ActionReducerMap<SeriesNavigationState> = {
+  series: seriesStore.series.reducer
 }
