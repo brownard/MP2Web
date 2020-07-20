@@ -6,10 +6,10 @@ export enum Layout {
 }
 
 export class ViewState {
-  public currentFilter: string = '';
-  public currentSort: WebSortField = WebSortField.Title;
-  public currentOrder: WebSortOrder = WebSortOrder.Asc;
-  public currentLayout: Layout = Layout.Grid;
+  public filter: string = '';
+  public sort: WebSortField = WebSortField.Title;
+  public order: WebSortOrder = WebSortOrder.Asc;
+  public layout: Layout = Layout.Grid;
 }
 
 export class MediaState<T> extends ViewState {

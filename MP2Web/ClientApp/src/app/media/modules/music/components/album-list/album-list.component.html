@@ -21,7 +21,7 @@
   <app-media-list [items]="albums$ | async"
                   [gridItemTemplate]="gridItemTemplate"
                   [listItemTemplate]="listItemTemplate"
-                  [layout]="(albumListState$ | async)?.currentLayout">
+                  [layout]="(albumListState$ | async)?.layout">
 
     <ng-template #gridItemTemplate let-album>
       <!-- Navigate to the details page on click -->

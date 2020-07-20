@@ -21,7 +21,7 @@
   <app-media-list [items]="series$ | async"
                   [gridItemTemplate]="gridItemTemplate"
                   [listItemTemplate]="listItemTemplate"
-                  [layout]="(seriesListState$ | async)?.currentLayout">
+                  [layout]="(seriesListState$ | async)?.layout">
 
     <ng-template #gridItemTemplate let-serie>
       <!-- Navigate to the details page on click -->

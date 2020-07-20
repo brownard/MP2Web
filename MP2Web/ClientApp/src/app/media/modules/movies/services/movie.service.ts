@@ -26,7 +26,7 @@ export class MovieService extends AbstractMediaViewService<WebMovieDetailed> {
   }
 
   protected loadItems(viewState: ViewState): Observable<WebMovieDetailed[]> {
-    return this.mediaAccessService.getMoviesDetailed(viewState.currentFilter, viewState.currentSort, viewState.currentOrder);
+    return this.mediaAccessService.getMoviesDetailed(viewState.filter, viewState.sort, viewState.order);
   }
 
   protected loadItem(id: string): Observable<WebMovieDetailed> {

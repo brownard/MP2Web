@@ -18,10 +18,10 @@ export class MediaListFilterComponent implements OnInit {
   layouts = Layout;
 
   @Input() viewState: ViewState = {
-    currentFilter: '',
-    currentSort: WebSortField.Title,
-    currentOrder: WebSortOrder.Asc,
-    currentLayout: Layout.Grid
+    filter: '',
+    sort: WebSortField.Title,
+    order: WebSortOrder.Asc,
+    layout: Layout.Grid
   };
 
   @Input() sortFields: { name: string, field: WebSortField }[];
@@ -39,8 +39,8 @@ export class MediaListFilterComponent implements OnInit {
       console.error('Invalid movie sort field - ' + field);
       return;
     }
-    if (sortField.field !== this.viewState.currentSort)
-      this.onFIlterChanged({ ...this.viewState, currentSort: sortField.field });
+    if (sortField.field !== this.viewState.sort)
+      this.onFIlterChanged({ ...this.viewState, sort: sortField.field });
   }
 
   onSortOrderChanged(order: string) {
@@ -49,13 +49,13 @@ export class MediaListFilterComponent implements OnInit {
       console.error('Invalid movie sort order - ' + order);
       return;
     }
-    if (sortOrder.order !== this.viewState.currentOrder)
-      this.onFIlterChanged({ ...this.viewState, currentOrder: sortOrder.order });
+    if (sortOrder.order !== this.viewState.order)
+      this.onFIlterChanged({ ...this.viewState, order: sortOrder.order });
   }
 
   onLayoutChanged(layout: Layout) {
-    if (layout !== this.viewState.currentLayout)
-      this.onFIlterChanged({ ...this.viewState, currentLayout: layout });
+    if (layout !== this.viewState.layout)
+      this.onFIlterChanged({ ...this.viewState, layout });
   }
 
   private onFIlterChanged(state: ViewState) {

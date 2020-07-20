@@ -1,6 +1,6 @@
-import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
-import { createAction, createReducer, on, createSelector } from '@ngrx/store';
-import { MediaState, Layout } from './media.state';
+import { createAction, createReducer, createSelector, on } from '@ngrx/store';
+
+import { MediaState, ViewState } from './media.state';
 
 export class MediaViewStore<T> {
 
@@ -10,7 +10,7 @@ export class MediaViewStore<T> {
 
   public setViewState = createAction(
     '[' + this.featureName + '] Set View State',
-    (filter: string, sort: WebSortField, order: WebSortOrder, layout: Layout) => ({ filter, sort, order, layout })
+    ({ filter, sort, order, layout }: ViewState) => ({ filter, sort, order, layout })
   );
 
   public setSelectedItem = createAction(
@@ -20,14 +20,7 @@ export class MediaViewStore<T> {
 
   public selectViewState = createSelector(
     this.selectState,
-    (state: MediaState<T>) => {
-      return {
-        currentFilter: state.currentFilter,
-        currentSort: state.currentSort,
-        currentOrder: state.currentOrder,
-        currentLayout: state.currentLayout
-      }
-    }
+    ({ filter, sort, order, layout }: MediaState<T>) => ({ filter, sort, order, layout })
   );
 
   public selectSelectedItem = createSelector(
@@ -38,6 +31,6 @@ export class MediaViewStore<T> {
   public reducer = createReducer(
     this.initialState,
     on(this.setSelectedItem, (state, { item }) => ({ ...state, selectedItem: item })),
-    on(this.setViewState, (state, { filter, sort, order, layout }) => ({ ...state, currentFilter: filter, currentSort: sort, currentOrder: order, currentLayout: layout }))
+    on(this.setViewState, (state, { filter, sort, order, layout }) => ({ ...state, filter, sort, order, layout }))
   );
 }

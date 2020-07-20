@@ -18,21 +18,21 @@ export abstract class AbstractMediaViewService<T extends { Id: string }> {
   }
 
   public setViewState(state: ViewState) {
-    this.store.dispatch(this.viewStore.setViewState(state.currentFilter, state.currentSort, state.currentOrder, state.currentLayout));
+    this.store.dispatch(this.viewStore.setViewState(state));
   }
    
   public getSelectedItem(): Observable<T> {
     return this.store.select(this.viewStore.selectSelectedItem);
   }
 
+  public setSelectedItem(item: T) {
+    this.store.dispatch(this.viewStore.setSelectedItem(item));
+  }
+
   public getItem(id: string) {
     return this.getSelectedItem().pipe(
       switchMap(m => !!m && m.Id === id ? of(m) : this.loadItem(id))
     );
-  }
-
-  public setSelectedItem(item: T) {
-    this.store.dispatch(this.viewStore.setSelectedItem(item));
   }
 
   public getItems(): Observable<T[]> {
@@ -53,7 +53,7 @@ export abstract class AbstractMediaViewService<T extends { Id: string }> {
         // Send a null value first to invalidate the items,
         // so the component can show a loading indicator
         of<T[]>(null),
-        getItemsFunc(s.currentFilter, s.currentSort, s.currentOrder)
+        getItemsFunc(s.filter, s.sort, s.order)
       ))
     );
   }

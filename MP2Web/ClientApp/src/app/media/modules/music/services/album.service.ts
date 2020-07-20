@@ -26,7 +26,7 @@ export class AlbumService extends AbstractMediaViewService<WebMusicAlbumBasic> {
   }
 
   protected loadItems(viewState: ViewState): Observable<WebMusicAlbumBasic[]> {
-    return this.mediaAccessService.getMusicAlbumsBasic(viewState.currentFilter, viewState.currentSort, viewState.currentOrder);
+    return this.mediaAccessService.getMusicAlbumsBasic(viewState.filter, viewState.sort, viewState.order);
   }
 
   protected loadItem(id: string): Observable<WebMusicAlbumBasic> {

@@ -4,12 +4,12 @@
   <div>
     <button mat-icon-button aria-label="Grid layout"
             (click)="onLayoutChanged(layouts.Grid)"
-            [class.active]="viewState.currentLayout === layouts.Grid">
+            [class.active]="viewState.layout === layouts.Grid">
       <mat-icon inline="true">view_comfy</mat-icon>
     </button>
     <button mat-icon-button aria-label="List layout"
             (click)="onLayoutChanged(layouts.List)"
-            [class.active]="viewState.currentLayout === layouts.List">
+            [class.active]="viewState.layout === layouts.List">
       <mat-icon inline="true">reorder</mat-icon>
     </button>
   </div>
@@ -28,7 +28,7 @@
       <button *ngFor="let sortField of sortFields"
               mat-menu-item
               class="app-menu-button"
-              [class.active]="sortField.field == viewState.currentSort"
+              [class.active]="sortField.field == viewState.sort"
               (click)="onSortFieldChanged(sortField.name)">
         {{sortField.name}}
       </button>
@@ -42,7 +42,7 @@
       <button *ngFor="let sortOrder of sortOrders"
               mat-menu-item
               class="app-menu-button"
-              [class.active]="sortOrder.order == viewState.currentOrder"
+              [class.active]="sortOrder.order == viewState.order"
               (click)="onSortOrderChanged(sortOrder.name)">
         {{sortOrder.name}}
       </button>

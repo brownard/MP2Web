@@ -26,7 +26,7 @@ export class SeriesService extends AbstractMediaViewService<WebTVShowDetailed> {
   }
 
   protected loadItems(viewState: ViewState): Observable<WebTVShowDetailed[]> {
-    return this.mediaAccessService.getTVShowsDetailed(viewState.currentFilter, viewState.currentSort, viewState.currentOrder);
+    return this.mediaAccessService.getTVShowsDetailed(viewState.filter, viewState.sort, viewState.order);
   }
 
   protected loadItem(id: string): Observable<WebTVShowDetailed> {

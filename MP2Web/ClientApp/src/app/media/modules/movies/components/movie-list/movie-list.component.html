@@ -21,7 +21,7 @@
   <app-media-list [items]="movies$ | async"
                   [gridItemTemplate]="gridItemTemplate"
                   [listItemTemplate]="listItemTemplate"
-                  [layout]="(movieListState$ | async)?.currentLayout">
+                  [layout]="(movieListState$ | async)?.layout">
 
     <ng-template #gridItemTemplate let-movie>
       <!-- Navigate to the details page on click -->
