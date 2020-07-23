@@ -5,13 +5,13 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MaterialModule } from '../material/material.module';
 import { BackgroundArtworkComponent } from './components/background-artwork/background-artwork.component';
 import { MediaListFilterComponent } from './components/media-list-filter/media-list-filter.component';
-import { MediaListComponent } from './components/media-list/media-list.component';
+import { ListViewComponent } from './components/list-view/list-view.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
     StarRatingComponent,
-    MediaListComponent,
+    ListViewComponent,
     MediaListFilterComponent,
     BackgroundArtworkComponent
   ],
@@ -23,7 +23,7 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     MaterialModule,
     LazyLoadImageModule,
     StarRatingComponent,
-    MediaListComponent,
+    ListViewComponent,
     MediaListFilterComponent,
     BackgroundArtworkComponent
   ]

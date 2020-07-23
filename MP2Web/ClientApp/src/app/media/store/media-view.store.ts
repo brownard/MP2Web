@@ -8,6 +8,7 @@ export class MediaViewStore<T> {
 
   initialState: MediaState<T> = new MediaState<T>();
 
+  // Actions
   public setViewState = createAction(
     '[' + this.featureName + '] Set View State',
     ({ filter, sort, order, layout }: ViewState) => ({ filter, sort, order, layout })
@@ -18,6 +19,7 @@ export class MediaViewStore<T> {
     (item: T) => ({ item })
   );
 
+  // Selectors
   public selectViewState = createSelector(
     this.selectState,
     ({ filter, sort, order, layout }: MediaState<T>) => ({ filter, sort, order, layout })
@@ -28,6 +30,7 @@ export class MediaViewStore<T> {
     (state: MediaState<T>) => state.selectedItem
   );
 
+  // Reducer
   public reducer = createReducer(
     this.initialState,
     on(this.setSelectedItem, (state, { item }) => ({ ...state, selectedItem: item })),

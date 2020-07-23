@@ -18,10 +18,10 @@
 
 <div class="container">
 
-  <app-media-list [items]="items$ | async"
-                  [gridItemTemplate]="gridItemTemplate"
-                  [listItemTemplate]="listItemTemplate"
-                  [layout]="(viewState$ | async)?.layout">
+  <app-list-view [items]="items$ | async"
+                 [gridItemTemplate]="gridItemTemplate"
+                 [listItemTemplate]="listItemTemplate"
+                 [layout]="(viewState$ | async)?.layout">
 
     <ng-template #gridItemTemplate let-serie>
       <!-- Navigate to the details page on click -->
@@ -37,6 +37,6 @@
       </a>
     </ng-template>
 
-  </app-media-list>
+  </app-list-view>
 
 </div>

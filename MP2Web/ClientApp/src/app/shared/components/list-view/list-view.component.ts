@@ -2,12 +2,12 @@ import { Component, OnInit, Input, TemplateRef, ChangeDetectionStrategy } from '
 import { Layout } from 'src/app/media/store/media.state';
 
 @Component({
-  selector: 'app-media-list',
-  templateUrl: './media-list.component.html',
-  styleUrls: ['./media-list.component.css'],
+  selector: 'app-list-view',
+  templateUrl: './list-view.component.html',
+  styleUrls: ['./list-view.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MediaListComponent implements OnInit {
+export class ListViewComponent implements OnInit {
 
   constructor() { }
 
