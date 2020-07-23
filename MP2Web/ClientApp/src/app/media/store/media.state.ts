@@ -1,9 +1,5 @@
 import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
-
-export enum Layout {
-  Grid = 'Grid',
-  List = 'List'
-}
+import { Layout } from 'src/app/shared/components/list-view/layout.enum';
 
 export class ViewState {
   public filter: string = '';

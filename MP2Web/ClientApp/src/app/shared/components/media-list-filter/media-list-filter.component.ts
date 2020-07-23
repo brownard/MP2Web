@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { ViewState, Layout } from 'src/app/media/store/media.state';
+import { ViewState } from 'src/app/media/store/media.state';
 import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
+import { Layout } from '../list-view/layout.enum';
+
 
 @Component({
   selector: 'app-media-list-filter',

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
-import { Layout } from 'src/app/media/store/media.state';
+import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '@angular/core';
+
+import { Layout } from './layout.enum';
 
 @Component({
   selector: 'app-list-view',
