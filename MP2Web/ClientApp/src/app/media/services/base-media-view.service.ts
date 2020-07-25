@@ -4,9 +4,9 @@ import { concat, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
 import { MediaViewStore } from '../store/media-view.store';
-import { ViewState } from '../store/media.state';
+import { ViewState } from '../store/media-view.state';
 
-export abstract class AbstractMediaViewService<T extends { Id: string }> {
+export abstract class BaseMediaViewService<T extends { Id: string }> {
 
   protected abstract loadItems(viewState: ViewState): Observable<T[]>;
   protected abstract loadItem(id: string): Observable<T>;

@@ -8,11 +8,11 @@ export class BaseMediaItemComponent<T> {
 
   protected _item: T;
 
-  @Input()
   public get item() {
     return this._item;
   }
 
+  @Input()
   public set item(value: T) {
     this._item = value;
   }

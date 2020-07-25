@@ -1,12 +1,12 @@
 import { createAction, createReducer, createSelector, on } from '@ngrx/store';
 
-import { MediaState, ViewState } from './media.state';
+import { MediaViewState, ViewState } from './media-view.state';
 
 export class MediaViewStore<T> {
 
-  constructor(private featureName: string, private selectState: (state: any) => MediaState<T>) { }
+  constructor(private featureName: string, private selectState: (state: any) => MediaViewState<T>) { }
 
-  initialState: MediaState<T> = new MediaState<T>();
+  initialState: MediaViewState<T> = new MediaViewState<T>();
 
   // Actions
   public setViewState = createAction(
@@ -22,12 +22,12 @@ export class MediaViewStore<T> {
   // Selectors
   public selectViewState = createSelector(
     this.selectState,
-    ({ filter, sort, order, layout }: MediaState<T>) => ({ filter, sort, order, layout })
+    ({ filter, sort, order, layout }: MediaViewState<T>) => ({ filter, sort, order, layout })
   );
 
   public selectSelectedItem = createSelector(
     this.selectState,
-    (state: MediaState<T>) => state.selectedItem
+    (state: MediaViewState<T>) => state.selectedItem
   );
 
   // Reducer

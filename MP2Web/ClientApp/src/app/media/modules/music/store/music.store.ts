@@ -1,13 +1,13 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { MediaViewStore } from 'src/app/media/store/media-view.store';
-import { MediaState } from 'src/app/media/store/media.state';
+import { MediaViewState } from 'src/app/media/store/media-view.state';
 import { WebMusicAlbumBasic } from 'src/app/models/web-media-items';
 
 export const featureKey = 'music';
 
 export interface MusicNavigationState {
-  albums: MediaState<WebMusicAlbumBasic>;
+  albums: MediaViewState<WebMusicAlbumBasic>;
 }
 
 const selectState = createFeatureSelector<any, MusicNavigationState>(featureKey);

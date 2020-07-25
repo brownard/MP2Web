@@ -8,6 +8,6 @@ export class ViewState {
   public layout: Layout = Layout.Grid;
 }
 
-export class MediaState<T> extends ViewState {
+export class MediaViewState<T> extends ViewState {
   public selectedItem: T = null;
 }

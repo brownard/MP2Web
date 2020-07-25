@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { ViewState } from 'src/app/media/store/media.state';
+import { ViewState } from 'src/app/media/store/media-view.state';
 import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
 import { Layout } from '../list-view/layout.enum';
 

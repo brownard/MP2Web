@@ -1,13 +1,14 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { MediaViewStore } from 'src/app/media/store/media-view.store';
-import { MediaState } from 'src/app/media/store/media.state';
+import { MediaViewState } from 'src/app/media/store/media-view.state';
 import { WebMovieDetailed } from 'src/app/models/web-media-items';
 
 export const featureKey = 'movies';
 
+// Defines all available states for movies
 export interface MoviesNavigationState {
-  movies: MediaState<WebMovieDetailed>;
+  movies: MediaViewState<WebMovieDetailed>;
 }
 
 const selectState = createFeatureSelector<any, MoviesNavigationState>(featureKey);

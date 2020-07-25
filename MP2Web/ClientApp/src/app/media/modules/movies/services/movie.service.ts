@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
-import { AbstractMediaViewService } from 'src/app/media/services/abstract-media-view.service';
-import { ViewState } from 'src/app/media/store/media.state';
+import { BaseMediaViewService } from 'src/app/media/services/base-media-view.service';
+import { ViewState } from 'src/app/media/store/media-view.state';
 import { WebMovieDetailed, WebSortField } from 'src/app/models/web-media-items';
 import { MediaAccessService } from 'src/app/services/media-access.service';
 import { moviesStore } from '../store/movies.store';
@@ -19,7 +19,7 @@ export const movieSortFields = [
 @Injectable({
   providedIn: 'root'
 })
-export class MovieService extends AbstractMediaViewService<WebMovieDetailed> {
+export class MovieService extends BaseMediaViewService<WebMovieDetailed> {
 
   constructor(private mediaAccessService: MediaAccessService, store: Store) {
     super(store, moviesStore.movies);

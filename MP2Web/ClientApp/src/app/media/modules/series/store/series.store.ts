@@ -1,13 +1,13 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { MediaViewStore } from 'src/app/media/store/media-view.store';
-import { MediaState } from 'src/app/media/store/media.state';
+import { MediaViewState } from 'src/app/media/store/media-view.state';
 import { WebTVShowDetailed } from 'src/app/models/web-media-items';
 
 export const featureKey = 'series';
 
 export interface SeriesNavigationState {
-  series: MediaState<WebTVShowDetailed>;
+  series: MediaViewState<WebTVShowDetailed>;
 }
 
 const selectState = createFeatureSelector<any, SeriesNavigationState>(featureKey);
