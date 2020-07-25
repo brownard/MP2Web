@@ -1,5 +1,5 @@
 import { Input } from '@angular/core';
-import { ArtworkService } from 'src/app/services/artwork.service';
+import { ArtworkService } from 'src/app/core/api/artwork.service';
 
 /** Base class for a component that displays a media item. */
 export class BaseMediaItemComponent<T> {

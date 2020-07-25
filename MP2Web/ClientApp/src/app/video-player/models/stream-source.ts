@@ -1,7 +1,7 @@
 import { PlayerSource } from './player-source';
-import { WebMediaInfo } from 'src/app/models/web-stream-items';
+import { WebMediaInfo } from 'src/app/core/models/web-stream-items';
 import { PlayerService } from '../services/player.service';
-import { WebMediaItem } from 'src/app/models/web-media-items';
+import { WebMediaItem } from 'src/app/core/models/web-media-items';
 
 export class StreamSource implements PlayerSource {
 

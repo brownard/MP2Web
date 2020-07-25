@@ -1,4 +1,4 @@
-import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
+import { WebSortField, WebSortOrder } from 'src/app/core/models/web-media-items';
 import { Layout } from 'src/app/shared/components/list-view/layout.enum';
 
 export class ViewState {

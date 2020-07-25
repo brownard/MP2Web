@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { WebFileType, WebMediaType } from '../models/web-media-items';
-import { StreamingStreamService } from '../services/streaming-stream.service';
+import { StreamingStreamService } from './streaming-stream.service';
 
 @Injectable({
   providedIn: 'root'

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
 import { catchError, concatMap, first } from 'rxjs/operators';
-import { AppConfigService } from 'src/app/app-config.service';
-import { WebBoolResult, WebMediaItem, WebStringResult } from 'src/app/models/web-media-items';
-import { WebMediaInfo } from 'src/app/models/web-stream-items';
-import { StreamingService } from 'src/app/services/streaming.service';
+import { AppConfigService } from 'src/app/core/config/app-config.service';
+import { WebBoolResult, WebMediaItem, WebStringResult } from 'src/app/core/models/web-media-items';
+import { WebMediaInfo } from 'src/app/core/models/web-stream-items';
+import { StreamingService } from 'src/app/core/api/streaming.service';
 
 
 @Injectable({

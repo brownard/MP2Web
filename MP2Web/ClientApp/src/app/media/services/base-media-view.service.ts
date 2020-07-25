@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 
 import { concat, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { WebSortField, WebSortOrder } from 'src/app/models/web-media-items';
+import { WebSortField, WebSortOrder } from 'src/app/core/models/web-media-items';
 import { MediaViewStore } from '../store/media-view.store';
 import { ViewState } from '../store/media-view.state';
 

@@ -1,5 +1,4 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,12 +6,12 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { AppConfigService } from './app-config.service';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
 import { HomeComponent } from './home/home.component';
 import { MaterialModule } from './material/material.module';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { ApiRequestInterceptor } from './services/cache/api-request.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +22,7 @@ import { ApiRequestInterceptor } from './services/cache/api-request.interceptor'
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     BrowserAnimationsModule,
-    HttpClientModule,
+    CoreModule,
     FormsModule,
     MaterialModule,
     RouterModule.forRoot([
@@ -44,25 +43,7 @@ import { ApiRequestInterceptor } from './services/cache/api-request.interceptor'
     StoreModule.forRoot({}),
     EffectsModule.forRoot([])
   ],
-  providers: [
-    {
-      // App initializer that gets the app config file from the server.
-      // The factory returns a promise so that Angular waits for it to
-      // complete before continuing. This is important to ensure that the
-      // config is available before any components that depend on it are created.
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [AppConfigService],
-      useFactory: (appConfigService: AppConfigService) => () => {
-        return appConfigService.loadAppConfig();
-      }
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ApiRequestInterceptor,
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

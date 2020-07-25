@@ -3,8 +3,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { WebMovieDetailed } from 'src/app/models/web-media-items';
-import { ArtworkService } from 'src/app/services/artwork.service';
+import { WebMovieDetailed } from 'src/app/core/models/web-media-items';
+import { ArtworkService } from 'src/app/core/api/artwork.service';
 import { MovieService } from '../../services/movie.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WebTVEpisodeDetailed, WebTVSeasonDetailed } from 'src/app/models/web-media-items';
-import { ArtworkService } from 'src/app/services/artwork.service';
+import { WebTVEpisodeDetailed, WebTVSeasonDetailed } from 'src/app/core/models/web-media-items';
+import { ArtworkService } from 'src/app/core/api/artwork.service';
 import { SeriesService } from '../../services/series.service';
 
 @Component({

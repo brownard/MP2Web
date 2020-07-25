@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { WebFileType, WebMediaItem } from 'src/app/models/web-media-items';
-import { StreamingStreamService } from 'src/app/services/streaming-stream.service';
+import { WebFileType, WebMediaItem } from 'src/app/core/models/web-media-items';
+import { StreamingStreamService } from 'src/app/core/api/streaming-stream.service';
 import { PlaybackState } from '../../models/player';
 import { PlayerSource } from '../../models/player-source';
 import { StreamSource } from '../../models/stream-source';

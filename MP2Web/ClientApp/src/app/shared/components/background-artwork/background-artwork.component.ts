@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { WebFileType, WebMediaType } from 'src/app/models/web-media-items';
-import { ArtworkService } from 'src/app/services/artwork.service';
+import { WebFileType, WebMediaType } from 'src/app/core/models/web-media-items';
+import { ArtworkService } from 'src/app/core/api/artwork.service';
 
 // Component that shows a fullscreen fanart image in the
 // background and supports transitioning between images.

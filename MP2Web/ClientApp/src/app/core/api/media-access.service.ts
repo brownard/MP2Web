@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppConfigService } from '../app-config.service';
-import { WebMovieBasic, WebMovieDetailed, WebSortField, WebSortOrder, WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowBasic, WebTVShowDetailed, WebMusicAlbumBasic, WebMusicArtistDetailed, WebMusicTrackDetailed } from '../models/web-media-items';
+
+import { AppConfigService } from '../config/app-config.service';
+import { WebMovieBasic, WebMovieDetailed, WebMusicAlbumBasic, WebMusicArtistDetailed, WebMusicTrackDetailed, WebSortField, WebSortOrder, WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowBasic, WebTVShowDetailed } from '../models/web-media-items';
 import { ApiService } from './api.service';
+
 
 @Injectable({
   providedIn: 'root'

@@ -3,8 +3,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { WebMusicAlbumBasic, WebMusicTrackDetailed } from 'src/app/models/web-media-items';
-import { ArtworkService } from 'src/app/services/artwork.service';
+import { WebMusicAlbumBasic, WebMusicTrackDetailed } from 'src/app/core/models/web-media-items';
+import { ArtworkService } from 'src/app/core/api/artwork.service';
 import { AlbumService } from '../../services/album.service';
 
 @Component({

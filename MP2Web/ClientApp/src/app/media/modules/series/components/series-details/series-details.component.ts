@@ -3,8 +3,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowDetailed } from 'src/app/models/web-media-items';
-import { ArtworkService } from 'src/app/services/artwork.service';
+import { WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowDetailed } from 'src/app/core/models/web-media-items';
+import { ArtworkService } from 'src/app/core/api/artwork.service';
 import { SeriesService } from '../../services/series.service';
 
 @Component({

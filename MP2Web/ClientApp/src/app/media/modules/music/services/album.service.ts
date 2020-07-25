@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BaseMediaViewService } from 'src/app/media/services/base-media-view.service';
 import { ViewState } from 'src/app/media/store/media-view.state';
-import { WebMusicAlbumBasic, WebMusicTrackDetailed, WebSortField } from 'src/app/models/web-media-items';
-import { MediaAccessService } from 'src/app/services/media-access.service';
+import { WebMusicAlbumBasic, WebMusicTrackDetailed, WebSortField } from 'src/app/core/models/web-media-items';
+import { MediaAccessService } from 'src/app/core/api/media-access.service';
 import { musicStore } from '../store/music.store';
 
 

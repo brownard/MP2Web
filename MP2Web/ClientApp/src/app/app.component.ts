@@ -1,8 +1,10 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AppConfigService } from './app-config.service';
-import { ThemeService } from './services/themes/theme.service';
+
+import { AppConfigService } from './core/config/app-config.service';
+import { ThemeService } from './core/themes/theme.service';
+
 
 @Component({
   selector: 'app-root',

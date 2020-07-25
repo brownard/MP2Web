@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } fr
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ApiRequestCache } from './api-request.cache';
+import { ApiRequestCache } from '../cache/api-request.cache';
 
 const cacheUrls = [
   '/MPExtended/MediaAccessService/json/'

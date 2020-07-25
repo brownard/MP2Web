@@ -2,7 +2,7 @@ import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/s
 
 import { MediaViewStore } from 'src/app/media/store/media-view.store';
 import { MediaViewState } from 'src/app/media/store/media-view.state';
-import { WebTVShowDetailed } from 'src/app/models/web-media-items';
+import { WebTVShowDetailed } from 'src/app/core/models/web-media-items';
 
 export const featureKey = 'series';
 

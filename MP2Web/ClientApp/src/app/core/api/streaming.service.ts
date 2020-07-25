@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppConfigService } from '../app-config.service';
+
+import { AppConfigService } from '../config/app-config.service';
 import { WebBoolResult, WebMediaType, WebStringResult } from '../models/web-media-items';
 import { WebMediaInfo } from '../models/web-stream-items';
 import { ApiService } from './api.service';

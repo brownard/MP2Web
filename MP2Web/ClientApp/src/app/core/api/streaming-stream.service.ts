@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppConfigService } from '../app-config.service';
-import { ApiService } from './api.service';
+
+import { AppConfigService } from '../config/app-config.service';
 import { WebFileType, WebMediaType, WebStringResult } from '../models/web-media-items';
+import { ApiService } from './api.service';
+
 
 @Injectable({
   providedIn: 'root'

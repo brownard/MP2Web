@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 import { BaseMediaViewComponent } from 'src/app/media/components/base-media-view.component';
-import { WebTVShowDetailed } from 'src/app/models/web-media-items';
-import { ArtworkService } from 'src/app/services/artwork.service';
+import { WebTVShowDetailed } from 'src/app/core/models/web-media-items';
+import { ArtworkService } from 'src/app/core/api/artwork.service';
 import { SeriesService, seriesSortFields } from '../../services/series.service';
 
 @Component({
