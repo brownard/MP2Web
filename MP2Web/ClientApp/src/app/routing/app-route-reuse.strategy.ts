@@ -7,6 +7,8 @@ import { Logger } from '../core/logging/logger.service';
 const REUSE_ID_KEY = 'routerReuseId';
 const REUSE_CHILD_KEY = 'routerReuseChild';
 
+/** Custom RouteReuseStrategy that reuses routes if their route data contains a routerReuseId. An optional routerReuseChild may also be specified,
+    in which case the route will only be reused when navigating to a route with a component with the same name as routeReuseChild */
 @Injectable()
 export class AppRouteReuseStrategy extends RouteReuseStrategy {
 
