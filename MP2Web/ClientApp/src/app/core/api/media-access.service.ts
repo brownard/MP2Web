@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { AppConfigService } from '../config/app-config.service';
+import { Logger } from '../logging/logger.service';
 import { WebMovieBasic, WebMovieDetailed, WebMusicAlbumBasic, WebMusicArtistDetailed, WebMusicTrackDetailed, WebSortField, WebSortOrder, WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowBasic, WebTVShowDetailed } from '../models/web-media-items';
 import { ApiService } from './api.service';
 
@@ -11,8 +12,8 @@ import { ApiService } from './api.service';
 })
 export class MediaAccessService extends ApiService {
   
-  constructor(http: HttpClient, config: AppConfigService) {
-    super(http, config.appConfig.mp2ExtendedBasePath + config.appConfig.mediaAccessServicePath);
+  constructor(http: HttpClient, logger: Logger, config: AppConfigService) {
+    super(http, logger, config.appConfig.mp2ExtendedBasePath + config.appConfig.mediaAccessServicePath);
   }
 
   public getMoviesBasic(filter = '', sort = WebSortField.Title, order = WebSortOrder.Asc) {

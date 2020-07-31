@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { AppConfigService } from '../config/app-config.service';
+import { Logger } from '../logging/logger.service';
 import { WebFileType, WebMediaType, WebStringResult } from '../models/web-media-items';
 import { ApiService } from './api.service';
 
@@ -10,8 +11,8 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class StreamingStreamService extends ApiService {
-  constructor(http: HttpClient, config: AppConfigService) {
-    super(http, config.appConfig.mp2ExtendedBasePath + config.appConfig.streamingServiceStreamPath);
+  constructor(http: HttpClient, logger: Logger, config: AppConfigService) {
+    super(http, logger, config.appConfig.mp2ExtendedBasePath + config.appConfig.streamingServiceStreamPath);
   }
 
   public doStream(type: WebMediaType, provider: number, itemId: string, clientDescription: string, profileName: string, startPosition: number, idleTimeout: number) {

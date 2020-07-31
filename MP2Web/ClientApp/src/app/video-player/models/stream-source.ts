@@ -1,7 +1,8 @@
-import { PlayerSource } from './player-source';
+import { Logger } from 'src/app/core/logging/logger.service';
+import { WebMediaItem } from 'src/app/core/models/web-media-items';
 import { WebMediaInfo } from 'src/app/core/models/web-stream-items';
 import { PlayerService } from '../services/player.service';
-import { WebMediaItem } from 'src/app/core/models/web-media-items';
+import { PlayerSource } from './player-source';
 
 export class StreamSource implements PlayerSource {
 
@@ -12,7 +13,7 @@ export class StreamSource implements PlayerSource {
   private _isBusy: boolean = false;
   private _doFinish: boolean = false;
 
-  constructor(private playerService: PlayerService, private mediaItem: WebMediaItem) {
+  constructor(private playerService: PlayerService, private mediaItem: WebMediaItem, private logger: Logger) {
   }
 
   get durationInSeconds(): number {
@@ -35,7 +36,7 @@ export class StreamSource implements PlayerSource {
   async start(startPosition: number = 0): Promise<boolean> {
     // Check if we are a;ready starting or started
     if (this._isBusy || this._streamUrl) {
-      console.warn('StreamSource: Tried to start an already started stream.');
+      this.logger.warn('StreamSource: Tried to start an already started stream.');
       return false;
     }
 
@@ -95,7 +96,7 @@ export class StreamSource implements PlayerSource {
   private async startStream(): Promise<boolean> {
     const result = await this.playerService.startStream(this.mediaItem).toPromise();
     if (!result || !result.Result) {
-      console.warn('StreamSource: Unable to start stream.');
+      this.logger.warn('StreamSource: Unable to start stream.');
       return false;
     }
     this._streamUrl = this.fixStreamUrl(result.Result);
@@ -110,19 +111,19 @@ export class StreamSource implements PlayerSource {
 
   private async seekStream(time: number): Promise<boolean> {
     if (!this._streamUrl) {
-      console.warn('StreamSource: Tried to seek before stream started.');
+      this.logger.warn('StreamSource: Tried to seek before stream started.');
       return false;
     }
 
     if (time < 0 || time > this.durationInSeconds) {
-      console.warn(`StreamSource: Invalid seek time ${time}s for duration ${this.durationInSeconds}s.`);
+      this.logger.warn(`StreamSource: Invalid seek time ${time}s for duration ${this.durationInSeconds}s.`);
       return false;
     }
 
     this._startPosition = time;
     const result = await this.playerService.setStreamPosition(time).toPromise();
     if (!result || !result.Result) {
-      console.warn(`StreamSource: Unable to seek stream to time ${time}.`);
+      this.logger.warn(`StreamSource: Unable to seek stream to time ${time}.`);
       return false;
     }
     this._streamUrl = this.fixStreamUrl(result.Result);

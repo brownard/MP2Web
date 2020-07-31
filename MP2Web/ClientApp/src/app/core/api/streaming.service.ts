@@ -2,16 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { AppConfigService } from '../config/app-config.service';
+import { Logger } from '../logging/logger.service';
 import { WebBoolResult, WebMediaType, WebStringResult } from '../models/web-media-items';
 import { WebMediaInfo } from '../models/web-stream-items';
 import { ApiService } from './api.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class StreamingService extends ApiService {
-  constructor(http: HttpClient, config: AppConfigService) {
-    super(http, config.appConfig.mp2ExtendedBasePath + config.appConfig.streamingServicePath);
+  constructor(http: HttpClient, logger: Logger, config: AppConfigService) {
+    super(http, logger, config.appConfig.mp2ExtendedBasePath + config.appConfig.streamingServicePath);
   }
 
   public getMediaInfo(itemId: string, type: WebMediaType) {

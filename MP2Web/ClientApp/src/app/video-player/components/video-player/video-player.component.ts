@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { WebFileType, WebMediaItem } from 'src/app/core/models/web-media-items';
 import { StreamingStreamService } from 'src/app/core/api/streaming-stream.service';
+import { Logger } from 'src/app/core/logging/logger.service';
+import { WebFileType, WebMediaItem } from 'src/app/core/models/web-media-items';
 import { PlaybackState } from '../../models/player';
 import { PlayerSource } from '../../models/player-source';
 import { StreamSource } from '../../models/stream-source';
@@ -51,7 +52,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     return this._showControls || this.playbackState !== PlaybackState.Playing;
   }
 
-  constructor(private playerService: PlayerService, private streamingStreamService: StreamingStreamService) {
+  constructor(private playerService: PlayerService, private streamingStreamService: StreamingStreamService, private logger: Logger) {
   }
 
   ngOnInit(): void {
@@ -90,7 +91,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       return;
 
     // Create a stream source and attempt to start it, this starts transcoding on the server.
-    const streamSource = new StreamSource(this.playerService, this._mediaItem);
+    const streamSource = new StreamSource(this.playerService, this._mediaItem, this.logger);
     if (!await streamSource.initMetadata() || !await streamSource.start())
       return;
 
@@ -144,7 +145,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       if (this._showControlsTimeoutHandle !== undefined)
         clearTimeout(this._showControlsTimeoutHandle);
 
-      console.log('Show controls, force: ' + force);
+      this.logger.debug('Show controls, force: ' + force);
 
       this._showControls = true;
 

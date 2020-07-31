@@ -3,6 +3,7 @@ import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output }
 import * as Hls from 'hls.js';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Logger } from 'src/app/core/logging/logger.service';
 import { PlaybackState, Player } from '../models/player';
 import { PlayerSource } from '../models/player-source';
 
@@ -24,7 +25,7 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
 
   canSetVolume: boolean = false;
 
-  constructor(el: ElementRef) {
+  constructor(el: ElementRef, private logger: Logger) {
     this._element = el.nativeElement;
   }
 
@@ -92,7 +93,7 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
 
   async seek(time: number): Promise<boolean> {
     if (!this._source || !this.hls) {
-      console.warn(`VideoPlayerDirective: Tried to seek when player isn't playing`);
+      this.logger.warn(`VideoPlayerDirective: Tried to seek when player isn't playing`);
       return false;
     }
 
@@ -131,7 +132,7 @@ export class VideoPlayerDirective implements Player, OnInit, OnDestroy {
       this.hls.loadSource(sourceUrl);
       this.hls.attachMedia(this._element);
       this.hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        console.log('Manifest parsed');
+        this.logger.debug('VideoPlayerDirective: Manifest parsed');
         resolve(this._element.play().then(_ => true));
       });
     });

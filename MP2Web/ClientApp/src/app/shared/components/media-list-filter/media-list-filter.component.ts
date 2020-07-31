@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { ViewState } from 'src/app/media/media-shared/store/media-view.state';
+import { Logger } from 'src/app/core/logging/logger.service';
 import { WebSortField, WebSortOrder } from 'src/app/core/models/web-media-items';
+import { ViewState } from 'src/app/media/media-shared/store/media-view.state';
 import { Layout } from '../list-view/layout.enum';
 
 
@@ -12,7 +13,7 @@ import { Layout } from '../list-view/layout.enum';
 })
 export class MediaListFilterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private logger: Logger) { }
 
   ngOnInit(): void {
   }
@@ -38,7 +39,7 @@ export class MediaListFilterComponent implements OnInit {
   onSortFieldChanged(field: string) {
     let sortField = this.sortFields.find(s => s.name == field);
     if (!sortField) {
-      console.error('Invalid movie sort field - ' + field);
+      this.logger.error('Invalid movie sort field - ' + field);
       return;
     }
     if (sortField.field !== this.viewState.sort)
@@ -48,7 +49,7 @@ export class MediaListFilterComponent implements OnInit {
   onSortOrderChanged(order: string) {
     let sortOrder = this.sortOrders.find(s => s.name == order);
     if (!sortOrder) {
-      console.error('Invalid movie sort order - ' + order);
+      this.logger.error('Invalid movie sort order - ' + order);
       return;
     }
     if (sortOrder.order !== this.viewState.order)
