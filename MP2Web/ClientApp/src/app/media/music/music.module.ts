@@ -22,7 +22,7 @@ import { featureKey, reducers } from './store/music.store';
     RouterModule.forChild([
       { path: '', redirectTo: 'album/list', pathMatch: 'full' },
       { path: 'album', redirectTo: 'album/list', pathMatch: 'full' },
-      { path: 'album/list', component: AlbumListComponent, data: { animation: 'AlbumListPage' } },
+      { path: 'album/list', component: AlbumListComponent, data: { animation: 'AlbumListPage', routerReuseId: 'AlbumListPage', routerReuseChild: AlbumDetailsComponent } },
       { path: 'album/:id', component: AlbumDetailsComponent, data: { animation: 'AlbumDetailsPage' } }
     ])
   ]

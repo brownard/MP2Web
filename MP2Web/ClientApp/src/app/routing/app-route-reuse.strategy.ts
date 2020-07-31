@@ -44,14 +44,14 @@ export class AppRouteReuseStrategy extends RouteReuseStrategy {
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
     const reuseId: string = route.data[REUSE_ID_KEY];
     const attach = !!reuseId && !!this.routeStorage[reuseId];
-    if(attach)
-    this.logger.debug('RouteReuseStrategy: Attaching route ' + reuseId);
+    if (attach)
+      this.logger.debug('RouteReuseStrategy: Attaching route ' + reuseId);
     return attach;
   }
 
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
     const reuseId: string = route.data[REUSE_ID_KEY];
-    if (!!reuseId) {
+    if (!!reuseId && !!this.routeStorage[reuseId]) {
       this.logger.debug('RouteReuseStrategy: Retrieving route ' + reuseId);
       return this.routeStorage[reuseId];
     }

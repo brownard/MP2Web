@@ -27,7 +27,7 @@ import { featureKey, reducers } from './store/series.store';
     StoreModule.forFeature(featureKey, reducers),
     RouterModule.forChild([
       { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: 'list', component: SeriesListComponent, data: { animation: 'SeriesListPage' } },
+      { path: 'list', component: SeriesListComponent, data: { animation: 'SeriesListPage', routerReuseId: 'SeriesListPage', routerReuseChild: SeriesDetailsComponent } },
       { path: ':id', component: SeriesDetailsComponent, data: { animation: 'SeriesDetailsPage' } }
     ])
   ]
