@@ -8,7 +8,9 @@ export class ApiService {
   constructor(protected http: HttpClient, protected logger: Logger, protected apiControllerUrl: string) {  }
 
   public getData<T>(actionPath: string, params) {
-    return this.http.get<T>(this.apiControllerUrl + actionPath, { params }).pipe(catchError(this.handleError));
+    return this.http.get<T>(this.apiControllerUrl + actionPath, { params }).pipe(
+      catchError(error => this.handleError(error))
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
