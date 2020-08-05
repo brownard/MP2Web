@@ -18,7 +18,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Not a cacheable path, simply pass the request on
     if (!this.shouldCache(req)) {
-      this.logger.debug('ApiRequestInterceptor: Not cacheing request for ' + req.urlWithParams);
+      this.logger.debug('ApiRequestInterceptor: Not caching request for ' + req.urlWithParams);
       return next.handle(req);
     }
 
