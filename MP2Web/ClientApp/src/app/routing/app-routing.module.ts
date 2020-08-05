@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'music', data: { animation: 'MusicPage' },
     loadChildren: () => import('../media/music/music.module').then(m => m.MusicModule)
   },
+  {
+    path: 'tv',
+    loadChildren: () => import('../tv/tv.module').then(m => m.TvModule)
+  },
 ];
 
 @NgModule({
