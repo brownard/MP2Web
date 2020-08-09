@@ -50,13 +50,6 @@ mat-toolbar .toolbar-brand img {
   height: calc(100% - 16px);
 }
 
-/* Can be placed in a flexbox to expand to fill remaining space.
-   Used in the toolbar to push the icon to the right and in the
-   sidenav to push the dark mode toggle to the bottom. */
-.fill-space {
-  flex: 1 1 auto;
-}
-
 /* Dark mode toggle, align to the main nav items
    and leave a reasonable margin at the top */
 mat-slide-toggle {

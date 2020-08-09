@@ -1,0 +1,85 @@
+<!--<mat-list>
+  <mat-list-item *ngFor="let row of guideRows$ | async">{{row.programs.length}}</mat-list-item>
+</mat-list>-->
+
+<div class="container" fxLayout="column">
+
+  <div fxLayout="row" class="epg-header-container">
+    <mat-form-field appearance="none" fxFlex="0 0 20%" class="epg-group-form-field">
+      <mat-select [(value)]="groupId">
+        <mat-option *ngFor="let group of groups$ | async" [value]="group.Id">
+          {{group.GroupName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <span fxFlex="0 0 20%" class="epg-time-label">
+      {{guideStartTime | date:'h:mm'}}
+    </span>
+
+    <span fxFlex="0 0 20%"></span>
+
+    <span fxFlex="0 0 20%" class="epg-time-label">
+      {{(guideStartTime + (guideDurationInMinutes * 30000)) | date:'h:mm'}}
+    </span>
+
+    <span fxFlex="0 0 20%" fxLayout="row" fxLayoutAlign="end">
+
+      <button mat-icon-button (click)="moveGuideStartTime(-15)">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button mat-icon-button (click)="moveGuideStartTime(15)">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+
+    </span>
+  </div>
+
+  <ng-container *ngIf="guideRows$ | async as rows; else loading">
+    <div *ngFor="let row of rows" fxLayout="row" class="epg-container">
+
+      <!-- Channel name -->
+      <div fxFlex="0 0 20%">
+        <div class="epg-item channel">
+          <span class="epg-item-title">
+            {{row.channel.Title}}
+          </span>
+        </div>
+      </div>
+
+      <!-- Channel programs -->
+      <ng-container *ngIf="row.programs && row.programs.length > 0; else noGuideData">
+        <!-- After the channel name we have 80% of the width remaining, so a program's
+         width is 80% of it's time as a proportion of the total guide time. -->
+        <div *ngFor="let program of row.programs"
+             [fxFlex]="'0 0 calc(' + (80 * (program | guideWidth:guideStartTime:guideEndTime)) + '%)'">
+
+          <div class="epg-item program" [class.airing]="program | isAiring:currentTime">
+            <span class="epg-item-title">
+              {{program.Title}}
+            </span>
+          </div>
+
+        </div>
+      </ng-container>
+
+      <ng-template #noGuideData>
+        <div fxFlex="0 0 80%">
+          <div class="epg-item program">
+            <span class="epg-item-title">
+              No guide data available
+            </span>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <div fxFlex="0 0 100%">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+
+</div>

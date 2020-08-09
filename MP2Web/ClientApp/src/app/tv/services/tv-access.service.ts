@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { ApiService } from 'src/app/core/api/api.service';
 import { AppConfigService } from 'src/app/core/config/app-config.service';
 import { Logger } from 'src/app/core/logging/logger.service';
 import { WebSortField, WebSortOrder } from 'src/app/core/models/web-media-items';
-import { WebChannelBasic, WebChannelDetailed } from '../models/channels';
+import { WebChannelBasic, WebChannelDetailed, WebChannelGroup } from '../models/channels';
 import { WebChannelPrograms, WebProgramBasic, WebProgramDetailed } from '../models/programs';
-
 
 
 @Injectable({
@@ -19,7 +19,14 @@ export class TVAccessService extends ApiService {
     super(http, logger, config.appConfig.mp2ExtendedBasePath + 'TVAccessService/json/');
   }
 
-  public getChannelsBasic(groupId = '1', sort: WebSortField | '' = '', order: WebSortOrder.Asc | '' = '') {
+  public getGroups(sort: WebSortField | '' = '', order: WebSortOrder.Asc | '' = ''): Observable<WebChannelGroup[]> {
+    return this.getData<WebChannelGroup[]>('GetGroups', {
+      sort,
+      order
+    });
+  }
+
+  public getChannelsBasic(groupId = '1', sort: WebSortField | '' = '', order: WebSortOrder.Asc | '' = ''): Observable<WebChannelBasic[]> {
     return this.getData<WebChannelBasic[]>('GetChannelsBasic', {
       'groupId': groupId,
       'sort': sort,
@@ -27,7 +34,7 @@ export class TVAccessService extends ApiService {
     });
   }
 
-  public getChannelsDetailed(groupId = '1', sort: WebSortField | '' = '', order: WebSortOrder.Asc | '' = '') {
+  public getChannelsDetailed(groupId = 1, sort: WebSortField | '' = '', order: WebSortOrder.Asc | '' = ''): Observable<WebChannelDetailed[]> {
     return this.getData<WebChannelDetailed[]>('GetChannelsDetailed', {
       'groupId': groupId,
       'sort': sort,
@@ -35,7 +42,7 @@ export class TVAccessService extends ApiService {
     });
   }
 
-  public getProgramsBasicForGroup(groupId = '1', startTime: Date, endTime: Date) {
+  public getProgramsBasicForGroup(groupId = 1, startTime: Date, endTime: Date): Observable<WebChannelPrograms<WebProgramBasic>[]> {
     return this.getData<WebChannelPrograms<WebProgramBasic>[]>('GetProgramsBasicForGroup', {
       groupId,
       startTime: startTime.toJSON(),
@@ -43,7 +50,7 @@ export class TVAccessService extends ApiService {
     });
   }
 
-  public getProgramsDetailedForGroup(groupId = '1', startTime: Date, endTime: Date) {
+  public getProgramsDetailedForGroup(groupId = 1, startTime: Date, endTime: Date): Observable<WebChannelPrograms<WebProgramDetailed>[]> {
     return this.getData<WebChannelPrograms<WebProgramDetailed>[]>('GetProgramsDetailedForGroup', {
       groupId,
       startTime: startTime.toJSON(),

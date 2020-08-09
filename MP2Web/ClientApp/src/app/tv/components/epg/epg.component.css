@@ -1,0 +1,46 @@
+.epg-header-container {
+  overflow: hidden;
+  align-items: flex-end;
+}
+
+/* Cancel out the padding added by mat-form-field */
+.epg-group-form-field {
+  margin-bottom: -1.25rem;
+}
+
+/* Pad the time the same as the group mat-select so the text is aligned */
+.epg-time-label {
+  padding: 8px;
+}
+
+.epg-container {
+  overflow: hidden;
+}
+
+.epg-item {
+  /* Vertically align the text */
+  display: flex;
+  align-items: center;
+  /* Fixed height and padding */
+  height: 50px;
+  margin: 2px;
+  padding: 5px;
+}
+
+  .epg-item.channel {
+    background-color: var(--primary-focus-background-color);
+  }
+
+  .epg-item.program {
+    background-color: var(--primary-focus-background-color);
+  }
+
+    .epg-item.program.airing {
+      background-color: var(--primary-background-color);
+    }
+
+.epg-item-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
