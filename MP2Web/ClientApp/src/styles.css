@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
 @import url('http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css');
 
@@ -51,11 +50,6 @@ body {
     --invert-parameter: 0.8;
     --menu-shadow: 0 4px 9px rgba(255, 255, 255, 0.4);
   }
-
-body {
-  background-color: var(--secondary-background-color) !important;
-  font-family: 'Open Sans', sans-serif;
-}
 
 /* Calculation to set font size based on screen width */
 
