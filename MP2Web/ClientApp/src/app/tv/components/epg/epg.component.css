@@ -31,6 +31,11 @@
     background-color: var(--primary-focus-background-color);
   }
 
+    .epg-item.channel img {
+      width: 40px;
+      margin-right: 5px;
+    }
+
   .epg-item.program {
     background-color: var(--primary-focus-background-color);
   }

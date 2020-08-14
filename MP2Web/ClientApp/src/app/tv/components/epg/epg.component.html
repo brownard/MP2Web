@@ -41,6 +41,8 @@
       <!-- Channel name -->
       <div fxFlex="0 0 20%">
         <div class="epg-item channel">
+          <!-- Channel logo -->
+          <img [src]="artworkService.getArtworkUrl(12, row.channel.Id, 5)" />
           <span class="epg-item-title">
             {{row.channel.Title}}
           </span>

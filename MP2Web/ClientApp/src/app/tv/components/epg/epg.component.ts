@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription, timer } from 'rxjs';
 
+import { ArtworkService } from 'src/app/core/api/artwork.service';
 import { WebChannelGroup } from '../../models/channels';
 import { ChannelPrograms, EpgService } from '../../services/epg.service';
 
@@ -26,7 +27,7 @@ export class EpgComponent implements OnInit, OnDestroy {
   currentTime: number;
   currentTimeSubscription: Subscription;
 
-  constructor(private epgService: EpgService) { }
+  constructor(private epgService: EpgService, public artworkService: ArtworkService) { }
 
   ngOnInit(): void {
     this.groups$ = this.epgService.getTVGroups$();
