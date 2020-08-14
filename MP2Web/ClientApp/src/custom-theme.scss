@@ -139,6 +139,8 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   }
 }
 
-.mat-primary .mat-option.mat-selected[aria-selected="true"] {
+.mat-primary .mat-option.mat-selected[aria-selected="true"],
+.theme-dark .mat-primary .mat-option.mat-selected[aria-selected="true"] {
   background-color: mat-color($theme-accent, main);
+  color: white;
 }
