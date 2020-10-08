@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription, timer } from 'rxjs';
 
 import { ArtworkService } from 'src/app/core/api/artwork.service';
 import { WebChannelGroup } from '../../models/channels';
+import { WebProgramBasic } from '../../models/programs';
 import { ChannelPrograms, EpgService } from '../../services/epg.service';
+import { EpgProgramDialogComponent } from '../epg-program-dialog/epg-program-dialog.component';
 
 
 // Number of milliseconds in 15 minutes, used to round
@@ -27,7 +30,7 @@ export class EpgComponent implements OnInit, OnDestroy {
   currentTime: number;
   currentTimeSubscription: Subscription;
 
-  constructor(private epgService: EpgService, public artworkService: ArtworkService) { }
+  constructor(private programDialog: MatDialog, private epgService: EpgService, public artworkService: ArtworkService) { }
 
   ngOnInit(): void {
     this.groups$ = this.epgService.getTVGroups$();
@@ -55,11 +58,17 @@ export class EpgComponent implements OnInit, OnDestroy {
     this.updateGuide(this.guideStartTime + (minutes * 60000));
   }
 
+  public openProgramDialog(program: WebProgramBasic) {
+    this.programDialog.open(EpgProgramDialogComponent, {
+      data: { program: program },
+    });
+  }
+
   private updateGuide(startTime: number) {
     // Start time is current time rounded down to nearest 15 minutes
     this.guideStartTime = startTime - (startTime % millisecondsIn15Minutes);
     this.guideEndTime = this.guideStartTime + this.guideDurationInMinutes * 60000;
 
-    this.guideRows$ = this.epgService.getGuide(new Date(this.guideStartTime), new Date(this.guideEndTime));
+    this.guideRows$ = this.epgService.getGuide$(new Date(this.guideStartTime), new Date(this.guideEndTime));
   }
 }

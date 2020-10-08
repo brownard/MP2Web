@@ -1,0 +1,42 @@
+<div class="container">
+
+  <div *ngIf="program$ | async as program" fxLayout="column" class="container-fluid program-container">
+
+    <div class="sub-container player-container" [ngClass.gt-sm]="'gt-sm'">
+
+      <button mat-fab color="accent" class="player-play-button">
+        <mat-icon style="color: white;">play_arrow</mat-icon>
+      </button>
+
+    </div>
+
+    <div class="sub-container">
+
+      <h2 class="mat-title">{{program.Title}}</h2>
+      <h3 class="mat-subheading-2" style="display:inline;">
+        {{program.StartTime | optionalDate:'shortDate'}} {{program.StartTime | date:'shortTime'}} - {{program.EndTime | date:'shortTime'}}
+      </h3>
+
+      <h3 *ngIf="channel$ | async as channel" class="mat-subheading-1" style="display:inline;">&nbsp;{{channel.Title}}</h3>
+
+
+    </div>
+
+    <div class="sub-container">
+
+      <div class="mat-body">{{program.Description}}</div>
+
+      <mat-action-list>
+        <ng-container *ngIf="isScheduled$ | async; else addScheduleTemplate">
+          <button mat-list-item (click)="cancelSchedule(program)">Cancel Schedule</button>
+        </ng-container>
+        <ng-template #addScheduleTemplate>
+          <button mat-list-item (click)="addSchedule(program)">Add Schedule</button>
+        </ng-template>
+      </mat-action-list>
+
+    </div>
+
+  </div>
+
+</div>

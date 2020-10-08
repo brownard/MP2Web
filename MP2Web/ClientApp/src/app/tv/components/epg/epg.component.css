@@ -13,8 +13,14 @@
   padding: 8px;
 }
 
-.epg-container {
+.epg-row-container {
   overflow: hidden;
+}
+
+.epg-item-button {
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
 .epg-item {

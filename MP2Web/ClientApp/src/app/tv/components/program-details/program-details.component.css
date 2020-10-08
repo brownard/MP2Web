@@ -1,0 +1,32 @@
+.program-container {
+  background-color: var(--primary-background-color);
+}
+
+.sub-container {
+  padding: 8px;
+}
+
+.player-container {
+  position: relative;
+  margin: 0 -15px;
+  background-color: black;
+  height: 200px;
+}
+
+.player-container.gt-sm {
+  height: 400px;
+}
+
+.player-play-button {
+  position: absolute;
+  bottom: -28px;
+  right: 28px;
+}
+
+.title {
+    margin: 2px 0;
+  }
+
+h1, h2, h3, h4, h5, h6 {
+  /*margin: 2px;*/
+}

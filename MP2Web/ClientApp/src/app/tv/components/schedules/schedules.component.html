@@ -1,0 +1,29 @@
+<div class="container">
+
+  <div class="schedules-list">
+
+    <button mat-button class="schedule-container" *ngFor="let schedule of schedules$ | async">
+      <div class="schedule-content">
+        <div class="schedule-logo" [lazyLoad]="artworkService.getArtworkUrl(12, schedule.ChannelId, 5)"></div>
+        <div class="schedule-text">
+          <div class="schedule-title">{{schedule.Title}}</div>
+          <div class="schedule-subtitle">
+            {{schedule.StartTime | optionalDate:'shortDate'}} {{schedule.StartTime | date:'shortTime'}} - {{schedule.EndTime | date:'shortTime'}}
+          </div>
+        </div>
+      </div>
+    </button>
+
+  </div>
+
+  <mat-nav-list>
+
+    <a mat-list-item *ngFor="let schedule of schedules$ | async">
+      <img width="40" height="40" [src]="artworkService.getArtworkUrl(12, schedule.ChannelId, 5)">
+      <div mat-line>{{schedule.Title}}</div>
+      <div mat-line>{{schedule.StartTime}} - {{schedule.EndTime}}</div>
+    </a>
+
+  </mat-nav-list>
+
+</div>

@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TvComponent implements OnInit {
 
-  routes: { name: string, href: string }[] = [
-    { name: 'Guide', href: 'guide' },
-    { name: 'Schedules', href: '/schedules' },
-    { name: 'Recordings', href: '/recordings' }
+  routes: { name: string, link: string }[] = [
+    { name: 'Guide', link: 'guide' },
+    { name: 'Schedules', link: 'schedules' },
+    { name: 'Recordings', link: 'recordings' }
   ];
 
   activeRoute = this.routes[0];

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { WebChannelDetailed, WebChannelGroup } from '../models/channels';
-import { WebChannelPrograms, WebProgramBasic } from '../models/programs';
+import { WebChannelPrograms, WebProgramBasic, WebProgramDetailed } from '../models/programs';
 import { TVAccessService } from './tv-access.service';
 
 
@@ -42,16 +42,29 @@ export class EpgService {
     );
   }
 
-  public get channels$(): Observable<WebChannelDetailed[]> {
+  public getChannels$(): Observable<WebChannelDetailed[]> {
     return this._channels$;
   }
 
-  public getGuide(startTime: Date, endTime: Date): Observable<ChannelPrograms[]> {
-    return this.channels$.pipe(
+  public getGuide$(startTime: Date, endTime: Date): Observable<ChannelPrograms[]> {
+    return this._channels$.pipe(
       switchMap(channels => this.tvAccessService.getProgramsBasicForGroup(this._groupId$.value, startTime, endTime).pipe(
         map(programs => this.mapChannelsToPrograms(channels, programs))
       ))
     );
+  }
+
+  public getChannel$(channelId: number): Observable<WebChannelDetailed> {
+    return this._channels$.pipe(
+      switchMap(channels => {
+        const channel = channels.find(c => c.Id === channelId);
+        return channel ? of(channel) : this.tvAccessService.getChannelDetailedById(channelId);
+      })
+    );
+  }
+
+  public getProgram$(programId: number): Observable<WebProgramDetailed> {
+    return this.tvAccessService.getProgramDetailedById(programId);
   }
 
   private mapChannelsToPrograms(channels: WebChannelDetailed[], programs: WebChannelPrograms<WebProgramBasic>[]): ChannelPrograms[] {

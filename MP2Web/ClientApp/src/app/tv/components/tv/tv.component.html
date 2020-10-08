@@ -3,7 +3,7 @@
   <nav mat-tab-nav-bar mat-align-tabs="center" backgroundColor="primary" class="fill-space">
     <a mat-tab-link *ngFor="let route of routes"
        (click)="activeRoute = route"
-       [routerLink]="route.href"
+       [routerLink]="route.link"
        [active]="activeRoute == route">{{route.name}}</a>
   </nav>
 

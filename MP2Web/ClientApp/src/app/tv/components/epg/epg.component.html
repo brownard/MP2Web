@@ -1,7 +1,3 @@
-<!--<mat-list>
-  <mat-list-item *ngFor="let row of guideRows$ | async">{{row.programs.length}}</mat-list-item>
-</mat-list>-->
-
 <div class="container" fxLayout="column">
 
   <div fxLayout="row" class="epg-header-container">
@@ -36,7 +32,7 @@
   </div>
 
   <ng-container *ngIf="guideRows$ | async as rows; else loading">
-    <div *ngFor="let row of rows" fxLayout="row" class="epg-container">
+    <div *ngFor="let row of rows" fxLayout="row" class="epg-row-container">
 
       <!-- Channel name -->
       <div fxFlex="0 0 20%">
@@ -52,9 +48,13 @@
       <!-- Channel programs -->
       <ng-container *ngIf="row.programs && row.programs.length > 0; else noGuideData">
         <!-- After the channel name we have 80% of the width remaining, so a program's
-         width is 80% of it's time as a proportion of the total guide time. -->
-        <div *ngFor="let program of row.programs"
-             [fxFlex]="'0 0 calc(' + (80 * (program | guideWidth:guideStartTime:guideEndTime)) + '%)'">
+   width is 80% of it's time as a proportion of the total guide time.
+          (click)="openProgramDialog(program)"-->
+        <a *ngFor="let program of row.programs"
+                [fxFlex]="'0 0 calc(' + (80 * (program | guideWidth:guideStartTime:guideEndTime)) + '%)'"
+                mat-button class="epg-item-button"
+                [routerLink]="['../program', program.Id]"
+                [state]="{ program: program }">
 
           <div class="epg-item program" [class.airing]="program | isAiring:currentTime">
             <span class="epg-item-title">
@@ -62,7 +62,7 @@
             </span>
           </div>
 
-        </div>
+        </a>
       </ng-container>
 
       <ng-template #noGuideData>
