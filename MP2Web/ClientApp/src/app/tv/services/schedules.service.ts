@@ -38,4 +38,8 @@ export class SchedulesService {
       )
     );
   }
+
+  public deleteSchedule(scheduleId: string | number): Observable<boolean> {
+    return this.tvAccessService.deleteSchedule(scheduleId).pipe(map(r => r.Result));
+  }
 }

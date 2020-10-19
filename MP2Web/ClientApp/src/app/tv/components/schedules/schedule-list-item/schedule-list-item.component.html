@@ -1,0 +1,22 @@
+<div class="schedule-content">
+
+  <div class="schedule-logo" [lazyLoad]="artworkService.getArtworkUrl(12, '' + schedule.ChannelId, 5)"></div>
+  <div class="schedule-text">
+    <div class="schedule-title">{{schedule.Title}}</div>
+    <div class="schedule-subtitle">
+      {{schedule.StartTime | optionalDate:'shortDate'}} {{schedule.StartTime | date:'shortTime'}} - {{schedule.EndTime | date:'shortTime'}}
+    </div>
+  </div>
+
+  <button mat-icon-button class="additional-options" aria-label="Additional schedule options"
+          [matMenuTriggerFor]="optionsMenu"
+          (click)="false;">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #optionsMenu class="app-menu-panel">
+    <button mat-menu-item
+            (click)="onDeleteSchedule()">
+      Delete
+    </button>
+  </mat-menu>
+</div>

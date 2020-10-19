@@ -1,44 +1,18 @@
 .schedules-list {
   width: 100%;
   padding: 8px 0;
-  background-color: var(--primary-background-color);
 }
 
 .schedule-container {
   display: block;
   width: 100%;
+  background-color: var(--primary-background-color);
+  border-radius: 0;
+  border: 1px solid var(--secondary-background-color);
 }
 
-.schedule-content {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 72px;
-  line-height: normal;
-  text-align: left;
-}
-
-.schedule-logo {
-  flex: 0 0 100px;
-  height: 56px;
-  margin: 0 16px 0 -16px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.schedule-text {
-  flex: 1 0;
-  min-width: 1;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.schedule-title {
-  font-size: 16px;
-}
-
-.schedule-subtitle {
+.schedule-header {
+  padding: 8px 4px;
+  color: var(--secondary-text-color);
   font-size: 14px;
 }

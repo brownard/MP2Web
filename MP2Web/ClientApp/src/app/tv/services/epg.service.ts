@@ -1,76 +1,65 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { WebChannelDetailed, WebChannelGroup } from '../models/channels';
 import { WebChannelPrograms, WebProgramBasic, WebProgramDetailed } from '../models/programs';
+import * as EpgActions from '../store/epg/epg.actions';
+import * as EpgSelectors from '../store/epg/epg.selectors';
 import { TVAccessService } from './tv-access.service';
-
-
-export interface ChannelPrograms {
-  channel: WebChannelDetailed,
-  programs: WebProgramBasic[]
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class EpgService {
-  
-  private _groupId$: BehaviorSubject<number> = new BehaviorSubject(1);
-  private _channels$: Observable<WebChannelDetailed[]>;
 
-  constructor(private tvAccessService: TVAccessService) {
-    this._channels$ = this._groupId$.pipe(
-      distinctUntilChanged(),
-      switchMap(g => this.tvAccessService.getChannelsDetailed(g)),
-      shareReplay(1)
-    );
+  constructor(private tvAccessService: TVAccessService, private store: Store) {
   }
 
-  public get groupId(): number {
-    return this._groupId$.value;
-  }
-
-  public set groupId(value: number) {
-    this._groupId$.next(value);
+  public update(): void {
+    this.store.dispatch(EpgActions.updateChannelGroups());
   }
 
   public getTVGroups$(): Observable<WebChannelGroup[]> {
-    return this.tvAccessService.getGroups().pipe(
+    return this.store.select(EpgSelectors.getChannelGroups).pipe(
       map(groups => groups.filter(g => g.IsTv))
     );
   }
 
-  public getChannels$(): Observable<WebChannelDetailed[]> {
-    return this._channels$;
+  public getSelectedGroup$(): Observable<number> {
+    return this.store.select(EpgSelectors.getSelectedGroup);
   }
 
-  public getGuide$(startTime: Date, endTime: Date): Observable<ChannelPrograms[]> {
-    return this._channels$.pipe(
-      switchMap(channels => this.tvAccessService.getProgramsBasicForGroup(this._groupId$.value, startTime, endTime).pipe(
-        map(programs => this.mapChannelsToPrograms(channels, programs))
-      ))
-    );
+  public setSelectedGroup(selectedGroup: number): void {
+    this.store.dispatch(EpgActions.setSelectedGroup(selectedGroup));
+  }
+
+  public getChannels$(): Observable<WebChannelDetailed[]> {
+    return this.store.select(EpgSelectors.getChannels);
+  }
+
+  public getGuideTime$(): Observable<{ startTime: Date, endTime: Date }> {
+    return this.store.select(EpgSelectors.getGuideTime);
+  }
+
+  public setGuideTime(startTime: Date, endTime: Date): void {
+    this.store.dispatch(EpgActions.setGuideTime(startTime, endTime));
+  }
+
+  public getGuide$(): Observable<WebChannelPrograms<WebProgramBasic>[]> {
+    return this.store.select(EpgSelectors.getPrograms);
   }
 
   public getChannel$(channelId: number): Observable<WebChannelDetailed> {
-    return this._channels$.pipe(
-      switchMap(channels => {
-        const channel = channels.find(c => c.Id === channelId);
-        return channel ? of(channel) : this.tvAccessService.getChannelDetailedById(channelId);
-      })
-    );
+    return this.tvAccessService.getChannelDetailedById(channelId);
+  }
+
+  public getGuideForChannel$(channelId: string | number, startTime: Date, endTime: Date): Observable<WebProgramDetailed[]> {
+    return this.tvAccessService.getProgramsDetailedForChannel(channelId, startTime, endTime);
   }
 
   public getProgram$(programId: number): Observable<WebProgramDetailed> {
     return this.tvAccessService.getProgramDetailedById(programId);
-  }
-
-  private mapChannelsToPrograms(channels: WebChannelDetailed[], programs: WebChannelPrograms<WebProgramBasic>[]): ChannelPrograms[] {
-    return channels.map(c => {
-      const channelPrograms = programs.find(p => p.ChannelId === c.Id);
-      return { channel: c, programs: !!channelPrograms && !!channelPrograms.Programs ? channelPrograms.Programs : [] };
-    });
   }
 }

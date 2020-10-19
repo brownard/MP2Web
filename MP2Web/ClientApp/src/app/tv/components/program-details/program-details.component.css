@@ -6,11 +6,15 @@
   padding: 8px;
 }
 
+.sub-container .mat-nav-list {
+  margin: 0 -16px;
+}
+
 .player-container {
   position: relative;
-  margin: 0 -15px;
   background-color: black;
   height: 200px;
+  margin: 0 -15px;
 }
 
 .player-container.gt-sm {
@@ -23,9 +27,27 @@
   right: 28px;
 }
 
-.title {
-    margin: 2px 0;
+.player-image {
+  height: 100%;
+  padding: 16px 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-size: 50% auto;
+  background-position: center center;
+}
+
+.schedule-button {
+}
+
+  .schedule-button .mat-icon {
+    color: red;
+    margin-left: -8px;
   }
+
+.title {
+  margin: 2px 0;
+}
 
 h1, h2, h3, h4, h5, h6 {
   /*margin: 2px;*/

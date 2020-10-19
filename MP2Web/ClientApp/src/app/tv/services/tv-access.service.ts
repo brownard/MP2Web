@@ -47,6 +47,14 @@ export class TVAccessService extends ApiService {
     });
   }
 
+  public getProgramsDetailedForChannel(channelId: string | number, startTime: Date, endTime: Date): Observable<WebProgramDetailed[]> {
+    return this.getData<WebProgramDetailed[]>('GetProgramsDetailedForChannel', {
+      channelId,
+      startTime: startTime.toJSON(),
+      endTime: endTime.toJSON()
+    });
+  }
+
   public getChannelDetailedById(channelId: number): Observable<WebChannelDetailed> {
     return this.getData<WebChannelDetailed>('GetChannelDetailedById', { channelId });
   }
@@ -90,6 +98,26 @@ export class TVAccessService extends ApiService {
 
   public unCancelSchedule(programId: string | number): Observable<WebBoolResult> {
     return this.getData<WebBoolResult>('UnCancelSchedule', { programId });
+  }
+
+  public editSchedule(scheduleId: string, channelId?: string | number, title?: string, startTime?: Date, endTime?: Date,
+    scheduleType?: WebScheduleType, preRecordInterval?: number, postRecordInterval?: number, directory?: string, priority?: number) {
+    return this.getData<WebBoolResult>('EditSchedule', {
+      scheduleId,
+      channelId,
+      title,
+      startTime,
+      endTime,
+      scheduleType,
+      preRecordInterval,
+      postRecordInterval,
+      directory,
+      priority
+    });
+  }
+
+  public deleteSchedule(scheduleId: string | number): Observable<WebBoolResult> {
+    return this.getData('DeleteSchedule', { scheduleId });
   }
 
   public getProgramIsScheduled(programId: string | number): Observable<WebBoolResult> {

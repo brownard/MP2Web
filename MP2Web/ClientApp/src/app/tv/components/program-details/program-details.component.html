@@ -4,20 +4,47 @@
 
     <div class="sub-container player-container" [ngClass.gt-sm]="'gt-sm'">
 
-      <button mat-fab color="accent" class="player-play-button">
+      <!--<button mat-fab color="accent" class="player-play-button">
         <mat-icon style="color: white;">play_arrow</mat-icon>
-      </button>
+      </button>-->
+
+      <div class="player-image"
+           [style.background-image]="'url(' + artworkService.getArtworkUrl(12, program.ChannelId, 5) + ')'"></div>
 
     </div>
 
     <div class="sub-container">
 
-      <h2 class="mat-title">{{program.Title}}</h2>
+      <div fxLayout="row" fxLayoutAlign="start start">
+
+        <!--Program title, expands to fill available space-->
+        <h3 fxFlex="1 1 100%">{{program.Title}}</h3>
+
+        <!-- Record button container, only fills required space -->
+        <div fxFlex="0 0 auto" style="margin: 1em 0;">
+
+          <!--Either Record or Don't Record depending on the value of isScheduled$-->
+          <ng-container *ngIf="isScheduled$ | async; else addScheduleTemplate">
+            <button mat-raised-button class="schedule-button" (click)="cancelSchedule(program)">
+              <mat-icon>fiber_manual_record</mat-icon>
+              <span> Don't Record</span>
+            </button>
+          </ng-container>
+          <ng-template #addScheduleTemplate>
+            <button mat-raised-button class="schedule-button" (click)="addSchedule(program)">
+              <mat-icon class="outlined">fiber_manual_record</mat-icon>
+              <span> Record</span>
+            </button>
+          </ng-template>
+
+        </div>
+
+      </div>
       <h3 class="mat-subheading-2" style="display:inline;">
         {{program.StartTime | optionalDate:'shortDate'}} {{program.StartTime | date:'shortTime'}} - {{program.EndTime | date:'shortTime'}}
       </h3>
 
-      <h3 *ngIf="channel$ | async as channel" class="mat-subheading-1" style="display:inline;">&nbsp;{{channel.Title}}</h3>
+      <h3 *ngIf="channel$ | async as channel" class="mat-subheading-1" style="display:inline;">{{' | ' + channel.Title}}</h3>
 
 
     </div>
@@ -26,14 +53,14 @@
 
       <div class="mat-body">{{program.Description}}</div>
 
-      <mat-action-list>
-        <ng-container *ngIf="isScheduled$ | async; else addScheduleTemplate">
-          <button mat-list-item (click)="cancelSchedule(program)">Cancel Schedule</button>
-        </ng-container>
-        <ng-template #addScheduleTemplate>
-          <button mat-list-item (click)="addSchedule(program)">Add Schedule</button>
-        </ng-template>
-      </mat-action-list>
+      <h4>On Next</h4>
+
+      <mat-nav-list>
+
+        <app-program *ngFor="let program of nextPrograms$ | async" [program]="program">
+        </app-program>
+
+      </mat-nav-list>
 
     </div>
 

@@ -2,7 +2,7 @@
 
   <div fxLayout="row" class="epg-header-container">
     <mat-form-field appearance="none" fxFlex="0 0 20%" class="epg-group-form-field">
-      <mat-select [(value)]="groupId">
+      <mat-select [value]="selectedGroupId$ | async" (selectionChange)="setSelectedGroupId($event.value)">
         <mat-option *ngFor="let group of groups$ | async" [value]="group.Id">
           {{group.GroupName}}
         </mat-option>
@@ -48,7 +48,7 @@
       <!-- Channel programs -->
       <ng-container *ngIf="row.programs && row.programs.length > 0; else noGuideData">
         <!-- After the channel name we have 80% of the width remaining, so a program's
-   width is 80% of it's time as a proportion of the total guide time.
+             width is 80% of it's time as a proportion of the total guide time.
           (click)="openProgramDialog(program)"-->
         <a *ngFor="let program of row.programs"
                 [fxFlex]="'0 0 calc(' + (80 * (program | guideWidth:guideStartTime:guideEndTime)) + '%)'"
@@ -56,10 +56,19 @@
                 [routerLink]="['../program', program.Id]"
                 [state]="{ program: program }">
 
-          <div class="epg-item program" [class.airing]="program | isAiring:currentTime">
-            <span class="epg-item-title">
+          <div fxLayout="row" fxLayoutAlign="start center"
+               class="epg-item program"
+               [class.airing]="program | isAiring:currentTime">
+
+            <div fxFlex="1 1 100%" class="epg-item-title" style="text-align:left;">
               {{program.Title}}
-            </span>
+            </div>
+
+            <mat-icon *ngIf="program.IsScheduled"
+                      fxFlex="0 0 auto"
+                      style="color: red;">
+              fiber_manual_record
+            </mat-icon>
           </div>
 
         </a>

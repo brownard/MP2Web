@@ -27,6 +27,8 @@ export class ProgramDetailsComponent implements OnInit {
   program$: Observable<WebProgramDetailed>;
   isScheduled$: Observable<boolean>;
 
+  nextPrograms$: Observable<WebProgramDetailed[]>;
+
   constructor(
     private epgService: EpgService,
     private schedulesService: SchedulesService,
@@ -71,6 +73,14 @@ export class ProgramDetailsComponent implements OnInit {
       withLatestFrom(this.program$),
       switchMap(([_, program]) => this.schedulesService.getProgramIsScheduled(program.Id)),
       shareReplay(1)
+    );
+
+    this.nextPrograms$ = this.program$.pipe(
+      switchMap(program => {
+        // Get programs on the same channel for the next 24 hours
+        const startTime = new Date(program.EndTime);
+        return this.epgService.getGuideForChannel$(program.ChannelId, startTime, new Date(startTime.getTime() + (24 * 60 * 60 * 1000)));
+      }),
     );
   }
 

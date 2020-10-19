@@ -1,0 +1,6 @@
+<a mat-list-item
+   [routerLink]="['..', program.Id]"
+   [state]="{ program: program }">
+  <h1 mat-line class="mat-subheading-2">{{program.Title}}</h1>
+  <h1 mat-line class="mat-subheading-1">{{program.StartTime | date:'shortTime'}} - {{program.EndTime | date:'shortTime'}}</h1>
+</a>
