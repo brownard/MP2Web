@@ -18,6 +18,7 @@ import { OptionalDatePipe } from './pipes/optional-date.pipe';
 import { EpgEffects } from './store/epg/epg.effects';
 import { ScheduleEffects } from './store/schedules/schedule.effects';
 import { featureKey, reducer } from './store/tv.store';
+import { EpgRowComponent } from './components/epg/epg-row/epg-row.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { featureKey, reducer } from './store/tv.store';
     TvComponent,
     ProgramDetailsComponent,
     ProgramComponent,
-    ScheduleListItemComponent
+    ScheduleListItemComponent,
+    EpgRowComponent
   ],
   imports: [
     CommonModule,

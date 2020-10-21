@@ -1,0 +1,43 @@
+.epg-row-container {
+  overflow: hidden;
+}
+
+.epg-item-button {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.epg-item {
+  /* Vertically align the text */
+  display: flex;
+  align-items: center;
+  /* Fixed height and padding */
+  height: 50px;
+  margin: 2px;
+  padding: 5px;
+}
+
+  .epg-item.channel {
+    background-color: var(--primary-focus-background-color);
+  }
+
+    .epg-item.channel img {
+      width: 40px;
+      margin-right: 5px;
+    }
+
+  .epg-item.program {
+    background-color: var(--primary-focus-background-color);
+  }
+
+    .epg-item.program.airing {
+      background-color: var(--primary-background-color);
+    }
+
+.epg-item-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}

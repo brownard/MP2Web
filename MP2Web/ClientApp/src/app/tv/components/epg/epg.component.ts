@@ -11,7 +11,7 @@ import { EpgService } from '../../services/epg.service';
 // the guide time down to the neareest 15 minutes.
 const millisecondsIn15Minutes: number = 15 * 60 * 1000;
 
-export interface ChannelPrograms {
+export interface EpgRow {
   channel: WebChannelDetailed,
   programs: WebProgramBasic[]
 }
@@ -30,15 +30,20 @@ export class EpgComponent implements OnInit, OnDestroy {
   groups$: Observable<WebChannelGroup[]>;
   selectedGroupId$: Observable<number>;
 
-  guideRows$: Observable<ChannelPrograms[]>;
+  channels$: Observable<WebChannelDetailed[]>;
+  programs: { [channelId: number]: WebProgramBasic[] };
+
+  epgRows$: Observable<EpgRow[]>;
 
   currentTime: number;
-  currentTimeSubscription: Subscription;
+  subscriptions: Subscription = new Subscription();
 
   constructor(private epgService: EpgService, public artworkService: ArtworkService) {
     this.groups$ = this.epgService.getTVGroups$();
     this.selectedGroupId$ = this.epgService.getSelectedGroup$();
-    this.guideRows$ = this.epgService.getChannels$().pipe(
+    this.channels$ = this.epgService.getChannels$();
+
+    this.epgRows$ = this.epgService.getChannels$().pipe(
       combineLatest(this.epgService.getGuide$()),
       map(([channels, programs]) => this.mapChannelsToPrograms(channels, programs))
     );
@@ -47,15 +52,24 @@ export class EpgComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.currentTime = Date.now();
-    this.currentTimeSubscription = timer(0, 30000)
-      .subscribe(t => this.currentTime = Date.now());
-
     this.epgService.update();
-    this.updateGuide(Date.now());
+    this.updateGuide(this.currentTime);
+
+    this.subscriptions.add(
+      timer(0, 30000)
+        .subscribe(t => this.currentTime = Date.now())
+    );
+
+    this.subscriptions.add(this.epgService.getGuide$().pipe(
+      map(programs =>
+        Object.assign({}, ...programs.map(p => ({ [p.ChannelId]: p.Programs })))
+      ))
+      .subscribe(p => this.programs = p)
+    );
   }
 
   ngOnDestroy(): void {
-    this.currentTimeSubscription.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   setSelectedGroupId(selectedGroup: number): void {
@@ -74,7 +88,7 @@ export class EpgComponent implements OnInit, OnDestroy {
     this.epgService.setGuideTime(new Date(this.guideStartTime), new Date(this.guideEndTime));
   }
 
-  private mapChannelsToPrograms(channels: WebChannelDetailed[], programs: WebChannelPrograms<WebProgramBasic>[]): ChannelPrograms[] {
+  private mapChannelsToPrograms(channels: WebChannelDetailed[], programs: WebChannelPrograms<WebProgramBasic>[]): EpgRow[] {
     return channels.map(c => {
       const channelPrograms = programs.find(p => p.ChannelId === c.Id);
       return { channel: c, programs: !!channelPrograms && !!channelPrograms.Programs ? channelPrograms.Programs : [] };
