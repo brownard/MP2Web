@@ -5,10 +5,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from '../shared/shared.module';
-import { EpgProgramDialogComponent } from './components/epg-program-dialog/epg-program-dialog.component';
+import { EpgRowComponent } from './components/epg/epg-row/epg-row.component';
 import { EpgComponent } from './components/epg/epg.component';
-import { ProgramDetailsComponent } from './components/program-details/program-details.component';
-import { ProgramComponent } from './components/program/program.component';
+import { ProgramDetailsComponent } from './components/programs/program-details/program-details.component';
+import { ProgramListItemComponent } from './components/programs/program-list-item/program-list-item.component';
 import { ScheduleListItemComponent } from './components/schedules/schedule-list-item/schedule-list-item.component';
 import { SchedulesComponent } from './components/schedules/schedules.component';
 import { TvComponent } from './components/tv/tv.component';
@@ -18,19 +18,17 @@ import { OptionalDatePipe } from './pipes/optional-date.pipe';
 import { EpgEffects } from './store/epg/epg.effects';
 import { ScheduleEffects } from './store/schedules/schedule.effects';
 import { featureKey, reducer } from './store/tv.store';
-import { EpgRowComponent } from './components/epg/epg-row/epg-row.component';
 
 @NgModule({
   declarations: [
     EpgComponent,
-    EpgProgramDialogComponent,
     GuideWidthPipe,
     IsAiringPipe,
     OptionalDatePipe,
     SchedulesComponent,
     TvComponent,
     ProgramDetailsComponent,
-    ProgramComponent,
+    ProgramListItemComponent,
     ScheduleListItemComponent,
     EpgRowComponent
   ],
@@ -52,9 +50,6 @@ import { EpgRowComponent } from './components/epg/epg-row/epg-row.component';
     ]),
     StoreModule.forFeature(featureKey, reducer),
     EffectsModule.forFeature([ScheduleEffects, EpgEffects])
-  ],
-  entryComponents: [
-    EpgProgramDialogComponent
   ]
 })
 export class TvModule { }

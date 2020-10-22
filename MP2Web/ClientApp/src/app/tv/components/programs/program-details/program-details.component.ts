@@ -5,12 +5,11 @@ import { filter, map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operat
 
 import { ArtworkService } from 'src/app/core/api/artwork.service';
 import { Logger } from 'src/app/core/logging/logger.service';
-import { WebChannelDetailed } from '../../models/channels';
-import { WebProgramBasic, WebProgramDetailed } from '../../models/programs';
-import { WebScheduleType } from '../../models/schedules';
-import { EpgService } from '../../services/epg.service';
-import { SchedulesService } from '../../services/schedules.service';
-
+import { WebChannelDetailed } from '../../../models/channels';
+import { WebProgramBasic, WebProgramDetailed } from '../../../models/programs';
+import { WebScheduleType } from '../../../models/schedules';
+import { EpgService } from '../../../services/epg.service';
+import { SchedulesService } from '../../../services/schedules.service';
 
 @Component({
   selector: 'app-program-details',

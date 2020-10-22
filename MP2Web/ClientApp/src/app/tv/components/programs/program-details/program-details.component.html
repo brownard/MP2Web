@@ -57,8 +57,8 @@
 
       <mat-nav-list>
 
-        <app-program *ngFor="let program of nextPrograms$ | async" [program]="program">
-        </app-program>
+        <app-program-list-item *ngFor="let program of nextPrograms$ | async" [program]="program">
+        </app-program-list-item>
 
       </mat-nav-list>
 
