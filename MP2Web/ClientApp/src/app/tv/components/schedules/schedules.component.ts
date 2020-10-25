@@ -1,38 +1,67 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { WebScheduleBasic } from '../../models/schedules';
-import { SchedulesService } from '../../services/schedules.service';
-import * as ScheduleSelectors from '../../store/schedules/schedule.selectors';
-import * as ScheduleActions from '../../store/schedules/schedule.actions';
+import { EpgService } from '../../services/epg.service';
+import { SchedulesService, ScheduleWithChannel } from '../../services/schedules.service';
 
-export interface ScheduleContainer<T> {
-  schedule: WebScheduleBasic;
-  header: T;
+export interface ScheduleWithHeader extends ScheduleWithChannel {
+  header: string;
+}
+
+function compareChannels(a: ScheduleWithChannel, b: ScheduleWithChannel): number {
+  if (!a.channel)
+    return !b.channel ? 0 : 1;
+  if (!b.channel)
+    return -1;
+
+  if (a.channel.Id === b.channel.Id)
+    return new Date(a.schedule.StartTime).getTime() - new Date(b.schedule.StartTime).getTime();
+
+  const aTitle = a.channel.Title.toUpperCase();
+  const bTitle = b.channel.Title.toUpperCase();
+
+  if (aTitle > bTitle)
+    return 1;
+  else if (aTitle < bTitle)
+    return -1;
+  return a.channel.Id - b.channel.Id;
+}
+
+function getDay(dateTime: Date): Date {
+  return new Date(dateTime.getFullYear(), dateTime.getMonth(), dateTime.getDate());
 }
 
 @Component({
   selector: 'app-schedules',
   templateUrl: './schedules.component.html',
-  styleUrls: ['./schedules.component.css']
+  styleUrls: ['./schedules.component.css'],
+  providers: [DatePipe]
 })
 export class SchedulesComponent implements OnInit {
 
-  schedules$: Observable<WebScheduleBasic[]>;
+  schedules$: Observable<ScheduleWithChannel[]>;
 
-  schedulesByDate$: Observable<ScheduleContainer<Date>[]>;
+  schedulesByDate$: Observable<ScheduleWithHeader[]>;
+  schedulesByChannel$: Observable<ScheduleWithHeader[]>;
 
 
-  constructor(private schedulesService: SchedulesService, private store: Store) { }
+  constructor(private schedulesService: SchedulesService, private epgService: EpgService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.schedules$ = this.store.select(ScheduleSelectors.getSchedules); // this.schedulesService.getSchedules();
+    this.schedules$ = this.schedulesService.getSchedulesWithChannels();
+
     this.schedulesByDate$ = this.schedules$.pipe(
-      map(s => this.schedulesByDate(s))
+      map(s => this.groupByDate(s))
     );
-    this.store.dispatch(ScheduleActions.updateSchedules());
+
+    this.schedulesByChannel$ = this.schedules$.pipe(
+      map(s => this.groupByChannel(s))
+    );
+
+    this.schedulesService.updateSchedules();
   }
 
   editSchedule(schedule: WebScheduleBasic): Promise<boolean> {
@@ -42,20 +71,54 @@ export class SchedulesComponent implements OnInit {
 
   deleteSchedule(schedule: WebScheduleBasic): void {
     if (schedule)
-      this.store.dispatch(ScheduleActions.deleteSchedule(schedule.Id));
+      this.schedulesService.deleteSchedule(schedule.Id);
   }
 
-  private schedulesByDate(schedules: WebScheduleBasic[]): ScheduleContainer<Date>[] {
-    const containers: ScheduleContainer<Date>[] = [];
-    let currentHeader: Date = null;
+  private groupByDate(schedules: ScheduleWithChannel[]): ScheduleWithHeader[] {
+    const containers: ScheduleWithHeader[] = [];
+    const today = getDay(new Date(Date.now())).getTime();
+    let currentDate: number = null;
+    
     for (let schedule of schedules) {
-      const scheduleDate = new Date(schedule.StartTime);
-      let header = new Date(scheduleDate.getFullYear(), scheduleDate.getMonth(), scheduleDate.getDate()); 
-      if (!currentHeader || currentHeader.getTime() !== header.getTime())
-        currentHeader = header;
-      else
+
+      let header: string;
+      let scheduleDate = getDay(new Date(schedule.schedule.StartTime));
+      if (!currentDate || currentDate !== scheduleDate.getTime()) {
+        currentDate = scheduleDate.getTime();
+        if (currentDate === today)
+          header = 'Today';
+        else if (currentDate === today + (24 * 60 * 60 * 1000))
+          header = 'Tomorrow';
+        else
+          header = this.datePipe.transform(scheduleDate, 'EEEE d LLLL');
+      }
+      else {
         header = null;
-      containers.push({ schedule, header });
+      }
+
+      containers.push({ ...schedule, header });
+    }
+    return containers;
+  }
+
+  private groupByChannel(schedules: ScheduleWithChannel[]): ScheduleWithHeader[] {
+    const containers: ScheduleWithHeader[] = [];
+
+    schedules = [...schedules].sort(compareChannels)
+
+    let currentChannelId: number = null;
+    for (let schedule of schedules) {
+
+      let header: string;
+      if (!currentChannelId || currentChannelId !== schedule.channel.Id) {
+        currentChannelId = schedule.channel.Id;
+        header = schedule.channel.Title;
+      }
+      else {
+        header = null;
+      }
+
+      containers.push({ ...schedule, header });
     }
     return containers;
   }

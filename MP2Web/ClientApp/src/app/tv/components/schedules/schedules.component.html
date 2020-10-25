@@ -1,9 +1,11 @@
 <div class="container">
 
+  <h5 class="mat-headline" style="margin: 8px 0;color: var(--star-color);">Schedules</h5>
+
   <div class="schedules-list">
 
     <ng-container *ngFor="let scheduleItem of schedulesByDate$ | async">
-      <div *ngIf="scheduleItem.header" class="schedule-header">{{scheduleItem.header | date:'EEEE d LLLL'}}</div>
+      <div *ngIf="scheduleItem.header" class="schedule-header">{{scheduleItem.header}}</div>
       <button mat-button class="schedule-container">
         <app-schedule-list-item [schedule]="scheduleItem.schedule" (deleteSchedule)="deleteSchedule($event)"></app-schedule-list-item>
       </button>

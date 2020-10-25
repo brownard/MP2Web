@@ -3,21 +3,21 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY } from 'rxjs';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 
-import { SchedulesService } from '../../services/schedules.service';
-import { setSchedules, updateSchedules, deleteSchedule } from './schedule.actions';
+import { TVAccessService } from '../../services/tv-access.service';
+import { deleteSchedule, setSchedules, updateSchedules } from './schedule.actions';
 
 @Injectable()
 export class ScheduleEffects {
 
   constructor(
     private actions$: Actions,
-    private schedulesService: SchedulesService
+    private tvAccessService: TVAccessService
   ) { }
 
   updateSchedules$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateSchedules),
-      mergeMap(() => this.schedulesService.getSchedules()
+      mergeMap(() => this.tvAccessService.getSchedules()
         .pipe(
           map(schedules => setSchedules(schedules)),
           catchError(() => EMPTY)
@@ -29,7 +29,7 @@ export class ScheduleEffects {
   deleteSchedule$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteSchedule),
-      switchMap(action => this.schedulesService.deleteSchedule(action.scheduleId)
+      switchMap(action => this.tvAccessService.deleteSchedule(action.scheduleId)
         .pipe(
           map(() => updateSchedules()),
           catchError(() => EMPTY)
