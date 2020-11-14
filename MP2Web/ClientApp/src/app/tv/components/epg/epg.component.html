@@ -31,7 +31,8 @@
     </span>
   </div>
 
-  <ng-container *ngIf="channels$ | async as channels; else loading">
+  <div *ngIf="channels$ | async as channels; else loading"
+       style="position: relative;">
 
     <app-epg-row *ngFor="let channel of channels"
                  [channel]="channel"
@@ -41,7 +42,12 @@
                  [currentTime]="currentTime">
     </app-epg-row>
 
-  </ng-container>
+    <div *ngIf="currentTime >= guideStartTime && currentTime < guideEndTime"
+         class="epg-current-time-indicator"
+         [style.left]="20 + (80 * (currentTime - guideStartTime) / (guideEndTime - guideStartTime)) + '%'">
+    </div>
+
+  </div>
 
   <ng-template #loading>
     <div fxFlex="0 0 100%">

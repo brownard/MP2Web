@@ -12,3 +12,11 @@
 .epg-time-label {
   padding: 8px;
 }
+
+.epg-current-time-indicator {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background-color: var(--accent-color);
+}

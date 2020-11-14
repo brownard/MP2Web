@@ -14,12 +14,13 @@
   align-items: center;
   /* Fixed height and padding */
   height: 50px;
-  margin: 2px;
   padding: 5px;
-}
+
+  border-top: 1px solid var(--primary-focus-background-color);
+  border-right: 1px solid var(--primary-focus-background-color);}
 
   .epg-item.channel {
-    background-color: var(--primary-focus-background-color);
+    background-color: var(--primary-background-color);
   }
 
     .epg-item.channel img {
@@ -28,11 +29,10 @@
     }
 
   .epg-item.program {
-    background-color: var(--primary-focus-background-color);
+    background-color: var(--primary-background-color);
   }
 
     .epg-item.program.airing {
-      background-color: var(--primary-background-color);
     }
 
 .epg-item-title {
