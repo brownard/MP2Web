@@ -8,7 +8,7 @@ export class ApiService {
   constructor(protected http: HttpClient, protected logger: Logger, protected apiControllerUrl: string) {  }
 
   public getData<T>(actionPath: string, params: {}) {
-    return this.http.get<T>(this.apiControllerUrl + actionPath, { params: createHttpParams(params) }).pipe(
+    return this.http.get<T>(this.apiControllerUrl + actionPath, { params: removeNullOrUndefinedParams(params) }).pipe(
       catchError(error => this.handleError(error))
     );
   }
@@ -34,7 +34,7 @@ export class ApiService {
  * Creates a HttpParams object with any undefined/null fields removed.
  * @param params Existing params object with possible undefined/null fields.
  */
-export function createHttpParams(params: {}): HttpParams {
+export function removeNullOrUndefinedParams(params: {}): HttpParams {
   let httpParams: HttpParams = new HttpParams();
   Object.keys(params).forEach(param => {
     if (params[param] !== undefined && params[param] !== null) {
