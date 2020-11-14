@@ -8,7 +8,7 @@ export interface SchedulesState {
 }
 
 const initialState: SchedulesState = {
-  schedules: []
+  schedules: null
 }
 
 export const scheduleReducer = createReducer(

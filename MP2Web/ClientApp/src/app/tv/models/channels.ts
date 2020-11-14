@@ -30,3 +30,14 @@ export interface WebChannelGroup {
   IsRadio: boolean,
   IsTv: boolean
 }
+
+export type ChannelMap = { [id: number]: WebChannelBasic };
+
+export function toChannelMap(channels: WebChannelBasic[]): ChannelMap {
+  if (!channels)
+    return null;
+  const channelMap: ChannelMap = {};
+  for (let channel of channels)
+    channelMap[channel.Id] = channel;
+  return channelMap;
+}

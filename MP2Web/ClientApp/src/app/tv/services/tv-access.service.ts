@@ -19,16 +19,24 @@ export class TVAccessService extends ApiService {
     super(http, logger, config.appConfig.mp2ExtendedBasePath + 'TVAccessService/json/');
   }
 
-  public getGroups(sort: WebSortField | '' = '', order: WebSortOrder.Asc | '' = ''): Observable<WebChannelGroup[]> {
+  public getGroups(sort: WebSortField | '' = '', order: WebSortOrder | '' = ''): Observable<WebChannelGroup[]> {
     return this.getData<WebChannelGroup[]>('GetGroups', { sort, order });
   }
 
-  public getChannelsBasic(groupId = '1', sort: WebSortField | '' = '', order: WebSortOrder.Asc | '' = ''): Observable<WebChannelBasic[]> {
+  public getChannelsBasic(groupId: string | number = '1', sort: WebSortField | '' = '', order: WebSortOrder | '' = ''): Observable<WebChannelBasic[]> {
     return this.getData<WebChannelBasic[]>('GetChannelsBasic', { groupId, sort, order });
   }
 
-  public getChannelsDetailed(groupId = 1, sort: WebSortField | '' = '', order: WebSortOrder.Asc | '' = ''): Observable<WebChannelDetailed[]> {
+  public getChannelsDetailed(groupId = 1, sort: WebSortField | '' = '', order: WebSortOrder | '' = ''): Observable<WebChannelDetailed[]> {
     return this.getData<WebChannelDetailed[]>('GetChannelsDetailed', { groupId, sort, order });
+  }
+
+  public getChannelBasicById(channelId: number): Observable<WebChannelBasic> {
+    return this.getData<WebChannelDetailed>('GetChannelBasicById', { channelId });
+  }
+
+  public getChannelDetailedById(channelId: number): Observable<WebChannelDetailed> {
+    return this.getData<WebChannelDetailed>('GetChannelDetailedById', { channelId });
   }
 
   public getProgramsBasicForGroup(groupId = 1, startTime: Date, endTime: Date): Observable<WebChannelPrograms<WebProgramBasic>[]> {
@@ -55,16 +63,16 @@ export class TVAccessService extends ApiService {
     });
   }
 
-  public getChannelDetailedById(channelId: number): Observable<WebChannelDetailed> {
-    return this.getData<WebChannelDetailed>('GetChannelDetailedById', { channelId });
-  }
-
   public getProgramDetailedById(programId: number): Observable<WebProgramDetailed> {
     return this.getData<WebProgramDetailed>('GetProgramDetailedById', { programId });
   }
 
   public getSchedules(sort: WebSortField | '' = '', order: WebSortOrder | '' = '', filter: string = ''): Observable<WebScheduleBasic[]> {
     return this.getData<WebScheduleBasic[]>('GetSchedules', { sort, order, filter });
+  }
+
+  public getScheduleById(scheduleId: string | number): Observable<WebScheduleBasic> {
+    return this.getData<WebScheduleBasic>('GetScheduleById', { scheduleId });
   }
 
   public addSchedule(channelId: string | number, title: string, startTime: Date, endTime: Date, scheduleType: WebScheduleType): Observable<WebBoolResult> {
@@ -100,14 +108,14 @@ export class TVAccessService extends ApiService {
     return this.getData<WebBoolResult>('UnCancelSchedule', { programId });
   }
 
-  public editSchedule(scheduleId: string, channelId?: string | number, title?: string, startTime?: Date, endTime?: Date,
-    scheduleType?: WebScheduleType, preRecordInterval?: number, postRecordInterval?: number, directory?: string, priority?: number) {
+  public editSchedule(scheduleId: string | number, channelId?: string | number, title?: string, startTime?: Date, endTime?: Date,
+    scheduleType?: WebScheduleType, preRecordInterval?: number, postRecordInterval?: number, directory?: string, priority?: number): Observable<WebBoolResult> {
     return this.getData<WebBoolResult>('EditSchedule', {
       scheduleId,
       channelId,
       title,
-      startTime,
-      endTime,
+      startTime: startTime.toJSON(),
+      endTime: endTime.toJSON(),
       scheduleType,
       preRecordInterval,
       postRecordInterval,

@@ -47,7 +47,6 @@ export class SchedulesComponent implements OnInit {
   schedulesByDate$: Observable<ScheduleWithHeader[]>;
   schedulesByChannel$: Observable<ScheduleWithHeader[]>;
 
-
   constructor(private schedulesService: SchedulesService, private epgService: EpgService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {

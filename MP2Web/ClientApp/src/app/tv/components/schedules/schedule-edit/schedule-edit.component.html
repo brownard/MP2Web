@@ -1,0 +1,104 @@
+<div class="container">
+
+  <mat-card>
+    <mat-card-subtitle>Edit schedule {{channel?.Title}}</mat-card-subtitle>
+    <form [formGroup]="schedulesForm">
+      <div fxLayout="row wrap" class="schedule-form">
+        <div fxFlex="100">
+
+          <mat-form-field color="accent" class="schedule-input" style="min-width: 50%; max-width: 100%;">
+            <mat-label>Channel</mat-label>
+            <mat-select formControlName="channel" matInput placeholder="Channel">
+              <mat-option *ngFor="let c of channels$ | async" [value]="c.Id">{{c.Title}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="schedulesForm.controls.title?.errors && schedulesForm.controls.title?.touched">
+              Please select a channel.
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <div fxFlex="100">
+
+          <mat-form-field color="accent" class="schedule-input" style="min-width: 50%; max-width: 100%;">
+            <mat-label>Title</mat-label>
+            <input formControlName="title" matInput placeholder="Title">
+            <mat-error *ngIf="schedulesForm.controls.title?.errors && schedulesForm.controls.title?.touched">
+              Please enter a valid title.
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-sm="0 0 auto">
+
+          <mat-form-field color="accent" class="schedule-input" style="width: 128px;">
+            <mat-label>Start time</mat-label>
+            <input formControlName="startTime" matInput type="time" placeholder="Start time">
+
+            <mat-error *ngIf="schedulesForm.controls.startTime?.errors && schedulesForm.controls.startTime?.touched">
+              Please enter a valid start time.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field color="accent" class="schedule-input" style="width: 160px;">
+            <!--<mat-label>Start date</mat-label>-->
+            <input formControlName="startDate" matInput [matDatepicker]="startPicker"
+                   style="font-size: 12px;">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker disabled="false"></mat-datepicker>
+
+            <mat-error *ngIf="schedulesForm.controls.startDate?.errors && schedulesForm.controls.startDate?.touched">
+              Please enter a valid start date.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-sm="0 0 auto">
+
+          <mat-form-field color="accent" class="schedule-input" style="width: 128px;">
+            <mat-label>End time</mat-label>
+            <input formControlName="endTime" matInput type="time" placeholder="End time">
+            <mat-error *ngIf="schedulesForm.controls.endTime?.errors && schedulesForm.controls.endTime?.touched">
+              Please enter a valid end time.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field color="accent" class="schedule-input" style="width: 160px;">
+            <!--<mat-label>End date</mat-label>-->
+            <input formControlName="endDate" matInput [matDatepicker]="endPicker"
+                   style="font-size: 12px;">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker disabled="false"></mat-datepicker>
+
+            <mat-error *ngIf="schedulesForm.controls.endDate?.errors && schedulesForm.controls.endDate?.touched">
+              Please enter a valid end date.
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <div fxFlex="100" fxFlex.gt-sm="50">
+
+          <mat-form-field color="accent" class="schedule-input">
+            <mat-label>Schedule type</mat-label>
+            <mat-select formControlName="scheduleType" matInput placeholder="Schedule type">
+              <mat-option *ngFor="let s of scheduleTypes" [value]="s.value">{{s.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="schedulesForm.controls.scheduleType?.errors && schedulesForm.controls.scheduleType?.touched">
+              Please select a valid schedule type.
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+    </form>
+
+    <mat-card-actions>
+      <button mat-button [disabled]="!schedulesForm.valid" (click)="onSubmit()">UPDATE</button>
+      <button mat-button (click)="onCancel()">CANCEL</button>
+    </mat-card-actions>
+
+  </mat-card>
+</div>

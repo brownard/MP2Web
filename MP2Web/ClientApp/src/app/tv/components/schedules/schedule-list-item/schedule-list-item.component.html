@@ -14,6 +14,10 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #optionsMenu class="app-menu-panel">
+    <a mat-menu-item
+       [routerLink]="schedule.Id + '/edit'">
+      Edit
+    </a>
     <button mat-menu-item
             (click)="onDeleteSchedule()">
       Delete

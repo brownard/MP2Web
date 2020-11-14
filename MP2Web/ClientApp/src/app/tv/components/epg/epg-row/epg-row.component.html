@@ -19,7 +19,7 @@
     <a *ngFor="let program of programs"
        [fxFlex]="'0 0 calc(' + (80 * (program | guideWidth:startTime:endTime)) + '%)'"
        mat-button class="epg-item-button"
-       [routerLink]="['../program', program.Id]"
+       [routerLink]="['program', program.Id]"
        [state]="{ program: program }">
 
       <div fxLayout="row" fxLayoutAlign="start center"
