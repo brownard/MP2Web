@@ -13,10 +13,12 @@
   padding: 8px;
 }
 
+/* Vertical line indicating the current time */
 .epg-current-time-indicator {
   position: absolute;
   top: 0;
   width: 2px;
   height: 100%;
   background-color: var(--accent-color);
+  opacity: 0.4;
 }
