@@ -1,10 +1,13 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
 
-  <nav mat-tab-nav-bar mat-align-tabs="center" backgroundColor="primary" class="fill-space">
-    <a mat-tab-link *ngFor="let route of routes"
-       (click)="activeRoute = route"
+  <nav mat-tab-nav-bar mat-align-tabs="center" color="accent" class="fill-space">
+    <a *ngFor="let route of routes"
+       mat-tab-link
        [routerLink]="route.link"
-       [active]="activeRoute == route">{{route.name}}</a>
+       routerLinkActive #rla="routerLinkActive"
+       [active]="rla.isActive">
+      {{route.name}}
+    </a>
   </nav>
 
 </mat-toolbar>

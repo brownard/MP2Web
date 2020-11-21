@@ -13,8 +13,6 @@ export class TvComponent implements OnInit {
     { name: 'Recordings', link: 'recordings' }
   ];
 
-  activeRoute = this.routes[0];
-
   constructor() { }
 
   ngOnInit(): void {
