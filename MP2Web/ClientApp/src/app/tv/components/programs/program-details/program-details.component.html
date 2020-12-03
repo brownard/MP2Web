@@ -1,15 +1,30 @@
-<div class="container">
+<mat-toolbar class="component-top-bar">
+  <div class="container" fxLayout="row" fxLayoutAlign="center center">
+
+    <div fxFlex="100" fxLayoutAlign="start center">
+      <button appBackNavigation mat-icon-button aria-label="Navigate back" style="margin-left: -16px;">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
+
+    <div fxFlex="100" fxLayoutAlign="center center">
+      <h3 fxFlex="1 1 100%" class="text-truncate">{{(program$ | async)?.Title}}</h3>
+    </div>
+
+    <div fxFlex="100" fxLayoutAlign="end center">
+
+    </div>
+
+  </div>
+</mat-toolbar>
+
+<div class="container" style="margin-top: 56px;">
 
   <div *ngIf="program$ | async as program" fxLayout="column" class="container-fluid program-container">
 
     <div class="sub-container player-container" [ngClass.gt-sm]="'gt-sm'">
 
-      <!--<button mat-fab color="accent" class="player-play-button">
-        <mat-icon style="color: white;">play_arrow</mat-icon>
-      </button>-->
-
-      <div class="player-image"
-           [style.background-image]="'url(' + artworkService.getArtworkUrl(12, program.ChannelId, 5) + ')'"></div>
+      <app-video-player [mediaItem]="playableItem$ | async" style="width: 100%;"></app-video-player>
 
     </div>
 

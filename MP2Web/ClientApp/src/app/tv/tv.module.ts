@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from '../shared/shared.module';
+import { VideoPlayerModule } from '../video-player/video-player.module';
 import { EpgRowComponent } from './components/epg/epg-row/epg-row.component';
 import { EpgComponent } from './components/epg/epg.component';
 import { ProgramDetailsComponent } from './components/programs/program-details/program-details.component';
@@ -39,14 +40,15 @@ import { featureKey, reducer } from './store/tv.store';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    VideoPlayerModule,
     RouterModule.forChild([
+      { path: 'guide/program/:id', component: ProgramDetailsComponent },
+      { path: 'schedules/:id/edit', component: ScheduleEditComponent },
       {
-        path: '', component: TvComponent,
+        path: '', component: TvComponent, data: { routerReuseId: 'TvPage', routerReuseChild: [ProgramDetailsComponent, ScheduleEditComponent] },
         children: [
           { path: '', redirectTo: 'guide', pathMatch: 'full' },
-          { path: 'guide/program/:id', component: ProgramDetailsComponent },
-          { path: 'guide', component: EpgComponent, data: { routerReuseId: 'EpgPage', routerReuseChild: ProgramDetailsComponent } },
-          { path: 'schedules/:id/edit', component: ScheduleEditComponent },
+          { path: 'guide', component: EpgComponent },
           { path: 'schedules', component: SchedulesComponent },
         ]
       }

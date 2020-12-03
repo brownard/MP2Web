@@ -7,13 +7,15 @@ import { BackgroundArtworkComponent } from './components/background-artwork/back
 import { MediaListFilterComponent } from './components/media-list-filter/media-list-filter.component';
 import { ListViewComponent } from './components/list-view/list-view.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { BackNavigationDirective } from './directives/back-navigation.directive';
 
 @NgModule({
   declarations: [
     StarRatingComponent,
     ListViewComponent,
     MediaListFilterComponent,
-    BackgroundArtworkComponent
+    BackgroundArtworkComponent,
+    BackNavigationDirective
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     StarRatingComponent,
     ListViewComponent,
     MediaListFilterComponent,
-    BackgroundArtworkComponent
+    BackgroundArtworkComponent,
+    BackNavigationDirective
   ]
 })
 export class SharedModule { }

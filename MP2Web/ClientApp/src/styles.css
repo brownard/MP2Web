@@ -85,6 +85,28 @@ body {
   white-space: nowrap;
 }
 
+.component-top-bar {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  left: 208px; /* Side menu width*/
+}
+
+/* mat-toolbar has a default width of 100%, we want the width defined
+   above by left and right position, so override.
+*/
+.mat-toolbar.component-top-bar {
+  width: auto;
+}
+
+@media (max-width: 600px) {
+  .component-top-bar {
+    top: 56px; /* Main topbar height */
+    left: 0;
+  }
+}
+
 /* Overrides for the default material menu styles */
 .mat-menu-panel.app-menu-panel {
   background-color: var(--primary-background-color);
@@ -115,3 +137,5 @@ body {
       background-color: var(--star-color);
       color: white;
     }
+
+

@@ -5,6 +5,8 @@ import { filter, map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operat
 
 import { ArtworkService } from 'src/app/core/api/artwork.service';
 import { Logger } from 'src/app/core/logging/logger.service';
+import { WebMediaType } from 'src/app/core/models/web-media-items';
+import { PlayableItem } from 'src/app/video-player/services/player.service';
 import { WebChannelDetailed } from '../../../models/channels';
 import { WebProgramBasic, WebProgramDetailed } from '../../../models/programs';
 import { WebScheduleType } from '../../../models/schedules';
@@ -22,6 +24,7 @@ export class ProgramDetailsComponent implements OnInit {
 
   private programId$: Observable<number>;
 
+  playableItem$: Observable<PlayableItem>;
   channel$: Observable<WebChannelDetailed>;
   program$: Observable<WebProgramDetailed>;
   isScheduled$: Observable<boolean>;
@@ -63,7 +66,12 @@ export class ProgramDetailsComponent implements OnInit {
     // Load the channel using the program's channel id
     this.channel$ = this.program$.pipe(
       filter(p => !!p),
-      switchMap(p => epgService.getChannel$(p.ChannelId))
+      switchMap(p => epgService.getChannel$(p.ChannelId)),
+      shareReplay(1)
+    );
+
+    this.playableItem$ = this.channel$.pipe(
+      map(c => c ? { Id: '' + c.Id, Type: WebMediaType.TV } : undefined)
     );
 
     // Trigger an update of isScheduled when the subject emits so we can trigger
