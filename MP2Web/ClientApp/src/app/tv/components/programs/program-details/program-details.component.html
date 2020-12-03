@@ -22,7 +22,7 @@
 
   <div *ngIf="program$ | async as program" fxLayout="column" class="container-fluid program-container">
 
-    <div class="sub-container player-container" [ngClass.gt-sm]="'gt-sm'">
+    <div fxLayoutAlign="center center" class="sub-container player-container" [ngClass.gt-sm]="'gt-sm'">
 
       <app-video-player [mediaItem]="playableItem$ | async" style="width: 100%;"></app-video-player>
 
