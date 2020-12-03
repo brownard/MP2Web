@@ -63,11 +63,11 @@ export class AppRouteReuseStrategy extends RouteReuseStrategy {
     // Mark the route for detaching if the future route has a reuseId and either
     // there's no child route or the current route is the matching child 
     if (!!reuseId) {
-      const shouldReuse = !future.data[REUSE_CHILD_KEY] || future.data[REUSE_CHILD_KEY] === curr.component;
+      const reuseChildComponent = [].concat(future.data[REUSE_CHILD_KEY] || []);
+      const shouldReuse = reuseChildComponent.length === 0 || reuseChildComponent.some(c => c === curr.component);
       this.logger.debug('RouteReuseStrategy: shouldReuseRoute ' + reuseId + ': ' + shouldReuse);
       this.detachableRoutes[reuseId] = shouldReuse;
     }
-
     // This is the default handling for shouldReuseRoute
     return curr.routeConfig === future.routeConfig;
   }
