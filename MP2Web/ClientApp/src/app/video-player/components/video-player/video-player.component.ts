@@ -6,7 +6,7 @@ import { WebFileType, WebMediaItem } from 'src/app/core/models/web-media-items';
 import { PlaybackState } from '../../models/player';
 import { PlayerSource } from '../../models/player-source';
 import { StreamSource } from '../../models/stream-source';
-import { PlayerService } from '../../services/player.service';
+import { PlayerService, PlayableItem } from '../../services/player.service';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   private _showControlsTimeoutHandle: any;
 
   // The media item to play
-  private _mediaItem: WebMediaItem;
+  private _mediaItem: PlayableItem;
 
   // url to the image to use as a placeholder whilst the stream is loading
   placeholderUrl: string;
@@ -68,7 +68,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  set mediaItem(mediaItem: WebMediaItem) {
+  set mediaItem(mediaItem: PlayableItem) {
     this._mediaItem = mediaItem;
     this.placeholderUrl = mediaItem ? this.streamingStreamService.getArtworkResizedUrl(mediaItem.Type, mediaItem.Id, WebFileType.Content, 512, 512, 0) : undefined;
   }

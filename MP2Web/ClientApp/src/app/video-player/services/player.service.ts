@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-
 import { Observable, of } from 'rxjs';
 import { catchError, concatMap, first } from 'rxjs/operators';
-import { AppConfigService } from 'src/app/core/config/app-config.service';
-import { WebBoolResult, WebMediaItem, WebStringResult } from 'src/app/core/models/web-media-items';
-import { WebMediaInfo } from 'src/app/core/models/web-stream-items';
-import { StreamingService } from 'src/app/core/api/streaming.service';
 
+import { StreamingService } from 'src/app/core/api/streaming.service';
+import { AppConfigService } from 'src/app/core/config/app-config.service';
+import { WebBoolResult, WebMediaType, WebStringResult } from 'src/app/core/models/web-media-items';
+import { WebMediaInfo } from 'src/app/core/models/web-stream-items';
+
+export interface PlayableItem {
+  Id: string,
+  Type: WebMediaType
+} 
 
 @Injectable({
   providedIn: 'root'
@@ -19,16 +23,16 @@ export class PlayerService {
     this.streamIdentifier = appConfig.appInstanceId;
   }
 
-  public getMediaInfo(mediaItem: WebMediaItem): Observable<WebMediaInfo> {
-    return this.streamingService.getMediaInfo(mediaItem.Id, mediaItem.Type)
+  public getMediaInfo(playableItem: PlayableItem): Observable<WebMediaInfo> {
+    return this.streamingService.getMediaInfo(playableItem.Id, playableItem.Type)
       .pipe(
         first(),
         catchError(() => of<WebMediaInfo>(undefined))
       );
   }
 
-  public startStream(mediaItem: WebMediaItem): Observable<WebStringResult> {
-    return this.streamingService.initStream(mediaItem.Id, 'MP2-Web', this.streamIdentifier, mediaItem.Type, -1)
+  public startStream(playableItem: PlayableItem): Observable<WebStringResult> {
+    return this.streamingService.initStream(playableItem.Id, 'MP2-Web', this.streamIdentifier, playableItem.Type, -1)
       .pipe(
         concatMap(r => r.Result ? this.streamingService.startStream(this.streamIdentifier, 'AndroidHLSMQ', 0) : of<WebStringResult>({ Result: null })),
         first(),

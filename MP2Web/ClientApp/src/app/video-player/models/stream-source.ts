@@ -1,7 +1,7 @@
 import { Logger } from 'src/app/core/logging/logger.service';
-import { WebMediaItem } from 'src/app/core/models/web-media-items';
+import { WebMediaType } from 'src/app/core/models/web-media-items';
 import { WebMediaInfo } from 'src/app/core/models/web-stream-items';
-import { PlayerService } from '../services/player.service';
+import { PlayableItem, PlayerService } from '../services/player.service';
 import { PlayerSource } from './player-source';
 
 export class StreamSource implements PlayerSource {
@@ -13,7 +13,7 @@ export class StreamSource implements PlayerSource {
   private _isBusy: boolean = false;
   private _doFinish: boolean = false;
 
-  constructor(private playerService: PlayerService, private mediaItem: WebMediaItem, private logger: Logger) {
+  constructor(private playerService: PlayerService, private mediaItem: PlayableItem, private logger: Logger) {
   }
 
   get durationInSeconds(): number {
@@ -29,6 +29,11 @@ export class StreamSource implements PlayerSource {
   }
 
   async initMetadata(): Promise<boolean> {
+    this._mediaInfo = undefined;
+    if (!this.mediaItem)
+      return false;
+    if (this.mediaItem.Type === WebMediaType.TV || this.mediaItem.Type === WebMediaType.Radio)
+      return true;
     this._mediaInfo = await this.playerService.getMediaInfo(this.mediaItem).toPromise();
     return !!this._mediaInfo;
   }
@@ -136,8 +141,9 @@ export class StreamSource implements PlayerSource {
     // url to a relative path, we should be hosted on the same machine so the request will still work.
     const relativeUrl = this.getRelativeUrl(hlsStreamUrl);
 
-    // Request temp_playlist.m3u8 to bypass the transcoding service's 'predicted' playlist which causes issues.
-    return relativeUrl + '&hls=temp_playlist.m3u8';
+    // Request temp_playlist.m3u8 if not live to bypass the transcoding service's 'predicted' playlist which causes issues.
+    const isLive = this.mediaItem && (this.mediaItem.Type === WebMediaType.TV || this.mediaItem.Type === WebMediaType.Radio);
+    return relativeUrl + '&hls=' + (isLive ? 'playlist.m3u8' : 'temp_playlist.m3u8');
   }
 
   private getRelativeUrl(absoluteUrl: string): string {
