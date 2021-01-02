@@ -1,19 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { ApiRequestCache } from '../cache/api-request.cache';
 import { AppConfigService } from '../config/app-config.service';
 import { Logger } from '../logging/logger.service';
 import { WebMovieBasic, WebMovieDetailed, WebMusicAlbumBasic, WebMusicArtistDetailed, WebMusicTrackDetailed, WebSortField, WebSortOrder, WebTVEpisodeDetailed, WebTVSeasonDetailed, WebTVShowBasic, WebTVShowDetailed } from '../models/web-media-items';
 import { ApiService } from './api.service';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaAccessService extends ApiService {
   
-  constructor(http: HttpClient, logger: Logger, config: AppConfigService) {
-    super(http, logger, config.appConfig.mp2ExtendedBasePath + config.appConfig.mediaAccessServicePath);
+  constructor(http: HttpClient, logger: Logger, config: AppConfigService, cache: ApiRequestCache) {
+    const url = config.appConfig.mp2ExtendedBasePath + config.appConfig.mediaAccessServicePath;
+    // Just cache all MAS requests
+    cache.addCacheUrls([url]);
+
+    super(http, logger, url);
   }
 
   public getMoviesBasic(filter = '', sort = WebSortField.Title, order = WebSortOrder.Asc) {

@@ -17,7 +17,13 @@ export class ApiRequestCache {
 
   constructor() { }
 
+  private cacheUrls: string[] = [];
+
   cache = new Map<string, CacheEntry>();
+
+  addCacheUrls(urls: string[]): void {
+    this.cacheUrls = [...this.cacheUrls, ...urls];
+  }
 
   // If a response has been cached for this request, returns it, else returns undefined.
   get(req: HttpRequest<any>): HttpResponse<any> | undefined {
@@ -45,5 +51,11 @@ export class ApiRequestCache {
         this.cache.delete(expiredEntry.url);
       }
     });
+  }
+
+  // Returns whether the HttpRequest path matches one of our cacheable paths
+  shouldCache(req: HttpRequest<any>): boolean {
+    const url = req.url;
+    return this.cacheUrls.some(u => url.includes(u));
   }
 }

@@ -1,14 +1,10 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
 import { ApiRequestCache } from '../cache/api-request.cache';
 import { Logger } from '../logging/logger.service';
-
-const cacheUrls = [
-  '/MPExtended/MediaAccessService/json/'
-];
 
 // Interceptor that caches any requests that match the path specified in cacheUrls
 @Injectable()
@@ -17,7 +13,7 @@ export class ApiRequestInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // Not a cacheable path, simply pass the request on
-    if (!this.shouldCache(req)) {
+    if (!this.cache.shouldCache(req)) {
       this.logger.debug('ApiRequestInterceptor: Not caching request for ' + req.urlWithParams);
       return next.handle(req);
     }
@@ -37,11 +33,5 @@ export class ApiRequestInterceptor implements HttpInterceptor {
         }
       })
     );
-  }
-
-  // Returns whether the HttpRequest path matches one of our cacheable paths
-  private shouldCache(req: HttpRequest<any>): boolean {
-    const url = req.url;
-    return cacheUrls.some(u => url.includes(u));
   }
 }

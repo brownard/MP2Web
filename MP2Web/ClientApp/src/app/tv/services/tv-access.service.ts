@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ApiService } from 'src/app/core/api/api.service';
+import { ApiRequestCache } from 'src/app/core/cache/api-request.cache';
 import { AppConfigService } from 'src/app/core/config/app-config.service';
 import { Logger } from 'src/app/core/logging/logger.service';
 import { WebBoolResult, WebSortField, WebSortOrder } from 'src/app/core/models/web-media-items';
@@ -10,17 +11,30 @@ import { WebChannelBasic, WebChannelDetailed, WebChannelGroup } from '../models/
 import { WebChannelPrograms, WebProgramBasic, WebProgramDetailed } from '../models/programs';
 import { WebScheduleBasic, WebScheduleType } from '../models/schedules';
 
+const tasPath = 'TVAccessService/json/';
+
+const cacheUrls = [
+  'GetGroups',
+  'GetChannelsBasic',
+  'GetProgramsBasicForGroup'
+];
+
 @Injectable({
   providedIn: 'root'
 })
 export class TVAccessService extends ApiService {
 
-  constructor(http: HttpClient, logger: Logger, config: AppConfigService) {
-    super(http, logger, config.appConfig.mp2ExtendedBasePath + 'TVAccessService/json/');
+  constructor(http: HttpClient, logger: Logger, config: AppConfigService, cache: ApiRequestCache) {
+    cache.addCacheUrls(cacheUrls.map(u => tasPath + u));
+    super(http, logger, config.appConfig.mp2ExtendedBasePath + tasPath);
   }
 
   public getGroups(sort: WebSortField | '' = '', order: WebSortOrder | '' = ''): Observable<WebChannelGroup[]> {
     return this.getData<WebChannelGroup[]>('GetGroups', { sort, order });
+  }
+
+  public getGroupById(groupId: string | number): Observable<WebChannelGroup> {
+    return this.getData<WebChannelGroup>('GetGroupById', { groupId });
   }
 
   public getChannelsBasic(groupId: string | number = '1', sort: WebSortField | '' = '', order: WebSortOrder | '' = ''): Observable<WebChannelBasic[]> {
