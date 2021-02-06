@@ -31,7 +31,11 @@
 
   .epg-item.program {
     position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     background-color: var(--primary-background-color);
+
   }
 
     .epg-item.program.airing::after {
@@ -46,6 +50,7 @@
     }
 
 .epg-item-title {
+  flex: 1 1 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

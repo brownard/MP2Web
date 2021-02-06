@@ -13,25 +13,24 @@
 
   <!-- Channel programs -->
   <ng-container *ngIf="hasPrograms; else noGuideData">
+
     <!-- After the channel name we have 80% of the width remaining, so a program's
-         width is 80% of it's time as a proportion of the total guide time.
-      (click)="openProgramDialog(program)"-->
+        width is 80% of it's time as a proportion of the total guide time. -->
     <a *ngFor="let program of programs"
-       [fxFlex]="'0 0 calc(' + (80 * (program | guideWidth:startTime:endTime)) + '%)'"
+       style="min-width:0;"
+       [style.width]="'calc(' + (80 * (program | guideWidth:startTime:endTime)) + '%)'"
        mat-button class="epg-item-button"
        [routerLink]="['program', program.Id]"
        [state]="{ program: program }">
 
-      <div fxLayout="row" fxLayoutAlign="start center"
-           class="epg-item program"
+      <div class="epg-item program"
            [class.airing]="program | isAiring:currentTime">
 
-        <h4 fxFlex="1 1 100%" class="epg-item-title" style="text-align:left;">
+        <h4 class="epg-item-title" style="text-align:left;">
           {{program.Title}}
         </h4>
 
         <mat-icon *ngIf="program.IsScheduled"
-                  fxFlex="0 0 auto"
                   style="color: red;">
           fiber_manual_record
         </mat-icon>
@@ -42,7 +41,7 @@
 
   <ng-template #noGuideData>
     <div fxFlex="0 0 80%">
-      <div class="epg-item program">
+      <div class="epg-item program no-data">
         <span class="epg-item-title">
           No guide data available
         </span>
