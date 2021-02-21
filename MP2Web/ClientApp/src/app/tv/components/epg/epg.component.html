@@ -31,23 +31,31 @@
     </span>
   </div>
 
-  <div *ngIf="channels$ | async as channels; else loading"
-       style="position: relative;">
+  <!-- Abuse the ngIf to give us an object that subscribes to the observables in a single place. -->
+  <ng-container *ngIf="{
+                  channels: channels$ | async,
+                  programsByChannel: programsByChannel$ | async,
+                  schedulesByChannel: schedulesByChannel$ | async
+                } as guide">
+    <div *ngIf="guide.channels?.length > 0; else loading"
+         style="position: relative;">
 
-    <app-epg-row *ngFor="let channel of channels"
-                 [channel]="channel"
-                 [programs]="programs ? programs[channel.Id] : undefined"
-                 [startTime]="guideStartTime"
-                 [endTime]="guideEndTime"
-                 [currentTime]="currentTime">
-    </app-epg-row>
+      <app-epg-row *ngFor="let channel of guide.channels"
+                   [channel]="channel"
+                   [programs]="guide.programsByChannel ? guide.programsByChannel[channel.Id]?.Programs : undefined"
+                   [schedules]="guide.schedulesByChannel ? guide.schedulesByChannel[channel.Id] : undefined"
+                   [startTime]="guideStartTime"
+                   [endTime]="guideEndTime"
+                   [currentTime]="currentTime">
+      </app-epg-row>
 
-    <div *ngIf="currentTime >= guideStartTime && currentTime < guideEndTime"
-         class="epg-current-time-indicator"
-         [style.left]="20 + (80 * (currentTime - guideStartTime) / (guideEndTime - guideStartTime)) + '%'">
+      <div *ngIf="currentTime >= guideStartTime && currentTime < guideEndTime"
+           class="epg-current-time-indicator"
+           [style.left]="20 + (80 * (currentTime - guideStartTime) / (guideEndTime - guideStartTime)) + '%'">
+      </div>
+
     </div>
-
-  </div>
+  </ng-container>
 
   <ng-template #loading>
     <div fxFlex="0 0 100%">

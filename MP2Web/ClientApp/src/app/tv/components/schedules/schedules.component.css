@@ -1,5 +1,26 @@
+.schedules {
+
+}
+
+.schedule-filter-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 8px;
+}
+
+.input-button {
+  margin-right: 16px;
+}
+
+.input-label {
+  font-weight: bold;
+  font-size: 16px;
+}
+
 .schedules-list {
-  margin: 0 -15px;
+  margin: 8px 0px;
+  background-color: var(--primary-background-color);
 }
 
 .schedule-container {
@@ -12,4 +33,5 @@
   padding: 8px;
   color: var(--secondary-text-color);
   font-size: 14px;
+  font-weight: bold;
 }

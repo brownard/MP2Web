@@ -7,7 +7,7 @@ import { ArtworkService } from 'src/app/core/api/artwork.service';
 import { Logger } from 'src/app/core/logging/logger.service';
 import { WebMediaType } from 'src/app/core/models/web-media-items';
 import { PlayableItem } from 'src/app/video-player/services/player.service';
-import { WebChannelDetailed } from '../../../models/channels';
+import { WebChannelBasic } from '../../../models/channels';
 import { WebProgramBasic, WebProgramDetailed } from '../../../models/programs';
 import { WebScheduleType } from '../../../models/schedules';
 import { EpgService } from '../../../services/epg.service';
@@ -25,7 +25,7 @@ export class ProgramDetailsComponent implements OnInit {
   private programId$: Observable<number>;
 
   playableItem$: Observable<PlayableItem>;
-  channel$: Observable<WebChannelDetailed>;
+  channel$: Observable<WebChannelBasic>;
   program$: Observable<WebProgramDetailed>;
   isScheduled$: Observable<boolean>;
 
@@ -78,7 +78,7 @@ export class ProgramDetailsComponent implements OnInit {
     // an update after a schedule is added/cancelled
     this.isScheduled$ = this.updateIsScheduledSubject.pipe(
       withLatestFrom(this.program$),
-      switchMap(([_, program]) => this.schedulesService.getProgramIsScheduled(program.Id)),
+      switchMap(([_, program]) => this.schedulesService.getProgramIsScheduled$(program.Id)),
       shareReplay(1)
     );
 

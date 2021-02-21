@@ -30,7 +30,7 @@
           {{program.Title}}
         </h4>
 
-        <mat-icon *ngIf="program.IsScheduled"
+        <mat-icon *ngIf="!!scheduledProgramIds[program.Id]"
                   style="color: red;">
           fiber_manual_record
         </mat-icon>

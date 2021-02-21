@@ -122,14 +122,25 @@ export class TVAccessService extends ApiService {
     return this.getData<WebBoolResult>('UnCancelSchedule', { programId });
   }
 
-  public editSchedule(scheduleId: string | number, channelId?: string | number, title?: string, startTime?: Date, endTime?: Date,
-    scheduleType?: WebScheduleType, preRecordInterval?: number, postRecordInterval?: number, directory?: string, priority?: number): Observable<WebBoolResult> {
+  public editSchedule(
+    scheduleId: string | number,
+    channelId?: string | number,
+    title?: string,
+    startTime?: string | number | Date,
+    endTime?: string | number | Date,
+    scheduleType?: WebScheduleType,
+    preRecordInterval?: number,
+    postRecordInterval?: number,
+    directory?: string,
+    priority?: number
+  ): Observable<WebBoolResult> {
+
     return this.getData<WebBoolResult>('EditSchedule', {
       scheduleId,
       channelId,
       title,
-      startTime: startTime.toJSON(),
-      endTime: endTime.toJSON(),
+      startTime: startTime ? new Date(startTime).toJSON() : undefined,
+      endTime: endTime ? new Date(endTime).toJSON() : undefined,
       scheduleType,
       preRecordInterval,
       postRecordInterval,

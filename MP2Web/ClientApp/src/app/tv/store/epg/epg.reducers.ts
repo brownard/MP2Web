@@ -1,32 +1,28 @@
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 
-import { WebChannelDetailed, WebChannelGroup } from '../../models/channels';
 import { WebChannelPrograms, WebProgramBasic } from '../../models/programs';
 import * as Actions from './epg.actions';
 
-export interface EpgState {
-  channelGroups: WebChannelGroup[],
+export interface EpgState extends EntityState<WebChannelPrograms<WebProgramBasic>> {
   selectedGroup: number,
-  channels: WebChannelDetailed[],
   startTime: Date,
   endTime: Date,
-  programs: WebChannelPrograms<WebProgramBasic>[]
+  // Additional properties defined here
 }
 
-const initialState: EpgState = {
-  channelGroups: [],
+export const epgProgramAdapter: EntityAdapter<WebChannelPrograms<WebProgramBasic>> = createEntityAdapter<WebChannelPrograms<WebProgramBasic>>({
+  selectId: (p) => p.ChannelId
+});
+
+const initialState: EpgState = epgProgramAdapter.getInitialState({
   selectedGroup: 1,
-  channels: [],
   startTime: null,
-  endTime: null,
-  programs: []
-}
+  endTime: null
+});
 
 export const epgReducer = createReducer(
   initialState,
-  on(Actions.setChannelGroups, (state, { channelGroups }) => ({ ...state, channelGroups })),
-  on(Actions.setSelectedGroup, (state, { selectedGroup }) => ({ ...state, selectedGroup })),
-  on(Actions.setChannels, (state, { channels }) => ({ ...state, channels })),
-  on(Actions.setGuideTime, (state, { startTime, endTime }) => ({ ...state, startTime, endTime })),
-  on(Actions.setGuidePrograms, (state, { programs }) => ({ ...state, programs }) )
+  on(Actions.updateGuide, (state, { guideState }) => ({ ...state, ...guideState })),
+  on(Actions.updateGuideSuccess, (state, { programs }) => epgProgramAdapter.setAll(programs, state))
 );

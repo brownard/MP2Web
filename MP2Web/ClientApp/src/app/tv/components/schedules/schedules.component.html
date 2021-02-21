@@ -1,16 +1,54 @@
-<div class="container">
 
-  <h5 class="mat-headline" style="margin: 8px 0;color: var(--star-color);">Schedules</h5>
+<div class="container schedules"
+     *ngIf="{
+      currentSort: currentSort$ | async,
+      showSeriesSchedules: showSeriesSchedules$ | async
+     } as options">
 
-  <div class="schedules-list">
-
-    <ng-container *ngFor="let scheduleItem of schedulesByDate$ | async">
-      <div *ngIf="scheduleItem.header" class="schedule-header">{{scheduleItem.header}}</div>
-      <button mat-button class="schedule-container">
-        <app-schedule-list-item [schedule]="scheduleItem.schedule" (deleteSchedule)="deleteSchedule($event)"></app-schedule-list-item>
+  <div class="schedule-filter-bar">
+    <button mat-button
+            class="input-button"
+            [matMenuTriggerFor]="sortMenu">
+      <span class="input-label">Sort: {{options.currentSort?.name}}</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #sortMenu="matMenu" class="app-menu-panel">
+      <button *ngFor="let scheduleSort of scheduleSorts"
+              mat-menu-item
+              [class.active]="options.currentSort?.value === scheduleSort.value"
+              (click)="setCurrentSort(scheduleSort)">
+        <span>{{scheduleSort.name}}</span>
       </button>
+    </mat-menu>
+    <mat-checkbox labelPosition="before"
+                  class="input-button"
+                  [checked]="options.showSeriesSchedules"
+                  (change)="setShowSeriesSchedules($event.checked)">
+      <span class="input-label">Series</span>
+    </mat-checkbox>
+  </div>
+
+  <div *ngIf="sortedSchedules$ | async as sortedSchedules; else loading" class="schedules-list">
+
+    <ng-container *ngIf="sortedSchedules.length > 0; else noSchedules">
+
+      <ng-container *ngFor="let scheduleItem of sortedSchedules">
+        <div *ngIf="scheduleItem.header" class="schedule-header">{{scheduleItem.header}}</div>
+        <button mat-button class="schedule-container">
+          <app-schedule-list-item [schedule]="scheduleItem.schedule" (deleteSchedule)="deleteSchedule($event)"></app-schedule-list-item>
+        </button>
+      </ng-container>
+
     </ng-container>
 
   </div>
+
+  <ng-template #loading>
+    <mat-spinner diameter="48" style="margin:16px auto;"></mat-spinner>
+  </ng-template>
+
+  <ng-template #noSchedules>
+    <div style="padding: 32px 0; text-align: center;">No schedules to display</div>
+  </ng-template>
 
 </div>

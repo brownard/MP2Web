@@ -1,38 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, map } from 'rxjs/operators';
 
-import { WebScheduleBasic } from '../../models/schedules';
-import { EpgService } from '../../services/epg.service';
-import { SchedulesService, ScheduleWithChannel } from '../../services/schedules.service';
-
-export interface ScheduleWithHeader extends ScheduleWithChannel {
-  header: string;
-}
-
-function compareChannels(a: ScheduleWithChannel, b: ScheduleWithChannel): number {
-  if (!a.channel)
-    return !b.channel ? 0 : 1;
-  if (!b.channel)
-    return -1;
-
-  if (a.channel.Id === b.channel.Id)
-    return new Date(a.schedule.StartTime).getTime() - new Date(b.schedule.StartTime).getTime();
-
-  const aTitle = a.channel.Title.toUpperCase();
-  const bTitle = b.channel.Title.toUpperCase();
-
-  if (aTitle > bTitle)
-    return 1;
-  else if (aTitle < bTitle)
-    return -1;
-  return a.channel.Id - b.channel.Id;
-}
-
-function getDay(dateTime: Date): Date {
-  return new Date(dateTime.getFullYear(), dateTime.getMonth(), dateTime.getDate());
-}
+import { WebScheduleBasic, WebScheduleType } from '../../models/schedules';
+import { daysAreEqual, ScheduleSort, ScheduleWithChannel, ScheduleWithHeader, sortByChannel, sortByDate } from '../../models/schedules.collection';
+import { SchedulesService } from '../../services/schedules.service';
 
 @Component({
   selector: 'app-schedules',
@@ -42,25 +15,45 @@ function getDay(dateTime: Date): Date {
 })
 export class SchedulesComponent implements OnInit {
 
+  // Available schedule sorts
+  scheduleSorts = [
+    { name: 'Date', value: ScheduleSort.Date },
+    { name: 'Channel', value: ScheduleSort.Channel }
+  ];
+
+  showSeriesSchedules$: Observable<boolean>;
+  currentSort$: Observable<{ name: string, value: ScheduleSort }>;
+
   schedules$: Observable<ScheduleWithChannel[]>;
+  sortedSchedules$: Observable<ScheduleWithHeader[]>;
 
-  schedulesByDate$: Observable<ScheduleWithHeader[]>;
-  schedulesByChannel$: Observable<ScheduleWithHeader[]>;
-
-  constructor(private schedulesService: SchedulesService, private epgService: EpgService, private datePipe: DatePipe) { }
+  constructor(private schedulesService: SchedulesService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.schedules$ = this.schedulesService.getSchedulesWithChannels();
-
-    this.schedulesByDate$ = this.schedules$.pipe(
-      map(s => this.groupByDate(s))
+    this.schedules$ = this.schedulesService.getSchedulesWithChannels$();
+    this.showSeriesSchedules$ = this.schedulesService.getShowRepeatedSchedules$();
+    this.currentSort$ = this.schedulesService.getCurrentSort$().pipe(
+      map(sort => this.scheduleSorts.find(s => s.value === sort) || this.scheduleSorts[0])
     );
 
-    this.schedulesByChannel$ = this.schedules$.pipe(
-      map(s => this.groupByChannel(s))
+    this.sortedSchedules$ = this.schedules$.pipe(
+      // First filter the schedules based on whether to show series schedules
+      combineLatest(this.showSeriesSchedules$),
+      map(([schedules, showSeries]) => schedules.filter(s => (s.schedule.ScheduleType === WebScheduleType.Once) !== showSeries)),
+      // Then sort by the current sort method
+      combineLatest(this.currentSort$),
+      map(([schedules, sort]) => this.sortBy(schedules, sort.value))
     );
 
-    this.schedulesService.updateSchedules();
+    this.schedulesService.init();
+  }
+
+  setShowSeriesSchedules(value: boolean) {
+    this.schedulesService.setShowRepeatedSchedules(value);
+  }
+
+  setCurrentSort(value: { name: string, value: ScheduleSort }) {
+    this.schedulesService.setCurrentSort(value.value);
   }
 
   editSchedule(schedule: WebScheduleBasic): Promise<boolean> {
@@ -68,57 +61,32 @@ export class SchedulesComponent implements OnInit {
     return null;
   }
 
-  deleteSchedule(schedule: WebScheduleBasic): void {
-    if (schedule)
-      this.schedulesService.deleteSchedule(schedule.Id);
+  deleteSchedule(schedule: WebScheduleBasic): Promise<boolean> {
+    return schedule ? this.schedulesService.deleteSchedule(schedule.Id).toPromise() : Promise.resolve(false);
   }
 
-  private groupByDate(schedules: ScheduleWithChannel[]): ScheduleWithHeader[] {
-    const containers: ScheduleWithHeader[] = [];
-    const today = getDay(new Date(Date.now())).getTime();
-    let currentDate: number = null;
-    
-    for (let schedule of schedules) {
+  private sortBy(schedules: ScheduleWithChannel[], sort: ScheduleSort): ScheduleWithHeader[] {
 
-      let header: string;
-      let scheduleDate = getDay(new Date(schedule.schedule.StartTime));
-      if (!currentDate || currentDate !== scheduleDate.getTime()) {
-        currentDate = scheduleDate.getTime();
-        if (currentDate === today)
-          header = 'Today';
-        else if (currentDate === today + (24 * 60 * 60 * 1000))
-          header = 'Tomorrow';
-        else
-          header = this.datePipe.transform(scheduleDate, 'EEEE d LLLL');
-      }
-      else {
-        header = null;
-      }
+    if (sort === ScheduleSort.Channel)
+      return sortByChannel(schedules);
 
-      containers.push({ ...schedule, header });
-    }
-    return containers;
+    else if (sort === ScheduleSort.Date)
+      return sortByDate(schedules, date => this.toDisplayDate(date));
+
+    // Default
+    return sortByDate(schedules, date => this.toDisplayDate(date));
   }
 
-  private groupByChannel(schedules: ScheduleWithChannel[]): ScheduleWithHeader[] {
-    const containers: ScheduleWithHeader[] = [];
+  private toDisplayDate(date: Date): string {
+    if (!date)
+      return undefined;
 
-    schedules = [...schedules].sort(compareChannels)
+    const today = Date.now();
+    if (daysAreEqual(date, new Date(today)))
+      return 'Today';
+    else if (daysAreEqual(date, new Date(today + (24 * 60 * 60 * 1000))))
+      return 'Tomorrow';
 
-    let currentChannelId: number = null;
-    for (let schedule of schedules) {
-
-      let header: string;
-      if (!currentChannelId || currentChannelId !== schedule.channel.Id) {
-        currentChannelId = schedule.channel.Id;
-        header = schedule.channel.Title;
-      }
-      else {
-        header = null;
-      }
-
-      containers.push({ ...schedule, header });
-    }
-    return containers;
+    return this.datePipe.transform(date, 'EEEE d LLLL');
   }
 }

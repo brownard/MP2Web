@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+
 import { channelReducer, ChannelState } from './channels/channel.reducers';
-import { epgReducer, EpgState } from './epg/epg.reducers';
+import { EpgState, epgReducer } from './epg/epg.reducers';
 import { scheduleReducer, SchedulesState } from './schedules/schedule.reducers';
 
 export const featureKey = 'tv';

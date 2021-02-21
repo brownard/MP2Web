@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { WebChannelBasic } from 'src/app/tv/models/channels';
 import { WebScheduleBasic, WebScheduleType } from 'src/app/tv/models/schedules';
 import { ChannelService } from 'src/app/tv/services/channel.service';
 import { SchedulesService } from 'src/app/tv/services/schedules.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-schedule-edit',
@@ -25,6 +26,8 @@ export class ScheduleEditComponent implements OnInit, OnDestroy {
   schedulesForm: FormGroup;
 
   channels$: Observable<WebChannelBasic[]>;
+
+  @ViewChild("confirmDeleteDialog") confirmDeleteDialog: TemplateRef<any>;
 
   scheduleTypes: { name: string, value: WebScheduleType }[] = [
     { name: 'Once', value: WebScheduleType.Once },
@@ -42,22 +45,27 @@ export class ScheduleEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private scheduleService: SchedulesService,
-    private channelService: ChannelService
+    private channelService: ChannelService,
+    private matDialog: MatDialog
   ) { }
 
   ngOnInit(): void {
 
+    // Create the form group
     this.createFormControl();
 
+    // Get an observable that gets the schedule id from
+    // the route params and loads the schedule and it's channel
     const scheduleParam$ = this.route.paramMap.pipe(
-      // Load the schedule and channel from the id in the route params
       map(p => +p.get('id')),
-      switchMap(id => this.scheduleService.getSchedule(id)),
-      switchMap(schedule => this.channelService.getChannel$(schedule.ChannelId).pipe(
+      switchMap(id => this.scheduleService.getSchedule$(id)),
+      switchMap(schedule => this.channelService.getChannel(schedule.ChannelId).pipe(
         map(channel => ({ schedule, channel })))
       )
     );
 
+    // Subscribe here to keep a local reference to the results to patch the
+    // form group and avoid having multiple subscriptions in the template.
     this.subscriptions.add(
       scheduleParam$.subscribe(s => {
         this.schedule = s.schedule;
@@ -66,22 +74,26 @@ export class ScheduleEditComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.channels$ = this.channelService.getChannels$(1, WebSortField.Title, WebSortOrder.Asc);
+    // Get all channels for the channel select dropdown
+    this.channels$ = this.channelService.getChannels(1, WebSortField.Title, WebSortOrder.Asc);
   }
 
   ngOnDestroy(): void {
+    // Unsubscribe
     this.subscriptions.unsubscribe();
   }
 
   async onSubmit(): Promise<void> {
+    // Gets the form group object, including disabled controls
     const value = this.schedulesForm.getRawValue();
 
-
+    // Validate
     if (!this.schedule || !value.channel || !value.title) {
       this.logger.warn('ScheduleEditComponent: Unable to submit changes, required values are missing.', this.schedule, value);
       return;
     }
 
+    // Try and combine the separate time and date inputs into a valid date
     const start: Date = fromTimeString(value.startDate, value.startTime);
     const end: Date = fromTimeString(value.endDate, value.endTime);
     if (!start || !end) {
@@ -89,7 +101,13 @@ export class ScheduleEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    await this.scheduleService.editSchedule(this.schedule.Id, value.channel, value.title, start, end, value.scheduleType).toPromise();
+    await this.scheduleService.editSchedule(this.schedule.Id, {
+      ChannelId: value.channel,
+      Title: value.title,
+      StartTime: start.toJSON(),
+      EndTime: end.toJSON(),
+      ScheduleType: value.scheduleType
+    }).toPromise();
   }
 
   onCancel(): void {
@@ -97,6 +115,22 @@ export class ScheduleEditComponent implements OnInit, OnDestroy {
       this.patchFormControl(this.schedule);
   }
 
+  onDelete(): void {
+    const dialogRef = this.matDialog.open(this.confirmDeleteDialog, { data: this.schedule });
+    dialogRef.afterClosed().subscribe(r => {
+      if (r)
+        this.deleteSchedule();
+    });
+  }
+
+  private deleteSchedule() {
+    // TODO: Delete the current schedule, update the store
+    //       and navigate back to the schedules list.
+  }
+
+  /**
+   * Creates the form group which gets bound to the html inputs
+   * */
   private createFormControl() {
     this.schedulesForm = this.formBuilder.group({
       channel: ['', [Validators.required]],
@@ -111,6 +145,10 @@ export class ScheduleEditComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Updates the form group with the values of the specified WebScheduleBasic.
+   * @param schedule The schedule to use to update the values.
+   */
   private patchFormControl(schedule: WebScheduleBasic) {
 
     const scheduleStart = new Date(schedule.StartTime);

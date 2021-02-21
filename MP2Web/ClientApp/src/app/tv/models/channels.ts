@@ -31,13 +31,9 @@ export interface WebChannelGroup {
   IsTv: boolean
 }
 
-export type ChannelMap = { [id: number]: WebChannelBasic };
-
-export function toChannelMap(channels: WebChannelBasic[]): ChannelMap {
-  if (!channels)
-    return null;
-  const channelMap: ChannelMap = {};
-  for (let channel of channels)
-    channelMap[channel.Id] = channel;
-  return channelMap;
+export enum ChannelType {
+  TV = 0,
+  Radio = 1
 }
+
+export type ChannelMap = { [id: number]: WebChannelBasic };

@@ -1,20 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Dictionary } from '@ngrx/entity';
 import { Observable, Subscription, timer } from 'rxjs';
-import { combineLatest, map } from 'rxjs/operators';
 
 import { ArtworkService } from 'src/app/core/api/artwork.service';
-import { WebChannelDetailed, WebChannelGroup } from '../../models/channels';
+import { WebChannelBasic, WebChannelGroup } from '../../models/channels';
 import { WebChannelPrograms, WebProgramBasic } from '../../models/programs';
+import { WebScheduleBasic } from '../../models/schedules';
 import { EpgService } from '../../services/epg.service';
+import { SchedulesService } from '../../services/schedules.service';
 
 // Number of milliseconds in 15 minutes, used to round
 // the guide time down to the neareest 15 minutes.
 const millisecondsIn15Minutes: number = 15 * 60 * 1000;
-
-export interface EpgRow {
-  channel: WebChannelDetailed,
-  programs: WebProgramBasic[]
-}
 
 @Component({
   selector: 'app-epg',
@@ -30,41 +27,44 @@ export class EpgComponent implements OnInit, OnDestroy {
   groups$: Observable<WebChannelGroup[]>;
   selectedGroupId$: Observable<number>;
 
-  channels$: Observable<WebChannelDetailed[]>;
-  programs: { [channelId: number]: WebProgramBasic[] };
-
-  epgRows$: Observable<EpgRow[]>;
+  channels$: Observable<WebChannelBasic[]>;
+  programsByChannel$: Observable<Dictionary<WebChannelPrograms<WebProgramBasic>>>;
+  schedulesByChannel$: Observable<Dictionary<WebScheduleBasic[]>>;
 
   currentTime: number;
   subscriptions: Subscription = new Subscription();
 
-  constructor(private epgService: EpgService, public artworkService: ArtworkService) {
+  constructor(private epgService: EpgService, private scheduleService: SchedulesService, public artworkService: ArtworkService) {
+  }
+
+  async ngOnInit(): Promise<void> {
+
+    this.currentTime = Date.now();
+
+    // Default start time, nearest 15 minutes before current time
+    const startTime = this.currentTime - (this.currentTime % millisecondsIn15Minutes);
+    const endTime = startTime + this.guideDurationInMinutes * 60000;
+
+    // This sets the initital values of the epg, if they haven't been set previously
+    await this.epgService.init(1, startTime, endTime);
+
     this.groups$ = this.epgService.getTVGroups$();
     this.selectedGroupId$ = this.epgService.getSelectedGroup$();
     this.channels$ = this.epgService.getChannels$();
+    this.programsByChannel$ = this.epgService.getGuideEntities$();
+    this.schedulesByChannel$ = this.scheduleService.getSchedulesByChannel$();
 
-    this.epgRows$ = this.epgService.getChannels$().pipe(
-      combineLatest(this.epgService.getGuide$()),
-      map(([channels, programs]) => this.mapChannelsToPrograms(channels, programs))
+    this.subscriptions.add(
+      this.epgService.getGuideTime$()
+        .subscribe(r => {
+          this.guideStartTime = r.startTime.getTime();
+          this.guideEndTime = r.endTime.getTime();
+        })
     );
-  }
-
-  ngOnInit(): void {
-
-    this.currentTime = Date.now();
-    this.epgService.update();
-    this.updateGuide(this.currentTime);
 
     this.subscriptions.add(
       timer(0, 30000)
         .subscribe(t => this.currentTime = Date.now())
-    );
-
-    this.subscriptions.add(this.epgService.getGuide$().pipe(
-      map(programs =>
-        Object.assign({}, ...programs.map(p => ({ [p.ChannelId]: p.Programs })))
-      ))
-      .subscribe(p => this.programs = p)
     );
   }
 
@@ -82,16 +82,8 @@ export class EpgComponent implements OnInit, OnDestroy {
 
   private updateGuide(startTime: number) {
     // Start time is current time rounded down to nearest 15 minutes
-    this.guideStartTime = startTime - (startTime % millisecondsIn15Minutes);
-    this.guideEndTime = this.guideStartTime + this.guideDurationInMinutes * 60000;
-
-    this.epgService.setGuideTime(new Date(this.guideStartTime), new Date(this.guideEndTime));
-  }
-
-  private mapChannelsToPrograms(channels: WebChannelDetailed[], programs: WebChannelPrograms<WebProgramBasic>[]): EpgRow[] {
-    return channels.map(c => {
-      const channelPrograms = programs.find(p => p.ChannelId === c.Id);
-      return { channel: c, programs: !!channelPrograms && !!channelPrograms.Programs ? channelPrograms.Programs : [] };
-    });
+    const start = startTime - (startTime % millisecondsIn15Minutes);
+    const end = start + this.guideDurationInMinutes * 60000;
+    this.epgService.setGuideTime(new Date(start), new Date(end));
   }
 }

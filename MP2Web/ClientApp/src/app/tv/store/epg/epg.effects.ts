@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { EMPTY, of } from 'rxjs';
-import { catchError, concatMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { catchError, distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 
-import { EpgService } from '../../services/epg.service';
-import * as EpgActions from './epg.actions';
-import * as EpgSelectors from './epg.selectors';
 import { TVAccessService } from '../../services/tv-access.service';
+import * as EpgActions from './epg.actions';
+import { EpgState } from './epg.reducers';
+import * as EpgSelectors from './epg.selectors';
 
 @Injectable()
 export class EpgEffects {
@@ -18,48 +18,29 @@ export class EpgEffects {
     private tvAccessService: TVAccessService
   ) { }
 
-  updateChannelGroups$ = createEffect(() =>
+  loadGuide = createEffect(() =>
     this.actions$.pipe(
-      ofType(EpgActions.updateChannelGroups),
-      concatMap(action => of(action).pipe(
-        withLatestFrom(this.store.select(EpgSelectors.getSelectedGroup))
+      // Try and update the guide when the group or time has been updated
+      ofType(EpgActions.updateGuide),
+      // Get the current state from the store
+      switchMap(() => this.store.select(EpgSelectors.getGuideState).pipe(
+        take(1),
+        filter(s => !!s && s.selectedGroup != null && !!s.startTime && !!s.endTime)
       )),
-      switchMap(([, selectedGroup]) => this.tvAccessService.getGroups()
-        .pipe(
-          map(groups => {
-            this.store.dispatch(EpgActions.setChannelGroups(groups));
-            return EpgActions.setSelectedGroup(!selectedGroup && groups && groups.length > 0 ? groups[0].Id : selectedGroup)
-          }),
-          catchError(() => EMPTY)
-        )
-      )
+      // Check if the state has actually changed
+      distinctUntilChanged(epgStatesAreEqual),
+      // Load the channels and programs
+      switchMap(s => this.tvAccessService.getProgramsBasicForGroup(s.selectedGroup, s.startTime, s.endTime).pipe(
+        take(1),
+        map(p => EpgActions.updateGuideSuccess(p)),
+        catchError(() => EMPTY)
+      ))
     )
   );
+}
 
-  setSelectedGroup$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(EpgActions.setSelectedGroup),
-      switchMap(action => this.tvAccessService.getChannelsDetailed(action.selectedGroup)
-        .pipe(
-          map(channels => EpgActions.setChannels(channels)),
-          catchError(() => EMPTY)
-        )
-      )
-    )
-  );
-
-  setGuideTime$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(EpgActions.setGuideTime),
-      concatMap(action => of(action).pipe(
-        withLatestFrom(this.store.select(EpgSelectors.getSelectedGroup))
-      )),
-      switchMap(([action, selectedGroup]) => this.tvAccessService.getProgramsBasicForGroup(selectedGroup, action.startTime, action.endTime)
-        .pipe(
-          map(programs => EpgActions.setGuidePrograms(programs)),
-          catchError(() => EMPTY)
-        )
-      )
-    )
-  );
+function epgStatesAreEqual(x: Partial<EpgState>, y: Partial<EpgState>): boolean {
+  if (!x || !y)
+    return !!x === !!y
+  return x.selectedGroup === y.selectedGroup && x.startTime === y.startTime && x.endTime === y.endTime;
 }

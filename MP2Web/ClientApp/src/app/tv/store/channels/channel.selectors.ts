@@ -1,22 +1,40 @@
 import { createSelector } from "@ngrx/store";
 
+import { ChannelType } from '../../models/channels';
 import { channelStateSelector } from '../tv.store';
-import { ChannelType } from './channel.actions';
+import { channelAdapter, groupAdapter } from './channel.reducers';
+
+// get the entity selectors
+
+const groupSelectors = groupAdapter.getSelectors();
+const channelSelectors = channelAdapter.getSelectors();
 
 export const getGroups = (channelType: ChannelType) => createSelector(
   channelStateSelector,
-  state => state.groups.filter(g => g.IsTv === (channelType === ChannelType.TV))
+  state => groupSelectors.selectAll(state.groups).filter(g => g.IsTv === (channelType == ChannelType.TV))
 );
 
-export const getTVChannels = createSelector(
+export const getGroupEntities = createSelector(
   channelStateSelector,
-  state => state.tvChannels
+  state => groupSelectors.selectEntities(state.groups)
 );
 
-export const getRadioChannels = createSelector(
+export const getGroup = (id: number) => createSelector(
+  getGroupEntities,
+  state => state[id]
+);
+
+export const getChannels = (channelType: ChannelType) => createSelector(
   channelStateSelector,
-  state => state.radioChannels
+  state => channelSelectors.selectAll(state.channels).filter(c => c.IsTv === (channelType == ChannelType.TV))
 );
 
-export const getChannels = (channelType: ChannelType) =>
-  channelType === ChannelType.TV ? getTVChannels : getRadioChannels;
+export const getChannelEntities = createSelector(
+  channelStateSelector,
+  state => channelSelectors.selectEntities(state.channels)
+);
+
+export const getChannel = (id: number) => createSelector(
+  getChannelEntities,
+  state => state[id]
+);

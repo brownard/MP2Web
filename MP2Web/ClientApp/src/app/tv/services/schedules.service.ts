@@ -1,95 +1,130 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { combineLatest, filter, map, switchMap } from 'rxjs/operators';
+import { catchError, combineLatest, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 
-import { WebChannelBasic } from '../models/channels';
 import { WebProgramBasic } from '../models/programs';
 import { WebScheduleBasic, WebScheduleType } from '../models/schedules';
-import { ChannelType } from '../store/channels/channel.actions';
+import { groupByChannelId, ScheduleSort, ScheduleWithChannel } from '../models/schedules.collection';
 import * as ScheduleActions from '../store/schedules/schedule.actions';
 import * as ScheduleSelectors from '../store/schedules/schedule.selectors';
 import { ChannelService } from './channel.service';
+import { RateLimiter } from './rate-limiter';
 import { TVAccessService } from './tv-access.service';
-
-export interface ScheduleWithChannel {
-  schedule: WebScheduleBasic;
-  channel: WebChannelBasic;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class SchedulesService {
 
-  protected updateInterval = 300000;
-  private lastUpdate: number = 0;
+  private rateLimiter: RateLimiter = new RateLimiter(300000);
+  private schedules$: Observable<WebScheduleBasic[]>;
 
   constructor(private tvAccessService: TVAccessService, private channelService: ChannelService, private store: Store) { }
 
-  public updateSchedules() {
-    this.lastUpdate = Date.now();
+  /**
+   * Triggers an update of the schedules, regardless of whether they've been updated previously.
+   * */
+  public init() {
+    // Always dispatch the update action, but still
+    // tell the rate limiter an update has happened
+    this.rateLimiter.tryEnter('schedules');
     this.store.dispatch(ScheduleActions.updateSchedules());
   }
 
-  public getSchedules(): Observable<WebScheduleBasic[]> {
+  public getCurrentSort$(): Observable<ScheduleSort> {
+    return this.store.select(ScheduleSelectors.getCurrentSort);
+  }
 
-    if (Date.now() - this.lastUpdate > 300000) {
-      this.lastUpdate = Date.now();
+  public setCurrentSort(value: ScheduleSort) {
+    this.store.dispatch(ScheduleActions.setCurrentSort(value));
+  }
+
+  public getShowRepeatedSchedules$(): Observable<boolean> {
+    return this.store.select(ScheduleSelectors.getShowRepeatedSchedules);
+  }
+
+  public setShowRepeatedSchedules(value: boolean) {
+    this.store.dispatch(ScheduleActions.setShowRepeatedSchedules(value));
+  }
+
+  public getSchedules$(): Observable<WebScheduleBasic[]> {
+    if (this.rateLimiter.tryEnter('schedules'))
       this.store.dispatch(ScheduleActions.updateSchedules());
-    }
-    return this.store.select(ScheduleSelectors.getSchedules).pipe(
-      filter(s => !!s)
+    if (!this.schedules$)
+      this.schedules$ = this.store.select(ScheduleSelectors.getSchedules).pipe(
+        filter(s => !!s),
+        shareReplay(1)
+      );
+    return this.schedules$;
+  }
+
+  public getSchedulesByChannel$(): Observable<{ [id: number]: WebScheduleBasic[] }> {
+    return this.getSchedules$().pipe(
+      map(s => groupByChannelId(s))
     );
   }
 
-  public getSchedulesWithChannels(): Observable<ScheduleWithChannel[]> {
-    return this.getSchedules().pipe(
-      combineLatest(this.channelService.getChannelMap(ChannelType.TV)),
+  public getSchedulesWithChannels$(): Observable<ScheduleWithChannel[]> {
+    return this.getSchedules$().pipe(
+      combineLatest(this.channelService.getAllChannelEntities()),
       map(([s, c]) => s.map(schedule => ({ schedule, channel: c[schedule.ChannelId] })))
     );
   }
 
-  public getSchedule(scheduleId: number): Observable<WebScheduleBasic> {
-    return this.getSchedules().pipe(
-      switchMap(schedules => {
-        const schedule = schedules.find(s => s.Id === scheduleId);
-        return schedule ? of(schedule) : this.tvAccessService.getScheduleById(scheduleId);
-      })
+  public getSchedule$(scheduleId: number): Observable<WebScheduleBasic> {
+    return this.store.select(ScheduleSelectors.getSchedule(scheduleId)).pipe(
+      switchMap(schedule => schedule ? of(schedule) : this.tvAccessService.getScheduleById(scheduleId))
     );
   }
 
-  public getProgramIsScheduled(programId: string | number): Observable<boolean> {
-    return this.tvAccessService.getProgramIsScheduled(programId).pipe(map(r => r.Result));
+  public getProgramIsScheduled$(programId: string | number): Observable<boolean> {
+    return this.tvAccessService.getProgramIsScheduled(programId).pipe(map(r => r && r.Result));
   }
 
   public addSchedule(program: WebProgramBasic, scheduleType: WebScheduleType = WebScheduleType.Once): Observable<boolean> {
-    return this.getProgramIsScheduled(program.Id).pipe(
-      switchMap(isScheduled => isScheduled ? of(true) :
+    return this.getProgramIsScheduled$(program.Id).pipe(
+      switchMap(isScheduled => isScheduled ? of(false) :
         this.tvAccessService.addSchedule(program.ChannelId, program.Title, new Date(program.StartTime), new Date(program.EndTime), scheduleType)
-          .pipe(map(r => r.Result))
-      )
+          .pipe(
+            map(r => r && r.Result),
+            tap(r => r && this.store.dispatch(ScheduleActions.updateSchedules()))
+          )
+      ),
+      catchError(() => of(false))
     );
   }
 
-  public editSchedule(scheduleId: string | number, channelId?: string | number, title?: string, startTime?: Date, endTime?: Date,
-    scheduleType?: WebScheduleType, preRecordInterval?: number, postRecordInterval?: number, directory?: string, priority?: number): Observable<boolean> {
+  public editSchedule(scheduleId: number, changes: Partial<WebScheduleBasic>): Observable<boolean> {
+    if (scheduleId == null || !changes)
+      return of(false);
 
-    return this.tvAccessService.editSchedule(scheduleId, channelId, title, startTime, endTime, scheduleType, preRecordInterval, postRecordInterval, directory, priority)
+    return this.tvAccessService.editSchedule(scheduleId, changes.ChannelId, changes.Title, changes.StartTime, changes.EndTime,
+      changes.ScheduleType, changes.PreRecordInterval, changes.PostRecordInterval, changes.Directory, changes.Priority)
       .pipe(
-        map(r => r.Result)
+        map(r => r && r.Result),
+        tap(r => r && this.store.dispatch(ScheduleActions.updateSchedules())),
+        catchError(() => of(false))
       );
   }
 
   public cancelSchedule(programId: string | number): Observable<boolean> {
-    return this.getProgramIsScheduled(programId).pipe(
+    return this.getProgramIsScheduled$(programId).pipe(
       switchMap(isScheduled => !isScheduled ? of(true) :
-        this.tvAccessService.cancelSchedule(programId).pipe(map(r => r.Result))
-      )
+        this.tvAccessService.cancelSchedule(programId).pipe(
+          map(r => r && r.Result),
+          tap(r => r && this.store.dispatch(ScheduleActions.updateSchedules()))
+        )
+      ),
+      catchError(() => of(false))
     );
   }
 
-  public deleteSchedule(scheduleId: string | number): void {
-    this.store.dispatch(ScheduleActions.deleteSchedule(scheduleId));
+  public deleteSchedule(scheduleId: number): Observable<boolean> {
+    return this.tvAccessService.deleteSchedule(scheduleId).pipe(
+      map(r => r && r.Result),
+      tap(r => r && this.store.dispatch(ScheduleActions.updateSchedules())),
+      catchError(() => of(false))
+    );
   }
 }
