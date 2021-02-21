@@ -23,12 +23,6 @@
   background-color: var(--primary-background-color);
 }
 
-.schedule-container {
-  display: block;
-  width: 100%;
-  background-color: var(--primary-background-color);
-}
-
 .schedule-header {
   padding: 8px;
   color: var(--secondary-text-color);

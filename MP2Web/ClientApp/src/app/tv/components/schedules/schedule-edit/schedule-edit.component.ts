@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { concatMap, filter, map, switchMap } from 'rxjs/operators';
+
 import { Logger } from 'src/app/core/logging/logger.service';
 import { WebSortField, WebSortOrder } from 'src/app/core/models/web-media-items';
 import { WebChannelBasic } from 'src/app/tv/models/channels';
 import { WebScheduleBasic, WebScheduleType } from 'src/app/tv/models/schedules';
 import { ChannelService } from 'src/app/tv/services/channel.service';
 import { SchedulesService } from 'src/app/tv/services/schedules.service';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-schedule-edit',
@@ -42,9 +42,10 @@ export class ScheduleEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private logger: Logger,
+    private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private scheduleService: SchedulesService,
+    private schedulesService: SchedulesService,
     private channelService: ChannelService,
     private matDialog: MatDialog
   ) { }
@@ -58,7 +59,7 @@ export class ScheduleEditComponent implements OnInit, OnDestroy {
     // the route params and loads the schedule and it's channel
     const scheduleParam$ = this.route.paramMap.pipe(
       map(p => +p.get('id')),
-      switchMap(id => this.scheduleService.getSchedule$(id)),
+      switchMap(id => this.schedulesService.getSchedule$(id)),
       switchMap(schedule => this.channelService.getChannel(schedule.ChannelId).pipe(
         map(channel => ({ schedule, channel })))
       )
@@ -101,7 +102,7 @@ export class ScheduleEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    await this.scheduleService.editSchedule(this.schedule.Id, {
+    await this.schedulesService.editSchedule(this.schedule.Id, {
       ChannelId: value.channel,
       Title: value.title,
       StartTime: start.toJSON(),
@@ -117,15 +118,18 @@ export class ScheduleEditComponent implements OnInit, OnDestroy {
 
   onDelete(): void {
     const dialogRef = this.matDialog.open(this.confirmDeleteDialog, { data: this.schedule });
-    dialogRef.afterClosed().subscribe(r => {
+    // If the dialog result is true, delete the schedule and if successful navigate back to the schedules list
+    dialogRef.afterClosed().pipe(
+      filter(r => !!r && !!this.schedule),
+      concatMap(() => this.schedulesService.deleteSchedule(this.schedule.Id))
+    ).subscribe(r => {
       if (r)
-        this.deleteSchedule();
+        this.navigateToSchedules();
     });
   }
 
-  private deleteSchedule() {
-    // TODO: Delete the current schedule, update the store
-    //       and navigate back to the schedules list.
+  navigateToSchedules(): void {
+    this.router.navigate(['../../'], { relativeTo: this.route });
   }
 
   /**
